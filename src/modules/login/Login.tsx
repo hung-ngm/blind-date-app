@@ -1,10 +1,13 @@
 import React from 'react';
-import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
+import { View, Text, Button, StyleSheet } from 'react-native';
+import useSignInGoogle from '../../hooks/useSignInGoogle';
 
 const Login = () => {
+  const [signInGoogle, loading] = useSignInGoogle();
+
   return (
     <View style={styles.container}>
-      <Text>Login</Text>
+      <Button title="Login" disabled={loading} onPress={signInGoogle} />
     </View>
   )
 }

@@ -1,8 +1,9 @@
 import { auth } from '../utils/firebase';
 import { User } from '../../types/user';
-import { User as FirebaseUser } from '@firebase/auth';
-import { makeAutoObservable } from 'mobx';
-
+import { GoogleAuthProvider, signInWithCredential, User as FirebaseUser } from '@firebase/auth';
+import { makeAutoObservable, runInAction } from 'mobx';
+import { AuthSessionResult } from 'expo-auth-session';
+import { resetStore } from './store';
 class UserStore {
   user: User | null = null;
   loading = true;
@@ -15,9 +16,23 @@ class UserStore {
     this.user = null;
   };
 
+  signInGoogle = async (response: AuthSessionResult) => {
+    this.loading = true;
+
+    if (response?.type === 'success') {
+      const { id_token } = response.params;
+      const credential = GoogleAuthProvider.credential(id_token);
+      await signInWithCredential(auth, credential);
+    }
+
+    runInAction(() => {
+      this.loading = false;
+    });
+  }
+
   signOut = async () => {
     await auth.signOut();
-
+    resetStore();
   }
 
   setUser = (user : FirebaseUser | null) => {
@@ -33,8 +48,6 @@ class UserStore {
 
     this.loading = false;
   }
-
-
 }
 
 export default UserStore;
