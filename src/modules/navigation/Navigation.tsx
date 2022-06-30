@@ -6,7 +6,7 @@ import { NavigationContainer } from '@react-navigation/native';
 import { useStore } from '../stores/store';
 
 const Navigation = () => {
-  const user = useStore().userStore;
+  const { user } = useStore().userStore;
 
   return (
     <NavigationContainer>
