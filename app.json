@@ -22,7 +22,7 @@
       "bundleIdentifier": "com.iosblinddate",
       "config": {
         "googleSignIn": {
-          "reservedClientId": "28630460412-iic86tt0554vihrbipntnlnjcu330bn4.apps.googleusercontent.com"
+          "reservedClientId": "com.googleusercontent.apps.28630460412-iic86tt0554vihrbipntnlnjcu330bn4"
         }
       }
     },
