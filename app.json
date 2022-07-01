@@ -18,7 +18,13 @@
       "**/*"
     ],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.iosblinddate",
+      "config": {
+        "googleSignIn": {
+          "reservedClientId": "com.googleusercontent.apps.28630460412-iic86tt0554vihrbipntnlnjcu330bn4"
+        }
+      }
     },
     "android": {
       "adaptiveIcon": {
