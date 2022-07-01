@@ -1,6 +1,6 @@
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import React from 'react';
-import { View, Text, Button, StyleSheet, TouchableHighlight } from 'react-native';
+import { View, Text, StyleSheet, TouchableHighlight } from 'react-native';
 import PrimaryButton from '../../common/PrimaryButton';
 import useSignInGoogle from '../../hooks/useSignInGoogle';
 import { mainTheme } from '../../themes/mainTheme';
