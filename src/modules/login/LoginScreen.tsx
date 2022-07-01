@@ -8,6 +8,7 @@ import { AuthStackParamList } from '../../types/navigation';
 import AppAds from './components/AppAds';
 
 type LoginScreenNavigationProps = NativeStackScreenProps<AuthStackParamList, "Login">;
+
 const LoginScreen = ({ route, navigation }: LoginScreenNavigationProps) => {
   const [signInGoogle, loading] = useSignInGoogle();
   const handlePress = () => {

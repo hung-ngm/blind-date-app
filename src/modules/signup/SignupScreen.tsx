@@ -1,16 +1,20 @@
+import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import React from 'react'
 import { View, Text, StyleSheet} from 'react-native';
 import PrimaryButton from '../../common/PrimaryButton';
 import { mainTheme } from '../../themes/mainTheme';
+import { AuthStackParamList } from '../../types/navigation';
 import Logo from './components/Logo';
 
-const SignupScreen = () => {
+type SignupScreenNavigationProps = NativeStackScreenProps<AuthStackParamList, "Signup">;
+
+const SignupScreen = ({ route, navigation }: SignupScreenNavigationProps) => {
     const handleEmailSignUpPress = () => {
 
     }
 
     const handlePhoneNumberSignUpPress = () => {
-
+      navigation.navigate("PhoneNumber");
     }
     return (
         <View style={styles.container}>
