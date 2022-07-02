@@ -1,27 +1,34 @@
-import { NativeStackScreenProps } from '@react-navigation/native-stack';
-import React from 'react';
-import { View, Text, Button, StyleSheet, TouchableHighlight } from 'react-native';
-import PrimaryButton from '../../common/PrimaryButton';
-import useSignInGoogle from '../../hooks/useSignInGoogle';
-import { mainTheme } from '../../themes/mainTheme';
-import { AuthStackParamList } from '../../types/navigation';
-import AppAds from './components/AppAds';
+import { NativeStackScreenProps } from '@react-navigation/native-stack'
+import React from 'react'
+import { View, Text, StyleSheet, TouchableHighlight } from 'react-native'
+import PrimaryButton from '../../common/PrimaryButton'
+import useSignInGoogle from '../../hooks/useSignInGoogle'
+import { mainTheme } from '../../themes/mainTheme'
+import { AuthStackParamList } from '../../types/navigation'
+import AppAds from './components/AppAds'
 
-type LoginScreenNavigationProps = NativeStackScreenProps<AuthStackParamList, "Login">;
+type LoginScreenNavigationProps = NativeStackScreenProps<
+  AuthStackParamList,
+  'Login'
+>
 
 const LoginScreen = ({ route, navigation }: LoginScreenNavigationProps) => {
-  const [signInGoogle, loading] = useSignInGoogle();
+  const [signInGoogle, loading] = useSignInGoogle()
   const handlePress = () => {
-    navigation.navigate("Signup");
+    navigation.navigate('Signup')
   }
   return (
     <View style={styles.container}>
-      <View style={{flex: 3}}>
+      <View style={{ flex: 3 }}>
         <AppAds />
       </View>
       <View style={styles.buttonGroupContainer}>
         <View>
-          <PrimaryButton text='Create an account' textColor={mainTheme.WHITE_COLOR} onPress={handlePress}/>
+          <PrimaryButton
+            text="Create an account"
+            textColor={mainTheme.WHITE_COLOR}
+            onPress={handlePress}
+          />
         </View>
         <View style={styles.signInLabelContainer}>
           <Text style={styles.signInLabelItem}>Already have an account ?</Text>
@@ -30,9 +37,7 @@ const LoginScreen = ({ route, navigation }: LoginScreenNavigationProps) => {
             disabled={loading}
             style={styles.signInLabelItem}
           >
-            <Text style={styles.signInButton}>
-              Sign In
-            </Text>
+            <Text style={styles.signInButton}>Sign In</Text>
           </TouchableHighlight>
         </View>
       </View>
@@ -40,12 +45,12 @@ const LoginScreen = ({ route, navigation }: LoginScreenNavigationProps) => {
   )
 }
 
-export default LoginScreen;
+export default LoginScreen
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    paddingBottom: 50
+    paddingBottom: 50,
   },
   buttonGroupContainer: {
     flex: 1,
@@ -62,6 +67,6 @@ const styles = StyleSheet.create({
     margin: 5,
   },
   signInButton: {
-    color: mainTheme.PRIMARY_COLOR
+    color: mainTheme.PRIMARY_COLOR,
   },
 })

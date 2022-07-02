@@ -4,7 +4,7 @@ import { View, Text, StyleSheet} from 'react-native';
 import PrimaryButton from '../../common/PrimaryButton';
 import { mainTheme } from '../../themes/mainTheme';
 import { AuthStackParamList } from '../../types/navigation';
-import Logo from './components/Logo';
+import GoogleSignUpButton from './components/GoogleSignUpButton';
 
 type SignupScreenNavigationProps = NativeStackScreenProps<AuthStackParamList, "Signup">;
 
@@ -50,7 +50,7 @@ const SignupScreen = ({ route, navigation }: SignupScreenNavigationProps) => {
                 <View style={styles.thirdPartySignInItem}>
                     <View style={styles.logoContainer}>
                         <View style={styles.logoItem}>
-                            {/* TODO: ADD Logo */}
+                            <GoogleSignUpButton />
                         </View>
                     </View>
                 </View>
