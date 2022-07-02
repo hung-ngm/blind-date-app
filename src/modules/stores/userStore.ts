@@ -1,4 +1,4 @@
-import { auth } from '../utils/firebase';
+import { auth, signInWithPhoneNumber } from '../utils/firebase';
 import { User } from '../../types/user';
 import { GoogleAuthProvider, signInWithCredential, User as FirebaseUser } from '@firebase/auth';
 import { makeAutoObservable, runInAction } from 'mobx';
@@ -30,6 +30,20 @@ class UserStore {
     });
   }
 
+  // signUpMobilePhone = async () => {
+  //   this.loading = true;
+
+  //   const appVerifier = window.recaptchaVerifier;
+
+  //   if (this.user && this.user.phoneNumber) {
+  //     await signInWithPhoneNumber(auth, this.user.phoneNumber, appVerifier);
+  //   }
+
+  //   runInAction(() => {
+  //     this.loading = false;
+  //   });
+  // }
+
   signOut = async () => {
     await auth.signOut();
     resetStore();
@@ -41,11 +55,11 @@ class UserStore {
         email: user.email!,
         name: user.displayName!,
         photoUrl: user.photoURL!,
+        phoneNumber: user.phoneNumber!
       };
     } else {
       this.user = null;
     }
-
     this.loading = false;
   }
 }
