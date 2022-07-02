@@ -1,16 +1,24 @@
 import React, { useState, useRef } from 'react';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
-import { View, Text, TouchableOpacity, StyleSheet, Button } from 'react-native';
+import { View, Text, StyleSheet } from 'react-native';
 import PhoneInput from 'react-native-phone-number-input';
 import PrimaryButton from '../../common/PrimaryButton';
 import { mainTheme } from '../../themes/mainTheme';
 import { AuthStackParamList } from '../../types/navigation';
+import { firebaseApp, auth } from '../utils/firebase';
+import { ApplicationVerifier, PhoneAuthProvider } from 'firebase/auth';
+import { FirebaseRecaptchaVerifierModal } from 'expo-firebase-recaptcha';
 
 type PhoneNumberScreenNavigationProps = NativeStackScreenProps<AuthStackParamList, "PhoneNumber">;
 
 const PhoneNumberScreen = ({ route, navigation }: PhoneNumberScreenNavigationProps) => {
-  const [phoneNumber, setPhoneNumber] = useState('');
+  const [phoneNumber, setPhoneNumber] : any = useState('');
   const phoneInput = useRef<PhoneInput>(null);
+  const recaptchaVerifier : any = useRef<ApplicationVerifier>(null);
+  const [verificationId, setVerificationId]: any = useState('');
+  const attemptInvisibleVerification = false;
+
+  const firebaseConfig = firebaseApp ? firebaseApp.options : undefined;
 
   const handlePhoneNumberChanged = (text: string) => {
     const phoneNumberText = text;
@@ -19,14 +27,31 @@ const PhoneNumberScreen = ({ route, navigation }: PhoneNumberScreenNavigationPro
     setPhoneNumber(fullNumber);
   } 
 
-  const handlePhoneNumberPress = () => {
-    /** TODO */
-    navigation.navigate("VerifyPhoneNumber");
+  const handleVerifyPhoneNumber = async () => {
+    try {
+      const phoneProvider = new PhoneAuthProvider(auth);
+      const verificationId = await phoneProvider.verifyPhoneNumber(
+        phoneNumber,
+        recaptchaVerifier.current
+      );
+      setVerificationId(verificationId);
+      navigation.navigate("VerifyPhoneNumber", {
+        verificationId: verificationId,
+      });
+    } catch (err) {
+
+    }
+    
   }
 
   return (
     <View style={styles.container}>
       <View style={styles.mobileContainer}>
+        <FirebaseRecaptchaVerifierModal
+          ref={recaptchaVerifier}
+          firebaseConfig={firebaseApp.options}
+          // attemptInvisibleVerification
+        />
         <Text style={styles.mobileTitle}>My mobile</Text>
         <Text style={styles.mobileText}>
           Please enter your valid phone number. We will send you a 4-digit code to verify your account
@@ -47,7 +72,7 @@ const PhoneNumberScreen = ({ route, navigation }: PhoneNumberScreenNavigationPro
           <PrimaryButton
             text='Continue'
             textColor={mainTheme.WHITE_COLOR}
-            onPress={handlePhoneNumberPress}
+            onPress={handleVerifyPhoneNumber}
             extraProps={styles.mobileButton}
           />
         </View>
