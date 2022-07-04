@@ -17,7 +17,6 @@ const PrimaryButton = (props: PrimaryButtonProps) => {
     return (
         <TouchableHighlight
             style={{
-                ...props.extraProps,
                 width: 300,
                 height: 50,
                 backgroundColor: props.backgroundColor || mainTheme.PRIMARY_COLOR,
@@ -25,6 +24,7 @@ const PrimaryButton = (props: PrimaryButtonProps) => {
                 display: 'flex',
                 justifyContent: 'center',
                 alignItems: 'center',
+                ...props.extraProps,
             }}
             onPress={props.onPress}
         >
