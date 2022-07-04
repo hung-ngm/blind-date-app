@@ -12,6 +12,7 @@ export type PrimaryButtonProps = {
     onPress: onPressFunc;
     extraProps?: object;
     disabled? : boolean;
+    extraTouchableHighlightProps?: object;
 };
 const PrimaryButton = (props: PrimaryButtonProps) => {
     return (
@@ -27,6 +28,8 @@ const PrimaryButton = (props: PrimaryButtonProps) => {
                 ...props.extraProps,
             }}
             onPress={props.onPress}
+            underlayColor="orange"
+            {...props.extraTouchableHighlightProps}
         >
             <Text style={{
                 color: props.textColor

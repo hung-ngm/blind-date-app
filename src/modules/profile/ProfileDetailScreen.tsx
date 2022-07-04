@@ -4,6 +4,7 @@ import PrimaryButton from '../../common/PrimaryButton';
 import NavigatorButtonGroup from './components/NavigatorButtonGroup';
 import { mainTheme } from '../../themes/mainTheme';
 import { FloatingLabelInput } from 'react-native-floating-label-input';
+import BirthdayDatePicker from './components/BirthdayDatePicker';
 
 function ProfileDetailScreen() {
   const handleConfirmPress = () => {
@@ -48,14 +49,14 @@ function ProfileDetailScreen() {
           }}>
             <View style={styles.textInputContainer}>
               <FloatingLabelInput
-                label={'Last name'}  
+                label={'Last name'}
               />
             </View>
           </View>
           <View style={{
             flex: 1
           }}>
-            <Text>Birthday</Text>
+            <BirthdayDatePicker />
           </View>
         </View>
         <View style={{
