@@ -27,14 +27,14 @@ const SignupScreen = ({ route, navigation }: SignupScreenNavigationProps) => {
                     text='Continue with email'
                     textColor={mainTheme.WHITE_COLOR}
                     onPress={handleEmailSignUpPress}
-                    extraProps={styles.normalSignInItem}
+                    extraStyles={styles.normalSignInItem}
                 />
                 <PrimaryButton
                     text='Use phone number'
                     textColor={mainTheme.PRIMARY_COLOR}
                     backgroundColor={mainTheme.WHITE_COLOR}
                     onPress={handlePhoneNumberSignUpPress}
-                    extraProps={styles.normalSignInItem}
+                    extraStyles={styles.normalSignInItem}
                 />
             </View>
             <View style={styles.thirdPartySignInContainer}>

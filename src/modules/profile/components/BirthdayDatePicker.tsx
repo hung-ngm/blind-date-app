@@ -3,24 +3,28 @@ import PrimaryButton from '../../../common/PrimaryButton'
 import { mainTheme } from '../../../themes/mainTheme';
 import DateTimePickerModal from "react-native-modal-datetime-picker";
 
-const BirthdayDatePicker = () => {
+type Props = {
+    birthday: null | Date;
+    setBirthday: Function;
+}
+const BirthdayDatePicker = (props: Props) => {
     const [open, setOpen] = useState(false);
-    const [date, setDate] = useState<null | Date>(null);
+    const { birthday, setBirthday } = props;
     const handlePress = () => {
         setOpen(true);
     }
 
     // yyyy/mm/dd
-    const displayDate = (date: Date) => {
-        const year = date.getFullYear();
-        let month = date.getMonth();
-        let day = date.getDate();
+    const displayDate = (birthday: Date) => {
+        const year = birthday.getFullYear();
+        let month = birthday.getMonth();
+        let day = birthday.getDate();
         return year + "/" + (month < 10 ? '0'+month : month) + "/" + (day < 10 ? '0'+day : day);
     }
     return (
         <>
             <PrimaryButton
-                text={date && displayDate(date) || 'Choose birthday'}
+                text={birthday && displayDate(birthday) || 'Choose birthday'}
                 textColor={mainTheme.PRIMARY_COLOR}
                 backgroundColor={mainTheme.WHITE_COLOR}
                 onPress={handlePress}
@@ -28,8 +32,8 @@ const BirthdayDatePicker = () => {
             <DateTimePickerModal
                 isVisible={open}
                 mode="date"
-                onConfirm={(date) =>{
-                    setDate(date)
+                onConfirm={(birthday) =>{
+                    setBirthday(birthday)
                     setOpen(false)
                 }}
                 onCancel={() => {
