@@ -24,4 +24,4 @@ const firebaseApp = !getApps().length ? initializeApp(firebaseConfig) : getApp()
 const auth = getAuth(firebaseApp);
 const db = getFirestore(firebaseApp);
 
-export { auth, db, signInWithPhoneNumber };
+export { auth, db, signInWithPhoneNumber, firebaseApp };

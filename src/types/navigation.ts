@@ -4,7 +4,7 @@ export type AuthStackParamList = {
   Login: undefined;
   Signup: undefined;
   PhoneNumber: undefined;
-  VerifyPhoneNumber: undefined;
+  VerifyPhoneNumber: { verificationId: string } | undefined;
 };
 
 export type AppStackParamList = {
