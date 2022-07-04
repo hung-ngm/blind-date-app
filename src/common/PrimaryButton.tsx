@@ -11,6 +11,7 @@ export type PrimaryButtonProps = {
     backgroundColor?: string;
     onPress: onPressFunc;
     extraProps?: object;
+    disabled? : boolean;
 };
 const PrimaryButton = (props: PrimaryButtonProps) => {
     return (

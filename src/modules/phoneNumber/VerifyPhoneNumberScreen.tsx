@@ -1,16 +1,36 @@
 import React, { useState } from 'react';
+import { NativeStackScreenProps } from '@react-navigation/native-stack';
+import PrimaryButton from '../../common/PrimaryButton';
 import { View, Text, StyleSheet, TouchableHighlight } from 'react-native';
 import OTPInputView from '@twotalltotems/react-native-otp-input'
 import { mainTheme } from '../../themes/mainTheme';
+import { AuthStackParamList } from '../../types/navigation';
+import { PhoneAuthProvider, signInWithCredential } from 'firebase/auth';
+import { auth } from '../utils/firebase';
 
-const VerifyPhoneNumberScreen = () => {
-  const [code, setCode] = useState('');
+type VerifyPhoneNumberScreenNavigationProps = NativeStackScreenProps<AuthStackParamList, "VerifyPhoneNumber">;
+
+const VerifyPhoneNumberScreen = ({ route, navigation }: VerifyPhoneNumberScreenNavigationProps) => {
+  const [verificationCode, setVerificationCode] = useState('');
+  const { verificationId }: any = route.params;
 
   const handleCodeChanged = (code: string) => {
-    setCode(code);
+    setVerificationCode(code);
   }
 
-  const verifyPhoneNumber = () => {
+  const handleConfirm = async () => {
+    try {
+      const credential = PhoneAuthProvider.credential(
+        verificationId, 
+        verificationCode
+      );
+      await signInWithCredential(auth, credential);
+    } catch (err) {
+
+    }
+  }
+
+  const handleResend = async () => {
     /** TODO */
   }
 
@@ -23,15 +43,23 @@ const VerifyPhoneNumberScreen = () => {
         <OTPInputView
           onCodeChanged={handleCodeChanged}
           style={styles.otpInput}
-          pinCount={4}
+          pinCount={6}
           autoFocusOnLoad
           codeInputFieldStyle={styles.numberCellStyleBase}
           codeInputHighlightStyle={styles.numberCellStyleHighLighted}
         />
       </View>
-      <View style={styles.resendLabelContainer}>
+      <View style={styles.labelContainer}>
+        <PrimaryButton
+          text="Confirm"
+          disabled={!verificationId}
+          textColor={mainTheme.WHITE_COLOR}
+          onPress={handleConfirm}
+        />
+      </View>
+      <View style={styles.labelContainer}>
         <TouchableHighlight
-          onPress={verifyPhoneNumber}
+          onPress={handleResend}
           style={styles.resendLabelItem}
         >
           <Text style={styles.resendButton}>Send again</Text>
@@ -72,7 +100,7 @@ const styles = StyleSheet.create({
     backgroundColor: mainTheme.PRIMARY_COLOR,
     borderColor: mainTheme.PRIMARY_COLOR,
   },
-  resendLabelContainer: {
+  labelContainer: {
     flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',
@@ -81,6 +109,9 @@ const styles = StyleSheet.create({
   },
   resendLabelItem: {
     margin: 5,
+  },
+  confirmButton: {
+    color: mainTheme.WHITE_COLOR,
   },
   resendButton: {
     color: mainTheme.PRIMARY_COLOR,
