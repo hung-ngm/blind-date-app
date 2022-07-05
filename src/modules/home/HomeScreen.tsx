@@ -39,5 +39,8 @@ const styles = StyleSheet.create({
     paddingTop: 0,
     justifyContent: 'center',
     alignItems: 'center',
-  }
+  },
+  cardsButtonContainer: {
+    
+  },
 })

@@ -46,12 +46,15 @@ const styles = StyleSheet.create({
     paddingTop: 0,
   },
   imageContainer: {
-    paddingTop: 0,
-    paddingBottom: 10,
+    paddingTop: 0,    
+    paddingBottom: 0,
+    marginBottom: 5,
+    borderWidth: 1,
   },
   personalDetailsContainer: {
     borderWidth: 1,
-    borderRadius: 10,
+    borderTopLeftRadius: 10,
+    borderTopRightRadius: 10,
     height: 50,
     marginBottom: 5,
   },
@@ -69,7 +72,7 @@ const styles = StyleSheet.create({
 
   image: {
     width: 300,
-    height: 300,
+    height: 310,
     paddingBottom: 0,
     marginBottom: 0,
   },
@@ -78,7 +81,8 @@ const styles = StyleSheet.create({
     marginTop: 0,
     height: 65,
     borderWidth: 1,
-    borderRadius: 10,
+    borderBottomRightRadius: 10,
+    borderBottomLeftRadius: 10,
     paddingLeft: 10,
   },
   promptStart: {
