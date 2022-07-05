@@ -4,21 +4,9 @@ import {
   View, 
   Text, 
   Image,
-  ImageBackground as DefaultImageBackground
 } from 'react-native';
 import { Profile } from '../../../types/profile';
 
-interface CardProps {
-  card: Profile;
-}
-
-type ImageBackgroundProps = DefaultImageBackground["props"] & {
-  children: React.ReactNode;
-};
-
-const MyBackground = (props: ImageBackgroundProps) => {
-  return <DefaultImageBackground {...props} />;
-}
 
 const Card = () => {
   // const { displayName, age, job, photoURL, prompt } = card;
