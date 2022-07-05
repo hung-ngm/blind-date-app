@@ -1,48 +1,63 @@
 import React from 'react'
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, Text, View, KeyboardAvoidingView, Platform } from 'react-native';
 import PrimaryButton from '../../common/PrimaryButton';
-import NavigatorButtonGroup from './components/NavigatorButtonGroup';
 import { mainTheme } from '../../themes/mainTheme';
 import { FloatingLabelInput } from 'react-native-floating-label-input';
 import BirthdayDatePicker from './components/BirthdayDatePicker';
 import useProfile from './hooks/useProfile';
+import AvatarUpload from './components/AvatarUpload';
+import { NativeStackScreenProps } from '@react-navigation/native-stack';
+import { AppStackParamList } from '../../types/navigation';
+import NavigationButtons from './components/NavigationButtons';
 
-function ProfileDetailScreen() {
+type ProfileDetailScreenNavigationProps = NativeStackScreenProps<
+  AppStackParamList,
+  'ProfileDetail'
+>
+const ProfileDetailScreen = ({ navigation }: ProfileDetailScreenNavigationProps) => {
   const {
     firstName,
     setFirstName,
     lastName,
     setLastName,
     birthday,
-    setBirthday
+    setBirthday,
+    avatar,
+    setAvatar,
+    submitProfile,
   } = useProfile();
 
   const handleConfirmPress = () => {
-
+      // submitProfile();
+      navigation.navigate('Gender');
   }
 
-  const isConfirmButtonDisabled =  (firstName === '') || (lastName === '') || (birthday === null);
+  const isConfirmButtonDisabled =  (firstName === '') || (lastName === '') || (birthday === null) || (avatar === null);
   return (
-    <View style={styles.container}>
+    <KeyboardAvoidingView
+      style={styles.container}
+      behavior="position"
+      contentContainerStyle={styles.keyboardAvoid}
+    >
       <View style={{
-        flex: 1
+        flex:1
       }}>
-        <NavigatorButtonGroup />
+        <NavigationButtons/>
       </View>
       <View style={{
           flex: 1
         }}
       >
-        <Text>Profile Details</Text>
+        <Text style={styles.title}>Profile Details</Text>
       </View>
       <View style={{
         ...styles.formContainer,
         flex: 5
       }}>
         <View style={{
-          flex: 1
+          flex: 2
         }}>
-          <Text>Avatar</Text>
+          <AvatarUpload avatar={avatar} setAvatar={setAvatar}/>
         </View>
         <View style={{
           flex: 2
@@ -50,13 +65,13 @@ function ProfileDetailScreen() {
           <View style={{
             flex: 1,
           }}>
-            <View style={styles.textInputContainer}>
-              <FloatingLabelInput
-                label={'First name'}
-                value={firstName}
-                onChangeText={setFirstName}
-              />
-            </View>
+              <View style={styles.textInputContainer}>
+                <FloatingLabelInput
+                  label={'First name'}
+                  value={firstName}
+                  onChangeText={setFirstName}
+                />
+              </View>
           </View>
           <View style={{
             flex: 1
@@ -94,7 +109,7 @@ function ProfileDetailScreen() {
           />
         </View>
       </View>
-    </View>
+    </KeyboardAvoidingView>
   )
 }
 
@@ -102,7 +117,14 @@ export default ProfileDetailScreen;
 
 const styles = StyleSheet.create({
   container: {
-    flex:1
+    flex:1,
+  },
+  keyboardAvoid: {
+    flex: 1,
+  },
+  title: {
+    paddingLeft: 40,
+    fontSize: 34,
   },
   formContainer: {
     justifyContent: 'center',
@@ -112,7 +134,4 @@ const styles = StyleSheet.create({
     width: 300,
     height: 50,
   },
-  textInputInput: {
-    color: 'red',
-  }
 })

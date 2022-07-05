@@ -6,13 +6,14 @@ interface onPressFunc {
     (): void;
 }
 export type PrimaryButtonProps = {
-    text: string;
-    textColor: string;
+    text?: string;
+    textColor?: string;
     backgroundColor?: string;
     onPress: onPressFunc;
     extraStyles?: object;
     disabled? : boolean;
     extraTouchableHighlightProps?: object;
+    extraTextProps?: object;
 };
 const PrimaryButton = (props: PrimaryButtonProps) => {
     return (
@@ -32,7 +33,8 @@ const PrimaryButton = (props: PrimaryButtonProps) => {
             {...props.extraTouchableHighlightProps}
         >
             <Text style={{
-                color: props.textColor
+                color: props.textColor,
+                ...props.extraTextProps
             }}>
                 {props.text}
             </Text>

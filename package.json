@@ -18,6 +18,7 @@
     "expo": "~43.0.2",
     "expo-auth-session": "~3.4.2",
     "expo-firebase-recaptcha": "^2.2.0",
+    "expo-image-picker": "~11.0.3",
     "expo-random": "~12.0.1",
     "expo-status-bar": "~1.1.0",
     "firebase": "^9.4.0",
