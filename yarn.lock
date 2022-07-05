@@ -1236,6 +1236,11 @@
     lodash.pick "^4.4.0"
     lodash.template "^4.5.0"
 
+"@expo/vector-icons@^13.0.0":
+  version "13.0.0"
+  resolved "https://registry.yarnpkg.com/@expo/vector-icons/-/vector-icons-13.0.0.tgz#e2989b85e95a82bce216f88cf8fb583ab050ec95"
+  integrity sha512-TI+l71+5aSKnShYclFa14Kum+hQMZ86b95SH6tQUG3qZEmLTarvWpKwqtTwQKqvlJSJrpFiSFu3eCuZokY6zWA==
+
 "@firebase/analytics-compat@0.1.12":
   version "0.1.12"
   resolved "https://registry.yarnpkg.com/@firebase/analytics-compat/-/analytics-compat-0.1.12.tgz#70b321de9b9e89d9634aac726d8289d609a5ae9f"
@@ -6157,7 +6162,7 @@ react-native-country-picker-modal@^2.0.0:
     prop-types "15.7.2"
     react-async-hook "3.6.1"
 
-react-native-deck-swiper@^2.0.5:
+react-native-deck-swiper@^2.0.7:
   version "2.0.7"
   resolved "https://registry.yarnpkg.com/react-native-deck-swiper/-/react-native-deck-swiper-2.0.7.tgz#333c3c542c3eb2ded92dad07e68688820bbd17e9"
   integrity sha512-fOwO5crj6mg/4jvCe/xmTLnX45g2dbX/VpPdLgtj4xinTwmXvFsMZdgDySbXUgnKml6WlrT39J5Dg2waYDc8XA==

@@ -2,7 +2,7 @@ import React from 'react';
 import { View, Text, TouchableOpacity, StyleSheet, Button } from 'react-native';
 import useAuth from '../../hooks/useAuth';
 import Header from './components/Header';
-import Card from './components/Card';
+import Cards from './components/Cards';
 
 const HomeScreen = () => {
   const { signOut } = useAuth();
@@ -16,7 +16,7 @@ const HomeScreen = () => {
       </View>
 
       <View style={styles.cardsContainer}>
-        <Card />
+        <Cards />
       </View>
       
       <Button title='Log out' onPress={handlePress} />
@@ -41,6 +41,6 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   cardsButtonContainer: {
-    
+
   },
 })
