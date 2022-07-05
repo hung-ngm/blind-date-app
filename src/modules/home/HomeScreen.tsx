@@ -1,6 +1,8 @@
 import React from 'react';
 import { View, Text, TouchableOpacity, StyleSheet, Button } from 'react-native';
 import useAuth from '../../hooks/useAuth';
+import Header from './components/Header';
+import Card from './components/Card';
 
 const HomeScreen = () => {
   const { signOut } = useAuth();
@@ -9,7 +11,14 @@ const HomeScreen = () => {
   }
   return (
     <View style={styles.container}>
-      <Text>Home</Text>
+      <View style={styles.headerContainer}>
+        <Header />
+      </View>
+
+      <View style={styles.cardsContainer}>
+        <Card />
+      </View>
+      
       <Button title='Log out' onPress={handlePress} />
     </View>
   )
@@ -20,5 +29,15 @@ export default HomeScreen;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+  },
+  headerContainer: {
+    flex: 1,
+    paddingTop: 15,
+  },
+  cardsContainer: {
+    flex: 7,
+    paddingTop: 0,
+    justifyContent: 'center',
+    alignItems: 'center',
   }
 })
