@@ -1,9 +1,9 @@
-import { View, Text, StyleSheet, TouchableHighlight, Image, Platform, Button } from 'react-native'
+import { View, StyleSheet, TouchableHighlight, Image, Platform } from 'react-native'
 import React, { useEffect } from 'react'
 import Icon from 'react-native-vector-icons/FontAwesome';
 import * as ImagePicker from 'expo-image-picker';
-import { Avatar } from '../hooks/useProfile';
-import { mainTheme } from '../../../themes/mainTheme';
+import { Avatar } from '../../hooks/useProfile';
+import { mainTheme } from '../../../../themes/mainTheme';
 
 type Props = {
     avatar: Avatar | null;

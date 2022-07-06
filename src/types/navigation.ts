@@ -13,6 +13,7 @@ export type AppStackParamList = {
   Gender: undefined;
   Passion: undefined;
   IdealPlace: undefined;
+  EnableNoti: undefined;
 }
 
 export type AppNavigationProp = NativeStackNavigationProp<AppStackParamList>

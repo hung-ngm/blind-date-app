@@ -1,10 +1,10 @@
 import { View, Text, StyleSheet } from 'react-native'
 import React, { useState } from 'react'
-import NavigationButtons from './components/NavigationButtons'
-import PrimaryButton from '../../common/PrimaryButton'
-import { mainTheme } from '../../themes/mainTheme'
+import NavigationButtons from '../components/NavigationButtons'
+import PrimaryButton from '../../../common/PrimaryButton'
+import { mainTheme } from '../../../themes/mainTheme'
 import { NativeStackScreenProps } from '@react-navigation/native-stack'
-import { AppStackParamList } from '../../types/navigation'
+import { AppStackParamList } from '../../../types/navigation'
 
 enum Gender {
     Man = 1,
@@ -13,8 +13,8 @@ enum Gender {
 };
 
 type GenderScreenNavigationProps = NativeStackScreenProps<
-  AppStackParamList,
-  'Gender'
+    AppStackParamList,
+    'Gender'
 >
 const GenderScreen = ({ navigation }: GenderScreenNavigationProps) => {
     const [gender, setGender] = useState<Gender | null>(null);

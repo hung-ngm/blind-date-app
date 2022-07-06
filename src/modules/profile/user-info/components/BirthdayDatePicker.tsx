@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
-import PrimaryButton from '../../../common/PrimaryButton'
-import { mainTheme } from '../../../themes/mainTheme';
 import DateTimePickerModal from "react-native-modal-datetime-picker";
+import PrimaryButton from '../../../../common/PrimaryButton';
+import { mainTheme } from '../../../../themes/mainTheme';
 
 type Props = {
     birthday: null | Date;

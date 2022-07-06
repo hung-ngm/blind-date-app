@@ -1,11 +1,11 @@
 import { View, Text, StyleSheet } from 'react-native'
 import React, { useState } from 'react'
-import { mainTheme } from '../../themes/mainTheme'
-import NavigationButtons from './components/NavigationButtons'
-import PrimaryButton from '../../common/PrimaryButton'
+import { mainTheme } from '../../../themes/mainTheme'
+import NavigationButtons from '../components/NavigationButtons'
+import PrimaryButton from '../../../common/PrimaryButton'
 import PassionList from './components/PassionList'
 import { NativeStackScreenProps } from '@react-navigation/native-stack'
-import { AppStackParamList } from '../../types/navigation'
+import { AppStackParamList } from '../../../types/navigation'
 
 enum Passions {
   Photography = 1,
@@ -30,7 +30,7 @@ export type Passion = {
   type: Passions;
 }
 
-export type SelectedObjectType = {
+export type SelectedPassionType = {
   [key in Passions]?: boolean;
 }
 
@@ -116,20 +116,20 @@ const PassionScreen = ({ navigation }: PassionScreenNavigationProps) => {
     },
   ]
 
-  const [selectedTypes, setSelectedTypes] = useState<SelectedObjectType>({});
+  const [selectedPassions, setSelectedPassions] = useState<SelectedPassionType>({});
   const [numSelected, setNumSelected] = useState(0);
   const isContinueButtonDisabled = numSelected === 0;
 
-  const selectType = (type: Passions) => {
-    if (type in selectedTypes) {
-      setSelectedTypes((pState) => {
+  const selectPassion = (type: Passions) => {
+    if (type in selectedPassions) {
+      setSelectedPassions((pState) => {
           delete pState[type];
           return {...pState};
       })
       setNumSelected((pNum) => pNum - 1)
     }
     else {
-        setSelectedTypes((pState) => {
+        setSelectedPassions((pState) => {
             return {
                 ...pState,
                 [type]: true,
@@ -169,8 +169,8 @@ const PassionScreen = ({ navigation }: PassionScreenNavigationProps) => {
                 }}>
                     <PassionList
                       passionList={dummyList}
-                      selectedTypes={selectedTypes}
-                      selectType={selectType}
+                      selectedPassions={selectedPassions}
+                      selectPassion={selectPassion}
                     />
                 </View>
                 <View style={{

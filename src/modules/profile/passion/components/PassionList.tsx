@@ -1,38 +1,38 @@
 import { View, Text, StyleSheet, TouchableHighlight, ScrollView } from 'react-native'
 import React from 'react'
 import Icon from 'react-native-vector-icons/FontAwesome';
-import { mainTheme } from '../../../themes/mainTheme';
-import { Passion, SelectedObjectType } from '../PassionScreen';
+import { mainTheme } from '../../../../themes/mainTheme';
+import { Passion, SelectedPassionType } from '../PassionScreen';
 
 type Props = {
     passionList: Passion[];
-    selectedTypes: SelectedObjectType;
-    selectType: Function;
+    selectedPassions: SelectedPassionType;
+    selectPassion: Function;
 }
-const PassionList = ({ passionList, selectedTypes, selectType }: Props) => {
+const PassionList = ({ passionList, selectedPassions, selectPassion }: Props) => {
     return (
         <ScrollView contentContainerStyle={styles.container} indicatorStyle='black'>
             {
                 passionList.map((val: Passion, idx: number) => {
-                    const containerStyle = val.type in selectedTypes ? styles.buttonSelected : styles.buttonDefault;
+                    const containerStyle = val.type in selectedPassions ? styles.buttonSelected : styles.buttonDefault;
                     return (
                         <TouchableHighlight
                             style={{...containerStyle, ...styles.buttonContainer}}
                             key={idx}
                             onPress={() => {                                
-                                selectType(val.type)
+                                selectPassion(val.type)
                             }}
                         >
                             <View style={styles.buttonLabelContainer}>
                                 <View style={{
                                     flex: 1
                                 }}>
-                                    <Icon size={25} name={val.iconName} style={val.type in selectedTypes ? styles.iconSelected : styles.iconDefault}/>
+                                    <Icon size={25} name={val.iconName} style={val.type in selectedPassions ? styles.iconSelected : styles.iconDefault}/>
                                 </View>
                                 <View style={{
                                     flex: 2,
                                 }}>
-                                    <Text style={val.type in selectedTypes ? styles.textSelected : styles.textDefault}>
+                                    <Text style={val.type in selectedPassions ? styles.textSelected : styles.textDefault}>
                                         {val.name}
                                     </Text>
                                 </View>

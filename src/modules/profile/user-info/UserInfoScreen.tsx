@@ -1,14 +1,14 @@
 import React from 'react'
 import { StyleSheet, Text, View, KeyboardAvoidingView, Platform } from 'react-native';
-import PrimaryButton from '../../common/PrimaryButton';
-import { mainTheme } from '../../themes/mainTheme';
+import PrimaryButton from '../../../common/PrimaryButton';
+import { mainTheme } from '../../../themes/mainTheme';
 import { FloatingLabelInput } from 'react-native-floating-label-input';
 import BirthdayDatePicker from './components/BirthdayDatePicker';
-import useProfile from './hooks/useProfile';
+import useProfile from '../hooks/useProfile';
 import AvatarUpload from './components/AvatarUpload';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
-import { AppStackParamList } from '../../types/navigation';
-import NavigationButtons from './components/NavigationButtons';
+import { AppStackParamList } from '../../../types/navigation';
+import NavigationButtons from '../components/NavigationButtons';
 
 type ProfileDetailScreenNavigationProps = NativeStackScreenProps<
   AppStackParamList,
