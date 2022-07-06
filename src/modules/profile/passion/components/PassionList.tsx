@@ -1,19 +1,91 @@
 import { View, Text, StyleSheet, TouchableHighlight, ScrollView } from 'react-native'
-import React from 'react'
+import React, { useContext } from 'react'
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { mainTheme } from '../../../../themes/mainTheme';
-import { Passion, SelectedPassionType, selectPassionFuncType } from '../../context/ProfileProvider';
+import { Passion, Passions, ProfileContext, SelectedPassionType, selectPassionFuncType } from '../../context/ProfileProvider';
 
-type Props = {
-    passionList: Passion[];
-    selectedPassions: SelectedPassionType;
-    selectPassion: selectPassionFuncType;
-}
-const PassionList = ({ passionList, selectedPassions, selectPassion }: Props) => {
+const dummyList: Passion[] = [
+    {
+        iconName: 'camera',
+        name: 'Photography',
+        type: Passions.Photography,
+    },
+    {
+        iconName: 'shopping-cart',
+        name: 'Shopping',
+        type: Passions.Shopping,
+    },
+    {
+        iconName: 'microphone',
+        name: 'Karaoke',
+        type: Passions.Karaoke,
+    },
+    {
+        iconName: 'heart',
+        name: 'Yoga',
+        type: Passions.Shopping,
+    },
+    {
+        iconName: 'shopping-cart',
+        name: 'Shopping',
+        type: Passions.Shopping,
+    },
+    {
+        iconName: 'shopping-cart',
+        name: 'Shopping',
+        type: Passions.Shopping,
+    },
+    {
+        iconName: 'shopping-cart',
+        name: 'Shopping',
+        type: Passions.Shopping,
+    },
+    {
+        iconName: 'shopping-cart',
+        name: 'Shopping',
+        type: Passions.Shopping,
+    },
+    {
+        iconName: 'shopping-cart',
+        name: 'Shopping',
+        type: Passions.Shopping,
+    },
+    {
+        iconName: 'shopping-cart',
+        name: 'Shopping',
+        type: Passions.Shopping,
+    },
+    {
+        iconName: 'shopping-cart',
+        name: 'Shopping',
+        type: Passions.Shopping,
+    },
+    {
+        iconName: 'shopping-cart',
+        name: 'Shopping',
+        type: Passions.Shopping,
+    },
+
+    {
+        iconName: 'shopping-cart',
+        name: 'Shopping',
+        type: Passions.Shopping,
+    },
+    {
+        iconName: 'shopping-cart',
+        name: 'Shopping',
+        type: Passions.Shopping,
+    },
+]
+const PassionList = () => {
+    const {
+        selectedPassions,
+        selectPassion,
+    } = useContext(ProfileContext);
     return (
         <ScrollView contentContainerStyle={styles.container} indicatorStyle='black'>
             {
-                passionList.map((val: Passion, idx: number) => {
+                dummyList.map((val: Passion, idx: number) => {
                     const containerStyle = val.type in selectedPassions ? styles.buttonSelected : styles.buttonDefault;
                     return (
                         <TouchableHighlight

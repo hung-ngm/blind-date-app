@@ -1,15 +1,16 @@
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 import DateTimePickerModal from "react-native-modal-datetime-picker";
 import PrimaryButton from '../../../../common/PrimaryButton';
 import { mainTheme } from '../../../../themes/mainTheme';
+import { ProfileContext } from '../../context/ProfileProvider';
 
-type Props = {
-    birthday: null | Date;
-    setBirthday: Function;
-}
-const BirthdayDatePicker = (props: Props) => {
+const BirthdayDatePicker = () => {
     const [open, setOpen] = useState(false);
-    const { birthday, setBirthday } = props;
+    const {
+        birthday,
+        setBirthday,
+    } = useContext(ProfileContext);
+    
     const handlePress = () => {
         setOpen(true);
     }

@@ -1,15 +1,17 @@
 import { View, Text } from 'react-native'
-import React from 'react'
+import React, { useContext } from 'react'
 import MultiSlider from '@ptomasroos/react-native-multi-slider';
 import { mainTheme } from '../../../../themes/mainTheme';
+import { ProfileContext } from '../../context/ProfileProvider';
 
-type Props = {
-    minPrice: number;
-    setMinPrice: Function;
-    maxPrice: number;
-    setMaxPrice: Function;
-}
-const PriceRangeSlider = ({ minPrice, setMinPrice, maxPrice, setMaxPrice }: Props) => {
+const PriceRangeSlider = () => {
+    const {
+        minPrice,
+        setMinPrice,
+        maxPrice,
+        setMaxPrice,
+    } = useContext(ProfileContext);
+
     const multiSliderValuesChange = (vals: number[]) => {
         const [minVal, maxVal] = vals;
         setMinPrice(Math.floor(minVal));

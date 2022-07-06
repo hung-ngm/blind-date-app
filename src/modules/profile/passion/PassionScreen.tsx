@@ -1,12 +1,12 @@
 import { View, Text, StyleSheet } from 'react-native'
-import React, { useState } from 'react'
+import React, { useContext } from 'react'
 import { mainTheme } from '../../../themes/mainTheme'
 import NavigationButtons from '../components/NavigationButtons'
 import PrimaryButton from '../../../common/PrimaryButton'
 import PassionList from './components/PassionList'
 import { NativeStackScreenProps } from '@react-navigation/native-stack'
 import { AppStackParamList } from '../../../types/navigation'
-import { Passion, Passions, SelectedPassionType } from '../context/ProfileProvider'
+import { ProfileContext } from '../context/ProfileProvider'
 
 type PassionScreenNavigationProps = NativeStackScreenProps<
   AppStackParamList,
@@ -16,102 +16,11 @@ const PassionScreen = ({ navigation }: PassionScreenNavigationProps) => {
   const handleContinuePress = () => {
     navigation.navigate('IdealPlace');
   }
-  const dummyList: Passion[] = [
-    {
-        iconName: 'camera',
-        name: 'Photography',
-        type: Passions.Photography,
-    },
-    {
-        iconName: 'shopping-cart',
-        name: 'Shopping',
-        type: Passions.Shopping,
-    },
-    {
-        iconName: 'microphone',
-        name: 'Karaoke',
-        type: Passions.Karaoke,
-    },
-    {
-        iconName: 'heart',
-        name: 'Yoga',
-        type: Passions.Shopping,
-    },
-    {
-        iconName: 'shopping-cart',
-        name: 'Shopping',
-        type: Passions.Shopping,
-    },
-    {
-        iconName: 'shopping-cart',
-        name: 'Shopping',
-        type: Passions.Shopping,
-    },
-    {
-        iconName: 'shopping-cart',
-        name: 'Shopping',
-        type: Passions.Shopping,
-    },
-    {
-        iconName: 'shopping-cart',
-        name: 'Shopping',
-        type: Passions.Shopping,
-    },
-    {
-        iconName: 'shopping-cart',
-        name: 'Shopping',
-        type: Passions.Shopping,
-    },
-    {
-        iconName: 'shopping-cart',
-        name: 'Shopping',
-        type: Passions.Shopping,
-    },
-    {
-        iconName: 'shopping-cart',
-        name: 'Shopping',
-        type: Passions.Shopping,
-    },
-    {
-        iconName: 'shopping-cart',
-        name: 'Shopping',
-        type: Passions.Shopping,
-    },
 
-    {
-        iconName: 'shopping-cart',
-        name: 'Shopping',
-        type: Passions.Shopping,
-    },
-    {
-        iconName: 'shopping-cart',
-        name: 'Shopping',
-        type: Passions.Shopping,
-    },
-  ]
-
-  const [selectedPassions, setSelectedPassions] = useState<SelectedPassionType>({});
-  const [numSelected, setNumSelected] = useState(0);
-  const isContinueButtonDisabled = numSelected === 0;
-
-  const selectPassion = (type: Passions) => {
-    if (type in selectedPassions) {
-      setSelectedPassions((pState) => {
-          delete pState[type];
-          return {...pState};
-      })
-      setNumSelected((pNum) => pNum - 1)
-    }
-    else {
-        setSelectedPassions((pState) => {
-            return {
-                ...pState,
-                [type]: true,
-            }
-        })
-        setNumSelected((pNum) => pNum + 1)
-    }
-  }
+  const {
+    numSelectedPassions,
+  } = useContext(ProfileContext)
+  const isContinueButtonDisabled = numSelectedPassions === 0;
   return (
         <View style={styles.container}>
             <View style={{
@@ -141,11 +50,7 @@ const PassionScreen = ({ navigation }: PassionScreenNavigationProps) => {
                 <View style={{
                     flex: 3,
                 }}>
-                    <PassionList
-                      passionList={dummyList}
-                      selectedPassions={selectedPassions}
-                      selectPassion={selectPassion}
-                    />
+                    <PassionList/>
                 </View>
                 <View style={{
                     flex: 1,

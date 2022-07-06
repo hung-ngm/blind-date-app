@@ -1,5 +1,5 @@
 import { View, Text, StyleSheet } from 'react-native'
-import React, { useState } from 'react'
+import React from 'react'
 import NavigationButtons from '../components/NavigationButtons'
 import PrimaryButton from '../../../common/PrimaryButton'
 import { mainTheme } from '../../../themes/mainTheme'
@@ -7,7 +7,6 @@ import PromptList from './components/PromptList'
 import { Prompt } from '../context/ProfileProvider'
 
 const ProfileAnswerScreen = () => {
-    const [promptList, setPromptList] = useState<Prompt[]>([]);
     const handleContinuePress = () => {
 
     }
@@ -36,10 +35,7 @@ const ProfileAnswerScreen = () => {
                 <View style={{
                     flex: 2
                 }}>
-                    <PromptList
-                        promptList={promptList}
-                        setPromptList={setPromptList}
-                    />
+                    <PromptList />
                 </View>
                 <View style={{
                     flex: 1,

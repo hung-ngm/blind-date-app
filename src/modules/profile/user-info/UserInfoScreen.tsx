@@ -55,7 +55,7 @@ const ProfileDetailScreen = ({ navigation }: ProfileDetailScreenNavigationProps)
         <View style={{
           flex: 2
         }}>
-          <AvatarUpload avatar={avatar} setAvatar={setAvatar}/>
+          <AvatarUpload/>
         </View>
         <View style={{
           flex: 2
@@ -85,10 +85,7 @@ const ProfileDetailScreen = ({ navigation }: ProfileDetailScreenNavigationProps)
           <View style={{
             flex: 1
           }}>
-            <BirthdayDatePicker
-              birthday={birthday}
-              setBirthday={setBirthday}
-            />
+            <BirthdayDatePicker/>
           </View>
         </View>
         <View style={{

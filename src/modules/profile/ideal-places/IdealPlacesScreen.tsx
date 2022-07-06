@@ -1,5 +1,5 @@
 import { View, Text, StyleSheet } from 'react-native'
-import React, { useState } from 'react'
+import React, { useContext } from 'react'
 import { mainTheme } from '../../../themes/mainTheme';
 import NavigationButtons from '../components/NavigationButtons';
 import PrimaryButton from '../../../common/PrimaryButton';
@@ -8,7 +8,7 @@ import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { AppStackParamList } from '../../../types/navigation';
 import DistanceSlider from './components/DistanceSlider';
 import PriceRangeSlider from './components/PriceRangeSlider';
-import { Categories, Category, SelectedCategoryType } from '../context/ProfileProvider';
+import { ProfileContext } from '../context/ProfileProvider';
 
 type IdealPlacesScreenNavigationProps = NativeStackScreenProps<
     AppStackParamList,
@@ -18,54 +18,12 @@ const IdealPlacesScreen = ({ navigation }: IdealPlacesScreenNavigationProps) => 
     const handleContinuePress = () => {
         navigation.navigate('EnableNoti');
     }
-    const dummyList: Category[] = [
-        {
-            iconName: 'coffee',
-            name: 'Coffee',
-            type: Categories.Coffee,
-        },
-        {
-            iconName: 'glass',
-            name: 'Desserts',
-            type: Categories.Desserts,
-        },
-        {
-            iconName: 'cube',
-            name: 'Chicken',
-            type: Categories.Chicken,
-        },
-        {
-            iconName: 'taxi',
-            name: 'Pizza',
-            type: Categories.Pizza,
-        },
-    ]
-    
-    const [selectedCategories, setSelectedCategories] = useState<SelectedCategoryType>({});
-    const [numSelected, setNumSelected] = useState(0);
-    const [distance, setDistance] = useState(20); // km
-    const [minPrice, setMinPrice] = useState(20) // in USD
-    const [maxPrice, setMaxPrice] = useState(100) // in USD
-    const isContinueButtonDisabled = numSelected === 0;
 
-    const selectCategory = (type: Categories) => {
-        if (type in selectedCategories) {
-            setSelectedCategories((pState) => {
-                delete pState[type];
-                return {...pState};
-            })
-            setNumSelected((pNum) => pNum - 1)
-        }
-        else {
-            setSelectedCategories((pState) => {
-                return {
-                    ...pState,
-                    [type]: true,
-                }
-            })
-            setNumSelected((pNum) => pNum + 1)
-        }
-    }
+    const {
+        numSelectedCategories
+    } = useContext(ProfileContext);
+    const isContinueButtonDisabled = numSelectedCategories === 0;
+    
     return (
         <View style={styles.container}>
             <View style={{
@@ -95,29 +53,17 @@ const IdealPlacesScreen = ({ navigation }: IdealPlacesScreenNavigationProps) => 
                 <View style={{
                     flex: 3,
                 }}>
-                    <DistanceSlider
-                        distance={distance}
-                        setDistance={setDistance}
-                    />
+                    <DistanceSlider/>
                 </View>
                 <View style={{
                     flex: 3,
                 }}>
-                    <PriceRangeSlider
-                        minPrice={minPrice}
-                        setMinPrice={setMinPrice}
-                        maxPrice={maxPrice}
-                        setMaxPrice={setMaxPrice}
-                    />
+                    <PriceRangeSlider/>
                 </View>
                 <View style={{
                     flex: 3,
                 }}>
-                    <RestaurantCategoriesList
-                        categoryList={dummyList}
-                        selectedCategories={selectedCategories}
-                        selectCategory={selectCategory}
-                    />
+                    <RestaurantCategoriesList/>
                 </View>
                 <View style={{
                     flex: 1,

@@ -1,19 +1,41 @@
 import { View, Text, ScrollView, StyleSheet, TouchableHighlight } from 'react-native'
-import React from 'react'
+import React, { useContext } from 'react'
 import { mainTheme } from '../../../../themes/mainTheme';
 import Icon from 'react-native-vector-icons/FontAwesome';
-import { Category, selectCategoryFuncType, SelectedCategoryType } from '../../context/ProfileProvider';
+import { Categories, Category, ProfileContext, selectCategoryFuncType, SelectedCategoryType } from '../../context/ProfileProvider';
 
-type Props = {
-    categoryList: Category[];
-    selectedCategories: SelectedCategoryType;
-    selectCategory: selectCategoryFuncType;
-}
-const RestaurantCategoriesList = ({ categoryList, selectedCategories, selectCategory }: Props) => {
+const dummyList: Category[] = [
+    {
+        iconName: 'coffee',
+        name: 'Coffee',
+        type: Categories.Coffee,
+    },
+    {
+        iconName: 'glass',
+        name: 'Desserts',
+        type: Categories.Desserts,
+    },
+    {
+        iconName: 'cube',
+        name: 'Chicken',
+        type: Categories.Chicken,
+    },
+    {
+        iconName: 'taxi',
+        name: 'Pizza',
+        type: Categories.Pizza,
+    },
+]
+
+const RestaurantCategoriesList = () => {
+    const {
+        selectedCategories,
+        selectCategory
+    } = useContext(ProfileContext);
     return (
         <ScrollView contentContainerStyle={styles.container} indicatorStyle='black'>
             {
-                categoryList.map((val: Category, idx: number) => {
+                dummyList.map((val: Category, idx: number) => {
                     const containerStyle = val.type in selectedCategories ? styles.buttonSelected : styles.buttonDefault;
                     return (
                         <TouchableHighlight

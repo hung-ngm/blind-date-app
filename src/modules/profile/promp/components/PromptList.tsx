@@ -1,12 +1,9 @@
 import { View, Text } from 'react-native'
-import React from 'react'
-import { Prompt } from '../../context/ProfileProvider';
+import React, { useContext } from 'react'
+import { ProfileContext, Prompt } from '../../context/ProfileProvider';
 
-type Props = {
-    promptList: Prompt[];
-    setPromptList: Function;
-}
-const PromptList = ({ promptList, setPromptList }: Props) => {
+const PromptList = () => {
+    const { promptList, setPromptList } = useContext(ProfileContext);
     return (
         <View style={{
             flex: 1,

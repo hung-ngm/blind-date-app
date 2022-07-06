@@ -1,13 +1,11 @@
 import { View, Text } from 'react-native'
-import React from 'react'
+import React, { useContext } from 'react'
 import Slider from '@react-native-community/slider'
 import { mainTheme } from '../../../../themes/mainTheme'
+import { ProfileContext } from '../../context/ProfileProvider'
 
-type Props = {
-    distance: number;
-    setDistance: Function;
-}
-const DistanceSlider = ({ distance, setDistance }: Props) => {
+const DistanceSlider = () => {
+    const { distance, setDistance } = useContext(ProfileContext);
     return (
         <View>
             <View style={{

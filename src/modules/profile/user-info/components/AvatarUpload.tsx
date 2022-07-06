@@ -1,16 +1,16 @@
 import { View, StyleSheet, TouchableHighlight, Image, Platform } from 'react-native'
-import React, { useEffect } from 'react'
+import React, { useContext, useEffect } from 'react'
 import Icon from 'react-native-vector-icons/FontAwesome';
 import * as ImagePicker from 'expo-image-picker';
 import { mainTheme } from '../../../../themes/mainTheme';
-import { Avatar } from '../../context/ProfileProvider';
+import { ProfileContext } from '../../context/ProfileProvider';
 
-type Props = {
-    avatar: Avatar | null;
-    setAvatar: Function;
-}
-const AvatarUpload = (props: Props) => {
-    const { avatar, setAvatar } = props;    
+const AvatarUpload = () => {
+    const {
+        avatar,
+        setAvatar,
+    } = useContext(ProfileContext);
+
     const handlePress = async () => {
         let result = await ImagePicker.launchImageLibraryAsync({
             mediaTypes: ImagePicker.MediaTypeOptions.All,
