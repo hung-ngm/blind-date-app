@@ -64,7 +64,6 @@ const GenderScreen = ({ navigation }: GenderScreenNavigationProps) => {
                     <PrimaryButton text='Continue' onPress={handleContinuePress}/>
                 </View>
             </View>
-
         </View>
     )
 }
