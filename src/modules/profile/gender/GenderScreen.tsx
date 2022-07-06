@@ -5,12 +5,7 @@ import PrimaryButton from '../../../common/PrimaryButton'
 import { mainTheme } from '../../../themes/mainTheme'
 import { NativeStackScreenProps } from '@react-navigation/native-stack'
 import { AppStackParamList } from '../../../types/navigation'
-
-enum Gender {
-    Man = 1,
-    Woman,
-    Other
-};
+import { Gender } from '../context/ProfileProvider'
 
 type GenderScreenNavigationProps = NativeStackScreenProps<
     AppStackParamList,

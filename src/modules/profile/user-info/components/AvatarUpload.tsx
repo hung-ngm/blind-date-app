@@ -2,8 +2,8 @@ import { View, StyleSheet, TouchableHighlight, Image, Platform } from 'react-nat
 import React, { useEffect } from 'react'
 import Icon from 'react-native-vector-icons/FontAwesome';
 import * as ImagePicker from 'expo-image-picker';
-import { Avatar } from '../../hooks/useProfile';
 import { mainTheme } from '../../../../themes/mainTheme';
+import { Avatar } from '../../context/ProfileProvider';
 
 type Props = {
     avatar: Avatar | null;

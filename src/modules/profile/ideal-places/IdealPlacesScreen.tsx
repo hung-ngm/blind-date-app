@@ -8,23 +8,7 @@ import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { AppStackParamList } from '../../../types/navigation';
 import DistanceSlider from './components/DistanceSlider';
 import PriceRangeSlider from './components/PriceRangeSlider';
-
-enum Categories {
-    Coffee = 1,
-    Desserts,
-    Chicken,
-    Pizza,
-}
-
-export type Category = {
-    iconName: string;
-    name: string;
-    type: Categories;
-}
-
-export type SelectedCategoryType = {
-    [key in Categories]?: boolean;
-}
+import { Categories, Category, SelectedCategoryType } from '../context/ProfileProvider';
 
 type IdealPlacesScreenNavigationProps = NativeStackScreenProps<
     AppStackParamList,

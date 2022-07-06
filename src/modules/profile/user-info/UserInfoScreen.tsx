@@ -1,14 +1,14 @@
-import React from 'react'
-import { StyleSheet, Text, View, KeyboardAvoidingView, Platform } from 'react-native';
+import React, { useContext } from 'react'
+import { StyleSheet, Text, View, KeyboardAvoidingView } from 'react-native';
 import PrimaryButton from '../../../common/PrimaryButton';
 import { mainTheme } from '../../../themes/mainTheme';
 import { FloatingLabelInput } from 'react-native-floating-label-input';
 import BirthdayDatePicker from './components/BirthdayDatePicker';
-import useProfile from '../hooks/useProfile';
 import AvatarUpload from './components/AvatarUpload';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { AppStackParamList } from '../../../types/navigation';
 import NavigationButtons from '../components/NavigationButtons';
+import { ProfileContext } from '../context/ProfileProvider';
 
 type ProfileDetailScreenNavigationProps = NativeStackScreenProps<
   AppStackParamList,
@@ -24,11 +24,9 @@ const ProfileDetailScreen = ({ navigation }: ProfileDetailScreenNavigationProps)
     setBirthday,
     avatar,
     setAvatar,
-    submitProfile,
-  } = useProfile();
+  } = useContext(ProfileContext);
 
   const handleConfirmPress = () => {
-      // submitProfile();
       navigation.navigate('Gender');
   }
 
@@ -69,7 +67,7 @@ const ProfileDetailScreen = ({ navigation }: ProfileDetailScreenNavigationProps)
                 <FloatingLabelInput
                   label={'First name'}
                   value={firstName}
-                  onChangeText={setFirstName}
+                  onChangeText={(fname) => setFirstName(fname)}
                 />
               </View>
           </View>
@@ -80,7 +78,7 @@ const ProfileDetailScreen = ({ navigation }: ProfileDetailScreenNavigationProps)
               <FloatingLabelInput
                 label={'Last name'}
                 value={lastName}
-                onChangeText={setLastName}
+                onChangeText={(lname) => setLastName(lname)}
               />
             </View>
           </View>

@@ -6,33 +6,7 @@ import PrimaryButton from '../../../common/PrimaryButton'
 import PassionList from './components/PassionList'
 import { NativeStackScreenProps } from '@react-navigation/native-stack'
 import { AppStackParamList } from '../../../types/navigation'
-
-enum Passions {
-  Photography = 1,
-  Shopping,
-  Karaoke,
-  Yoga,
-  Cooking,
-  Tennis,
-  Run,
-  Swimming,
-  Art,
-  Traveling,
-  Extreme,
-  Music,
-  Drink,
-  Video_games,
-}
-
-export type Passion = {
-  iconName: string;
-  name: string;
-  type: Passions;
-}
-
-export type SelectedPassionType = {
-  [key in Passions]?: boolean;
-}
+import { Passion, Passions, SelectedPassionType } from '../context/ProfileProvider'
 
 type PassionScreenNavigationProps = NativeStackScreenProps<
   AppStackParamList,

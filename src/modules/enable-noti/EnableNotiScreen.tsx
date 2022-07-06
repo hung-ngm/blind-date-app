@@ -13,8 +13,8 @@ type EnableNotiScreenNavigationProps = NativeStackScreenProps<
 >
 const EnableNotiScreen = ({ navigation }: EnableNotiScreenNavigationProps) => {
   const handlePress = () => {
-    // Turn on noti
-    // navigation.navigate('')
+    // Turn on noti TODO
+    navigation.navigate('ProfileAnswer');
   }
   return (
     <View style={styles.container}>

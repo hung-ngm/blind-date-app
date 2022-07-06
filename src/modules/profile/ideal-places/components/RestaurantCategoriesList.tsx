@@ -1,13 +1,13 @@
 import { View, Text, ScrollView, StyleSheet, TouchableHighlight } from 'react-native'
 import React from 'react'
 import { mainTheme } from '../../../../themes/mainTheme';
-import { Category, SelectedCategoryType } from '../IdealPlacesScreen';
 import Icon from 'react-native-vector-icons/FontAwesome';
+import { Category, selectCategoryFuncType, SelectedCategoryType } from '../../context/ProfileProvider';
 
 type Props = {
     categoryList: Category[];
     selectedCategories: SelectedCategoryType;
-    selectCategory: Function;
+    selectCategory: selectCategoryFuncType;
 }
 const RestaurantCategoriesList = ({ categoryList, selectedCategories, selectCategory }: Props) => {
     return (

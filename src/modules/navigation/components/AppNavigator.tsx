@@ -8,6 +8,7 @@ import GenderScreen from '../../profile/gender/GenderScreen';
 import PassionScreen from '../../profile/passion/PassionScreen';
 import IdealPlacesScreen from '../../profile/ideal-places/IdealPlacesScreen';
 import EnableNotiScreen from '../../enable-noti/EnableNotiScreen';
+import ProfileAnswerScreen from '../../profile/promp/ProfileAnswerScreen';
 
 const Stack = createNativeStackNavigator<AppStackParamList>();
 
@@ -23,6 +24,7 @@ const AppNavigator = () => {
       <Stack.Screen name="Passion" component={PassionScreen} />
       <Stack.Screen name="IdealPlace" component={IdealPlacesScreen} />
       <Stack.Screen name="EnableNoti" component={EnableNotiScreen} />
+      <Stack.Screen name="ProfileAnswer" component={ProfileAnswerScreen} />
     </Stack.Navigator>
   )
 }

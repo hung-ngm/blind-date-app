@@ -2,12 +2,12 @@ import { View, Text, StyleSheet, TouchableHighlight, ScrollView } from 'react-na
 import React from 'react'
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { mainTheme } from '../../../../themes/mainTheme';
-import { Passion, SelectedPassionType } from '../PassionScreen';
+import { Passion, SelectedPassionType, selectPassionFuncType } from '../../context/ProfileProvider';
 
 type Props = {
     passionList: Passion[];
     selectedPassions: SelectedPassionType;
-    selectPassion: Function;
+    selectPassion: selectPassionFuncType;
 }
 const PassionList = ({ passionList, selectedPassions, selectPassion }: Props) => {
     return (
