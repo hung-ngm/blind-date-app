@@ -27,6 +27,7 @@ const Card = () => {
           source={image} 
           resizeMode="cover"
           style={styles.image}
+          blurRadius={30}
         />
       </View>
 

@@ -3,4 +3,5 @@ export const mainTheme = {
   WHITE_COLOR: "#FFFFFF",
   DARK_COLOR: "#000000",
   PURPLE_COLOR: "#800080",
+  GRAY_COLOR: "#808080",
 };
