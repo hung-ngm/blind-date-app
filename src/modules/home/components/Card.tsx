@@ -7,24 +7,26 @@ import {
 } from 'react-native';
 import { Profile } from '../../../types/profile';
 
+interface CardProps {
+  card: Profile;
+}
 
-const Card = () => {
-  // const { displayName, age, job, photoURL, prompt } = card;
+const Card: React.FC<CardProps> = ({ card }) => {
+  const { displayName, age, job, photoURL, promptStart, promptEnd } = card;
 
-  const image = { uri: "http://www.swaggermagazine.com/home/wp-content/uploads/2018/instagrammodels/13.jpg" };
 
   return (
     <View style={styles.container}>
       <View style={styles.personalDetailsContainer}>
         <View style={styles.personalDetails}>
-          <Text style={styles.nameAge}>Kylie 17</Text>
-          <Text style={styles.job}>Model</Text>
+          <Text style={styles.nameAge}>{displayName} {age}</Text>
+          <Text style={styles.job}>{job}</Text>
         </View>
       </View>
       
       <View style={styles.imageContainer}>
         <Image
-          source={image} 
+          source={{ uri: photoURL }} 
           resizeMode="cover"
           style={styles.image}
           blurRadius={30}
@@ -32,8 +34,8 @@ const Card = () => {
       </View>
 
       <View style={styles.promptContainer}>
-        <Text style={styles.promptStart}>My simple pleasure is</Text>
-        <Text style={styles.promptEnd}>buscus</Text>
+        <Text style={styles.promptStart}>{promptStart}</Text>
+        <Text style={styles.promptEnd}>{promptEnd}</Text>
       </View>
     </View>
   )
@@ -43,8 +45,13 @@ export default Card;
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
     paddingTop: 0,
+    backgroundColor: 'white',
+    position: 'relative',
+    width: 300,
+    marginLeft: 35,
+    marginRight: 35,
+    borderRadius: 10,
   },
   imageContainer: {
     paddingTop: 0,    

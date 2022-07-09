@@ -14,11 +14,7 @@ const HomeScreen = () => {
       <View style={styles.headerContainer}>
         <Header />
       </View>
-
-      <View style={styles.cardsContainer}>
-        <Cards />
-      </View>
-      
+      <Cards />
       <Button title='Log out' onPress={handlePress} />
     </View>
   )
@@ -33,14 +29,5 @@ const styles = StyleSheet.create({
   headerContainer: {
     flex: 1,
     paddingTop: 15,
-  },
-  cardsContainer: {
-    flex: 7,
-    paddingTop: 0,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  cardsButtonContainer: {
-
   },
 })
