@@ -14,7 +14,6 @@ interface CardProps {
 const Card: React.FC<CardProps> = ({ card }) => {
   const { displayName, age, job, photoURL, promptStart, promptEnd } = card;
 
-
   return (
     <View style={styles.container}>
       <View style={styles.personalDetailsContainer}>
