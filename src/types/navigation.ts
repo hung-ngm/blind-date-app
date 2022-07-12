@@ -15,6 +15,8 @@ export type AppStackParamList = {
   IdealPlace: undefined;
   EnableNoti: undefined;
   ProfileAnswer: undefined;
+  PromptList: undefined;
+  PromptDetail: undefined;
 }
 
 export type AppNavigationProp = NativeStackNavigationProp<AppStackParamList>

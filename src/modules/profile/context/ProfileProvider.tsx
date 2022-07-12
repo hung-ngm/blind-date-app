@@ -94,8 +94,8 @@ export type ProfileContextValueType = {
   selectedCategories: SelectedCategoryType;
   selectCategory: selectCategoryFuncType;
   numSelectedCategories: number;
-  promptList: Prompt[];
-  setPromptList: Function;
+  prompt: Prompt;
+  setPrompt: Function;
   submitProfile: Function;
 }
 
@@ -117,7 +117,10 @@ export const ProfileProvider = ({ children }: Props) => {
   const [maxPrice, setMaxPrice] = useState(100); // in USD
   const [selectedCategories, setSelectedCategories] = useState<SelectedCategoryType>({});
   const [numSelectedCategories, setNumSelectedCategories] = useState(0);
-  const [promptList, setPromptList] = useState<Prompt[]>([]);
+  const [prompt, setPrompt] = useState<Prompt>({
+    prompt: '',
+    answer: '',
+  });
 
 
   const selectPassion = (passionType: Passions) => {
@@ -177,10 +180,8 @@ export const ProfileProvider = ({ children }: Props) => {
       Object.keys(selectedCategories).forEach((category) => {
         console.log("- ", category);
       })
-      console.log("promptList: ");
-      promptList.forEach((prompt) => {
-        console.log("- ", prompt.prompt, " ", prompt.answer);
-      })
+      console.log("prompt: ");
+      console.log("- ", prompt.prompt, " ", prompt.answer);
   }
   
   const value: ProfileContextValueType = {
@@ -206,8 +207,8 @@ export const ProfileProvider = ({ children }: Props) => {
     selectedCategories,
     selectCategory,
     numSelectedCategories,
-    promptList,
-    setPromptList,
+    prompt,
+    setPrompt,
     submitProfile,
   }
 

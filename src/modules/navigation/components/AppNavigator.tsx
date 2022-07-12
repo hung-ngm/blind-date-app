@@ -8,7 +8,9 @@ import GenderScreen from '../../profile/gender/GenderScreen';
 import PassionScreen from '../../profile/passion/PassionScreen';
 import IdealPlacesScreen from '../../profile/ideal-places/IdealPlacesScreen';
 import EnableNotiScreen from '../../enable-noti/EnableNotiScreen';
-import ProfileAnswerScreen from '../../profile/promp/ProfileAnswerScreen';
+import ProfileAnswerScreen from '../../profile/prompt/ProfileAnswerScreen';
+import PromptListScreen from '../../profile/prompt/PromptListScreen';
+import PromptDetailScreen from '../../profile/prompt/PromptDetailScreen';
 
 const Stack = createNativeStackNavigator<AppStackParamList>();
 
@@ -25,6 +27,8 @@ const AppNavigator = () => {
       <Stack.Screen name="IdealPlace" component={IdealPlacesScreen} />
       <Stack.Screen name="EnableNoti" component={EnableNotiScreen} />
       <Stack.Screen name="ProfileAnswer" component={ProfileAnswerScreen} />
+      <Stack.Screen name="PromptList" component={PromptListScreen} />
+      <Stack.Screen name="PromptDetail" component={PromptDetailScreen} />
     </Stack.Navigator>
   )
 }
