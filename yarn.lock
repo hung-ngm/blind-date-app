@@ -6211,6 +6211,11 @@ react-native-dotenv@3.3.0:
   dependencies:
     dotenv "^10.0.0"
 
+react-native-masonry-layout@^1.0.6:
+  version "1.0.6"
+  resolved "https://registry.yarnpkg.com/react-native-masonry-layout/-/react-native-masonry-layout-1.0.6.tgz#b0ac509fb22a07b1df91e91b7c56374251aa68e2"
+  integrity sha512-oQRuSqU+yInfLdWHkfyhDnFJzH+4To/i8shyWJ/3GI8bzYv7jm0m3vsTK+DB+W9YB/tsQ0D+WCFXV0OO3yRgXA==
+
 react-native-otp-textinput@^0.0.9:
   version "0.0.9"
   resolved "https://registry.yarnpkg.com/react-native-otp-textinput/-/react-native-otp-textinput-0.0.9.tgz#30c20c53ff077ad6c0f7fd77f57d767fb8950326"
