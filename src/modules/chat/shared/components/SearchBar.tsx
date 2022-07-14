@@ -1,7 +1,7 @@
 import React from 'react';
 import { StyleSheet, TextInput, View, Keyboard, Button, Text } from 'react-native';
 import { Feather, Entypo } from '@expo/vector-icons';
-import { mainTheme } from '../../../themes/mainTheme';
+import { mainTheme } from '../../../../themes/mainTheme';
 
 const SearchBar = () => {
   return (

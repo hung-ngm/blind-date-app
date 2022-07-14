@@ -1,20 +1,24 @@
 import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
-import Header from './components/Header';
-import SearchBar from './components/SearchBar';
-import MatchedProfiles from './components/MatchedProfiles';
+import ChatHeader from './shared/components/ChatHeader';
+import SearchBar from './shared/components/SearchBar';
+import MatchedProfiles from './matched_profiles/MatchedProfiles';
+import ChatList from './chat_list/ChatList';
 
 const ChatScreen = () => {
   return (
     <View style={styles.container}>
       <View style={styles.headerContainer}>
-        <Header />
+        <ChatHeader text="Messages" fontSize={25} />
       </View>
       <View style={styles.searchBarContainer}>
         <SearchBar />
       </View>
       <View style={styles.matchedProfilesContainer}>
         <MatchedProfiles />
+      </View>
+      <View style={styles.messagesContainer}>
+        <ChatList />
       </View>
       
 
@@ -39,7 +43,10 @@ const styles = StyleSheet.create({
     paddingTop: 0,
   },
   matchedProfilesContainer: {
-    flex: 9,
+    flex: 3,
     paddingTop: 0,
+  },
+  messagesContainer: {
+    flex: 8,
   }
 })
