@@ -2,7 +2,7 @@ import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import Header from './components/Header';
 import Cards from './components/Cards';
-import Card from './components/Card';
+
 
 const MatchScreen = () => {
   return (
@@ -35,17 +35,14 @@ const mockData =
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    padding: 20,
-    //backgroundColor:'blue'
+    padding: 20
   },
   headerContainer: {
     flex: 1,
     paddingTop: 1,
-    //backgroundColor:'blue'
   },
   card: {
     flex:4,
-    //backgroundColor:'blue',
     alignItems: 'center',
     
   }

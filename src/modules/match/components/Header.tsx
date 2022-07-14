@@ -1,5 +1,6 @@
 import React from 'react';
 import { StyleSheet, View, Text } from 'react-native';
+import {mainTheme} from '../../../themes/mainTheme';
 
 const Header = () => {
   return (
@@ -32,6 +33,7 @@ const styles = StyleSheet.create({
   },
   headerText: {
     fontSize: 27,
+    color: mainTheme.PRIMARY_COLOR
   },
   descriptionText: {
     paddingTop: 10,
@@ -45,10 +47,11 @@ const styles = StyleSheet.create({
   line: {
     flex: 1, 
     height: 1, 
-    backgroundColor: 'black',
+    backgroundColor: mainTheme.PRIMARY_COLOR,
   },
   lineText: {
     width: 50, 
     textAlign: 'center',
+    color: mainTheme.PRIMARY_COLOR
   }
 })
