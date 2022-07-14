@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import { View, StyleSheet } from 'react-native';
 import Header from './components/Header';
 import Cards from './components/Cards';
 
@@ -11,7 +11,6 @@ const MatchScreen = () => {
         <Header/>
       </View>
       <View style={styles.card}>
-        {/* <Card card={mockData}/> */}
         <Cards/>
       </View>
     </View>
@@ -19,18 +18,6 @@ const MatchScreen = () => {
 }
 
 export default MatchScreen;
-
-const mockData = 
-  {
-    id: 1,
-    displayName: 'Kylie',
-    age: 17,
-    job: 'Model',
-    photoURL: 'http://www.swaggermagazine.com/home/wp-content/uploads/2018/instagrammodels/13.jpg',
-    promptStart: 'My simple pleasure is',
-    promptEnd: 'buscus',
-  }
-
 
 const styles = StyleSheet.create({
   container: {

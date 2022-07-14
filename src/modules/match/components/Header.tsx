@@ -28,7 +28,6 @@ const styles = StyleSheet.create({
   },
   textContainer: {
     justifyContent: 'center',
-    // alignItems: 'center',
     textAlign: 'center',
   },
   headerText: {

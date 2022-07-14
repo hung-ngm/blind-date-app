@@ -40,8 +40,6 @@ const styles = StyleSheet.create({
     position: 'relative',
     width: 150,
     height: 200,
-    //marginLeft: 35,
-    //marginRight: 35,
     borderRadius: 20,
     margin: '2%',
     
