@@ -26,7 +26,7 @@ const VerifyPhoneNumberScreen = ({ route, navigation }: VerifyPhoneNumberScreenN
       );
       await signInWithCredential(auth, credential);
     } catch (err) {
-
+      
     }
   }
 

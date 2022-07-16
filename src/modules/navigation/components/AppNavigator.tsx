@@ -1,37 +1,66 @@
 import React from 'react';
+import { mainTheme } from '../../../themes/mainTheme';
+import { FontAwesome, MaterialCommunityIcons, Entypo, AntDesign } from '@expo/vector-icons';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import HomeScreen from '../../home/HomeScreen';
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import MatchScreen from '../../match/MatchScreen';
+import ChatScreen from '../../chat/ChatScreen';
 import { AppStackParamList } from '../../../types/navigation';
-import ProfileDetailScreen from '../../profile/user-info/UserInfoScreen';
-import { useStore } from '../../stores/store';
-import GenderScreen from '../../profile/gender/GenderScreen';
-import PassionScreen from '../../profile/passion/PassionScreen';
-import IdealPlacesScreen from '../../profile/ideal-places/IdealPlacesScreen';
-import EnableNotiScreen from '../../enable-noti/EnableNotiScreen';
-import ProfileAnswerScreen from '../../profile/prompt/ProfileAnswerScreen';
-import PromptListScreen from '../../profile/prompt/PromptListScreen';
-import PromptDetailScreen from '../../profile/prompt/PromptDetailScreen';
 
-const Stack = createNativeStackNavigator<AppStackParamList>();
+const Tab = createBottomTabNavigator<AppStackParamList>();
 
 const AppNavigator = () => {
-  const { user } = useStore().userStore;
-  const hasProfile = user && user.name && user.email && user.phoneNumber;
-  const initialRouteName: keyof AppStackParamList = hasProfile ? "Home" : "ProfileDetail";
   return (
-    <Stack.Navigator initialRouteName={initialRouteName}>
-      <Stack.Screen name="Home" component={HomeScreen} />
-      <Stack.Screen name="ProfileDetail" component={ProfileDetailScreen} />
-      <Stack.Screen name="Gender" component={GenderScreen} />
-      <Stack.Screen name="Passion" component={PassionScreen} />
-      <Stack.Screen name="IdealPlace" component={IdealPlacesScreen} />
-      <Stack.Screen name="EnableNoti" component={EnableNotiScreen} />
-      <Stack.Screen name="ProfileAnswer" component={ProfileAnswerScreen} />
-      <Stack.Screen name="PromptList" component={PromptListScreen} />
-      <Stack.Screen name="PromptDetail" component={PromptDetailScreen} />
-    </Stack.Navigator>
+    <Tab.Navigator
+      initialRouteName="Home"
+      screenOptions={{
+        tabBarActiveTintColor: mainTheme.PRIMARY_COLOR,
+      }}
+    >
+      <Tab.Screen
+        name="Home"
+        component={HomeScreen}
+        options={{
+          tabBarLabel: 'Home',
+          tabBarIcon: ({ color, size }) => (
+            <MaterialCommunityIcons name="cards" color={color} size={size} />
+          ),
+        }}
+      />
+      <Tab.Screen
+        name="Match"
+        component={MatchScreen}
+        options={{
+          tabBarLabel: 'Match',
+          tabBarIcon: ({ color, size }) => (
+            <AntDesign name="heart" color={color} size={size} />
+          ),
+          // TODO: Add number of matches here
+          // tabBarBadge: 3,
+        }}
+      />
+      <Tab.Screen
+        name="Chat"
+        component={ChatScreen}
+        options={{
+          tabBarLabel: 'Chat',
+          tabBarIcon: ({ color, size }) => (
+            <Entypo name="chat" color={color} size={size} />
+          ),
+        }}
+      />
+      <Tab.Screen
+        name="Profile"
+        component={HomeScreen}
+        options={{
+          tabBarLabel: 'Profile',
+          tabBarIcon: ({ color, size }) => (
+            <FontAwesome name="user" color={color} size={size} />
+          ),
+        }}
+      />
+    </Tab.Navigator>
   )
-}
-
+} 
 
 export default AppNavigator;
