@@ -4,7 +4,6 @@ import ChatHeader from '../shared/components/ChatHeader';
 import { SafeAreaView } from "react-native-safe-area-context";
 import ChatPreview from './components/ChatPreview';
 
-
 export const ChatList = () => {
   return (
     <View style={styles.container}>
