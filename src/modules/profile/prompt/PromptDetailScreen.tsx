@@ -1,29 +1,15 @@
-import { View, Text, StyleSheet, Button, TextInput, KeyboardAvoidingView, Keyboard, TouchableWithoutFeedback } from 'react-native'
-import React, { useContext, useState } from 'react'
-import { NativeStackScreenProps } from '@react-navigation/native-stack'
-import { ProfileStackParamList } from '../../../types/navigation'
-import NavigationButtons from '../components/NavigationButtons'
+import { View, Text, StyleSheet, TextInput, KeyboardAvoidingView, Keyboard, TouchableWithoutFeedback } from 'react-native'
+import React, { useContext } from 'react'
 import { mainTheme } from '../../../themes/mainTheme'
-import { Link } from '@react-navigation/native'
-import { ProfileContext, Prompt } from '../context/ProfileProvider'
+import { ProfileContext } from '../context/ProfileProvider'
 
-type PromptDetailScreenNavigationProps = NativeStackScreenProps<
-  ProfileStackParamList,
-  'PromptDetail'
->
-const PromptDetailScreen = ({ navigation }: PromptDetailScreenNavigationProps) => {
+const PromptDetailScreen = () => {
   const {
     prompt,
-    setPrompt,
+    promptAnswer,
+    setPromptAnswer,
   } = useContext(ProfileContext);
-  const [answer, setAnswer] = useState('');
-  const handleDonePress = () => {
-    setPrompt((prevPrompt: Prompt) => ({
-      ...prevPrompt,
-      answer
-    }))
-    navigation.navigate('Prompt')
-  }
+  
   return (
     <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
       <KeyboardAvoidingView
@@ -32,16 +18,6 @@ const PromptDetailScreen = ({ navigation }: PromptDetailScreenNavigationProps) =
         contentContainerStyle={styles.keyboardAvoid}
       >
           <>
-            <View style={{
-              flex: 1
-            }}>
-              <NavigationButtons
-                leftComponent={<Text>Back</Text>}
-                rightComponent={
-                  <Button title='Done' onPress={handleDonePress} />
-                } 
-              />
-            </View>
             <View style={{
               flex: 5,
               ...styles.contentContainer
@@ -59,7 +35,7 @@ const PromptDetailScreen = ({ navigation }: PromptDetailScreenNavigationProps) =
                 ...styles.contentItem,
                 ...styles.promptPrompt,
               }}>
-                <Text>{prompt.prompt}</Text>
+                <Text>{prompt}</Text>
               </View>
               <TextInput 
                 style={{
@@ -69,8 +45,8 @@ const PromptDetailScreen = ({ navigation }: PromptDetailScreenNavigationProps) =
                 }}
                 placeholderTextColor={mainTheme.DARK_COLOR}
                 placeholder='Enter your answer here'
-                onChangeText={(val) => setAnswer(val)}
-                value={answer}
+                onChangeText={(ans) => setPromptAnswer(ans)}
+                value={promptAnswer}
                 multiline={true}
               />
             </View>

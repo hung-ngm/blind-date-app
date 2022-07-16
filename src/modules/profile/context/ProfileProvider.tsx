@@ -24,7 +24,7 @@ export enum Passions {
   Run,
   Swimming,
   Art,
-  Traveling,
+  Travelling,
   Extreme,
   Music,
   Drink,
@@ -63,19 +63,14 @@ export type SelectedCategoryType = {
 
 export type selectCategoryFuncType = (categoryType: Categories) => void;
 
-
-// Prompt type declaration
-export type Prompt = {
-  prompt: string;
-  answer: string;
-}
-
 // Context value type declaration
 export type ProfileContextValueType = {
   firstName: string;
   setFirstName: Function;
   lastName: string;
   setLastName: Function;
+  job: string;
+  setJob: Function;
   birthday: Date | null;
   setBirthday: Function;
   avatar: Avatar | null;
@@ -94,8 +89,10 @@ export type ProfileContextValueType = {
   selectedCategories: SelectedCategoryType;
   selectCategory: selectCategoryFuncType;
   numSelectedCategories: number;
-  prompt: Prompt;
+  prompt: string;
   setPrompt: Function;
+  promptAnswer: string;
+  setPromptAnswer: Function;
   submitProfile: Function;
 }
 
@@ -106,6 +103,7 @@ type Props = {
 export const ProfileProvider = ({ children }: Props) => {
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
+  const [job, setJob] = useState('');
   const [birthday, setBirthday] = useState<Date | null>(null);
   const [avatar, setAvatar] = useState<Avatar | null>(null);
   const [gender, setGender] = useState<Gender | null>(null);
@@ -117,10 +115,8 @@ export const ProfileProvider = ({ children }: Props) => {
   const [maxPrice, setMaxPrice] = useState(100); // in USD
   const [selectedCategories, setSelectedCategories] = useState<SelectedCategoryType>({});
   const [numSelectedCategories, setNumSelectedCategories] = useState(0);
-  const [prompt, setPrompt] = useState<Prompt>({
-    prompt: '',
-    answer: '',
-  });
+  const [prompt, setPrompt] = useState('');
+  const [promptAnswer, setPromptAnswer] = useState('');
 
 
   const selectPassion = (passionType: Passions) => {
@@ -166,6 +162,7 @@ export const ProfileProvider = ({ children }: Props) => {
       console.log("=== Profile submitted ===");
       console.log("First name: ", firstName);
       console.log("Last name: ", lastName);
+      console.log("Job: ", job);
       console.log("birthday name: ", birthday?.toDateString());
       console.log("avatar: ", avatar?.uri);
       console.log("gender: ", gender);
@@ -181,7 +178,7 @@ export const ProfileProvider = ({ children }: Props) => {
         console.log("- ", category);
       })
       console.log("prompt: ");
-      console.log("- ", prompt.prompt, " ", prompt.answer);
+      console.log("- ", prompt, " ", promptAnswer);
   }
   
   const value: ProfileContextValueType = {
@@ -189,6 +186,8 @@ export const ProfileProvider = ({ children }: Props) => {
     setFirstName,
     lastName,
     setLastName,
+    job,
+    setJob,
     birthday,
     setBirthday,
     avatar,
@@ -209,6 +208,8 @@ export const ProfileProvider = ({ children }: Props) => {
     numSelectedCategories,
     prompt,
     setPrompt,
+    promptAnswer,
+    setPromptAnswer,
     submitProfile,
   }
 

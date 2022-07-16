@@ -1,28 +1,16 @@
-import { View, Text, StyleSheet } from 'react-native'
+import { View, Text, StyleSheet, Button } from 'react-native'
 import React from 'react'
-import NavigationButtons from '../profile/components/NavigationButtons'
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
 import { mainTheme } from '../../themes/mainTheme'
 import PrimaryButton from '../../common/PrimaryButton'
-import { NativeStackScreenProps } from '@react-navigation/native-stack'
-import { AppStackParamList } from '../../types/navigation'
 
-type EnableNotiScreenNavigationProps = NativeStackScreenProps<
-  AppStackParamList,
-  'EnableNoti'
->
-const EnableNotiScreen = ({ navigation }: EnableNotiScreenNavigationProps) => {
-  const handlePress = () => {
-    // Turn on noti TODO
-    navigation.navigate('ProfileAnswer');
+const EnableNotiScreen = () => {
+  const handleButtonPress = () => {
+    // TODO: Turn on noti on press
+    console.log("Noti enabled");
   }
   return (
     <View style={styles.container}>
-      <View style={{
-        flex: 1,
-      }}>
-        <NavigationButtons rightComponent={<Text>Skip</Text>}/>
-      </View>
       <View style={{
         flex: 5,
         alignItems: 'center',
@@ -48,7 +36,7 @@ const EnableNotiScreen = ({ navigation }: EnableNotiScreenNavigationProps) => {
           <PrimaryButton
             text='I want to be notified'
             textColor={mainTheme.WHITE_COLOR}
-            onPress={handlePress}
+            onPress={handleButtonPress}
           />
         </View>
       </View>
@@ -61,7 +49,7 @@ export default EnableNotiScreen
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    margin: 10,
+    paddingTop: 50,
   },
   item: {
     padding: 10,

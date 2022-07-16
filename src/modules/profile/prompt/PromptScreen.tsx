@@ -1,35 +1,29 @@
 import { View, Text, StyleSheet, TouchableHighlight } from 'react-native'
 import React, { useContext } from 'react'
-import NavigationButtons from '../components/NavigationButtons'
 import PrimaryButton from '../../../common/PrimaryButton'
 import { mainTheme } from '../../../themes/mainTheme'
-import { NativeStackScreenProps } from '@react-navigation/native-stack'
-import { ProfileStackParamList } from '../../../types/navigation'
 import { ProfileContext } from '../context/ProfileProvider'
+import useProfileNavigation from '../../navigation/hooks/useProfileNavigation'
 
-type ProfileAnswerScreenNavigationProps = NativeStackScreenProps<
-    ProfileStackParamList,
-    'Prompt'
->
-const ProfileAnswerScreen = ({ navigation }: ProfileAnswerScreenNavigationProps) => {
+const ProfileAnswerScreen = () => {
+    const navigation = useProfileNavigation();
     const {
         prompt,
+        promptAnswer,
         submitProfile
     } = useContext(ProfileContext)
     const handleContinuePress = () => {
+        // TODO: Add some loading effects to prevent user from pressing button multiple times 
+        // during asynchronous operation
         submitProfile()
     }
-
     const handlePromptPress = () => {
-        navigation.navigate('PromptList')
+        navigation.navigate('PromptList');
     }
+    const isPromptComplete = prompt && promptAnswer;
+    
     return (
         <View style={styles.container}>
-            <View style={{
-                flex: 1,
-            }}>
-                <NavigationButtons leftComponent={<Text>Back</Text>} />
-            </View>
             <View style={{
                 flex: 5,
                 alignItems: 'center',
@@ -51,14 +45,14 @@ const ProfileAnswerScreen = ({ navigation }: ProfileAnswerScreenNavigationProps)
                     }}
                     onPress={handlePromptPress}
                 >
-                    {prompt.prompt && prompt.answer
+                    {isPromptComplete
                         ? (
                             <>                          
                                 <Text style={{...styles.promptText, ...styles.promptAnswerItem}}>
-                                    {prompt.prompt}
+                                    {prompt}
                                 </Text>
                                 <Text style={{...styles.answerText, ...styles.promptAnswerItem}}>
-                                    {prompt.answer}
+                                    {promptAnswer}
                                 </Text>
                             </>
                         )
@@ -77,6 +71,7 @@ const ProfileAnswerScreen = ({ navigation }: ProfileAnswerScreenNavigationProps)
                     text='Continue'
                     textColor={mainTheme.WHITE_COLOR}
                     onPress={handleContinuePress}
+                    disabled={!isPromptComplete}
                 />
                 </View>
             </View>
@@ -89,7 +84,7 @@ export default ProfileAnswerScreen
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        margin: 10,
+        paddingTop: 50,
     },
     titleContainer: {
         padding: 20,

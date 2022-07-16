@@ -1,16 +1,10 @@
 import { View, Text, StyleSheet } from 'react-native'
 import React from 'react'
-import NavigationButtons from '../components/NavigationButtons'
 import PromptList from './components/PromptList'
 
 const PromptListScreen = () => {
     return (
         <View style={styles.container}>
-            <View style={{
-                flex: 1,
-            }}>
-                <NavigationButtons leftComponent={<Text>Back</Text>} />
-            </View>
             <View style={{
                 flex: 1,
                 marginHorizontal: 20,

@@ -1,24 +1,18 @@
 import { View, Text, StyleSheet } from 'react-native'
 import React, { useContext } from 'react'
 import { mainTheme } from '../../../themes/mainTheme';
-import NavigationButtons from '../components/NavigationButtons';
 import PrimaryButton from '../../../common/PrimaryButton';
 import RestaurantCategoriesList from './components/RestaurantCategoriesList';
-import { NativeStackScreenProps } from '@react-navigation/native-stack';
-import { ProfileStackParamList } from '../../../types/navigation';
 import DistanceSlider from './components/DistanceSlider';
 import PriceRangeSlider from './components/PriceRangeSlider';
 import { ProfileContext } from '../context/ProfileProvider';
+import useProfileNavigation from '../../navigation/hooks/useProfileNavigation';
 
-type IdealPlacesScreenNavigationProps = NativeStackScreenProps<
-    ProfileStackParamList,
-    'IdealPlace'
->
-const IdealPlacesScreen = ({ navigation }: IdealPlacesScreenNavigationProps) => {
+const IdealPlacesScreen = () => {
+    const navigation = useProfileNavigation();
     const handleContinuePress = () => {
         navigation.navigate('EnableNoti');
     }
-
     const {
         numSelectedCategories
     } = useContext(ProfileContext);
@@ -26,17 +20,7 @@ const IdealPlacesScreen = ({ navigation }: IdealPlacesScreenNavigationProps) => 
     
     return (
         <View style={styles.container}>
-            <View style={{
-                ...styles.item,
-                flex: 1
-            }}>
-                <NavigationButtons leftComponent={<Text>Back</Text>} />
-            </View>
-            <View style={{
-                ...styles.item,
-                flex: 1,
-                ...styles.titleContainer
-            }}
+            <View style={styles.titleContainer}
             >
                 <Text style={styles.title}>Your ideal places</Text>
                     <Text style={styles.description}>
@@ -44,19 +28,17 @@ const IdealPlacesScreen = ({ navigation }: IdealPlacesScreenNavigationProps) => 
                     </Text>
             </View>
             <View style={{
-                ...styles.item,
                 flex: 5,
                 justifyContent: 'flex-start',
                 alignItems: 'center',
-                margin: 5,
             }}>
                 <View style={{
-                    flex: 3,
+                    flex: 2,
                 }}>
                     <DistanceSlider/>
                 </View>
                 <View style={{
-                    flex: 3,
+                    flex: 2,
                 }}>
                     <PriceRangeSlider/>
                 </View>
@@ -66,8 +48,7 @@ const IdealPlacesScreen = ({ navigation }: IdealPlacesScreenNavigationProps) => 
                     <RestaurantCategoriesList/>
                 </View>
                 <View style={{
-                    flex: 1,
-                    marginTop: 20,
+                    flex: 2,
                 }}>
                     <PrimaryButton
                         text='Continue'
@@ -90,14 +71,12 @@ export default IdealPlacesScreen;
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        margin: 10,
-    },
-    item: {
-        padding: 10,
+        paddingTop: 50,
     },
     titleContainer: {
-        padding: 20,
-        marginVertical: 10,
+        flex: 1,
+        marginHorizontal: 50,
+        marginBottom: 30,
     },
     title: {
         fontSize: 34,

@@ -2,7 +2,7 @@ import { View, Text, StyleSheet, TouchableHighlight, ScrollView } from 'react-na
 import React, { useContext } from 'react'
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { mainTheme } from '../../../../themes/mainTheme';
-import { Passion, Passions, ProfileContext, SelectedPassionType, selectPassionFuncType } from '../../context/ProfileProvider';
+import { Passion, Passions, ProfileContext } from '../../context/ProfileProvider';
 
 const dummyList: Passion[] = [
     {
@@ -23,58 +23,58 @@ const dummyList: Passion[] = [
     {
         iconName: 'heart',
         name: 'Yoga',
-        type: Passions.Shopping,
+        type: Passions.Yoga,
     },
     {
         iconName: 'shopping-cart',
-        name: 'Shopping',
-        type: Passions.Shopping,
+        name: 'Cooking',
+        type: Passions.Cooking,
     },
     {
         iconName: 'shopping-cart',
-        name: 'Shopping',
-        type: Passions.Shopping,
+        name: 'Tennis',
+        type: Passions.Tennis,
     },
     {
         iconName: 'shopping-cart',
-        name: 'Shopping',
-        type: Passions.Shopping,
+        name: 'Run',
+        type: Passions.Run,
     },
     {
         iconName: 'shopping-cart',
-        name: 'Shopping',
-        type: Passions.Shopping,
+        name: 'Swimming',
+        type: Passions.Swimming,
     },
     {
         iconName: 'shopping-cart',
-        name: 'Shopping',
-        type: Passions.Shopping,
+        name: 'Art',
+        type: Passions.Art,
     },
     {
         iconName: 'shopping-cart',
-        name: 'Shopping',
-        type: Passions.Shopping,
+        name: 'Travelling',
+        type: Passions.Travelling,
     },
     {
         iconName: 'shopping-cart',
-        name: 'Shopping',
-        type: Passions.Shopping,
+        name: 'Extreme',
+        type: Passions.Extreme,
     },
     {
         iconName: 'shopping-cart',
-        name: 'Shopping',
-        type: Passions.Shopping,
+        name: 'Music',
+        type: Passions.Music,
     },
 
     {
         iconName: 'shopping-cart',
-        name: 'Shopping',
-        type: Passions.Shopping,
+        name: 'Drink',
+        type: Passions.Drink,
     },
     {
         iconName: 'shopping-cart',
-        name: 'Shopping',
-        type: Passions.Shopping,
+        name: 'Video games',
+        type: Passions.Video_games,
     },
 ]
 const PassionList = () => {

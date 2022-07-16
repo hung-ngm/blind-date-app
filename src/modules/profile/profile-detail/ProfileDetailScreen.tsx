@@ -5,32 +5,27 @@ import { mainTheme } from '../../../themes/mainTheme';
 import { FloatingLabelInput } from 'react-native-floating-label-input';
 import BirthdayDatePicker from './components/BirthdayDatePicker';
 import AvatarUpload from './components/AvatarUpload';
-import { NativeStackScreenProps } from '@react-navigation/native-stack';
-import { AppStackParamList, ProfileStackParamList } from '../../../types/navigation';
-import NavigationButtons from '../components/NavigationButtons';
 import { ProfileContext } from '../context/ProfileProvider';
+import useProfileNavigation from '../../navigation/hooks/useProfileNavigation';
 
-type ProfileDetailScreenNavigationProps = NativeStackScreenProps<
-  ProfileStackParamList,
-  'ProfileDetail'
->
-const ProfileDetailScreen = ({ navigation }: ProfileDetailScreenNavigationProps) => {
+const ProfileDetailScreen = () => {
+  const navigation = useProfileNavigation();
   const {
     firstName,
     setFirstName,
     lastName,
     setLastName,
+    job,
+    setJob,
     birthday,
-    setBirthday,
     avatar,
-    setAvatar,
   } = useContext(ProfileContext);
 
   const handleConfirmPress = () => {
       navigation.navigate('Gender');
   }
 
-  const isConfirmButtonDisabled = false  // (firstName === '') || (lastName === '') || (birthday === null) || (avatar === null);
+  const isConfirmButtonDisabled = (firstName === '') || (lastName === '') || (job === null) || (birthday === null) || (avatar === null);
   return (
     <KeyboardAvoidingView
       style={styles.container}
@@ -38,19 +33,14 @@ const ProfileDetailScreen = ({ navigation }: ProfileDetailScreenNavigationProps)
       contentContainerStyle={styles.keyboardAvoid}
     >
       <View style={{
-        flex:1
-      }}>
-        <NavigationButtons/>
-      </View>
-      <View style={{
-          flex: 1
+          flex: 1,
         }}
       >
         <Text style={styles.title}>Profile Details</Text>
       </View>
       <View style={{
         ...styles.formContainer,
-        flex: 5
+        flex: 6
       }}>
         <View style={{
           flex: 2
@@ -58,7 +48,7 @@ const ProfileDetailScreen = ({ navigation }: ProfileDetailScreenNavigationProps)
           <AvatarUpload/>
         </View>
         <View style={{
-          flex: 2
+          flex: 4
         }}>
           <View style={{
             flex: 1,
@@ -81,6 +71,17 @@ const ProfileDetailScreen = ({ navigation }: ProfileDetailScreenNavigationProps)
                 onChangeText={(lname) => setLastName(lname)}
               />
             </View>
+          </View>
+          <View style={{
+            flex: 1,
+          }}>
+              <View style={styles.textInputContainer}>
+                <FloatingLabelInput
+                  label={'Job'}
+                  value={job}
+                  onChangeText={(job) => setJob(job)}
+                />
+              </View>
           </View>
           <View style={{
             flex: 1
@@ -113,6 +114,7 @@ export default ProfileDetailScreen;
 const styles = StyleSheet.create({
   container: {
     flex:1,
+    paddingTop: 50,
   },
   keyboardAvoid: {
     flex: 1,

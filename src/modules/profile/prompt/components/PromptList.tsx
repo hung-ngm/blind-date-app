@@ -1,13 +1,13 @@
 import { View, Text, FlatList, StyleSheet, TouchableHighlight } from 'react-native'
 import React, { useContext } from 'react'
 import { mainTheme } from '../../../../themes/mainTheme'
-import { NavigationProp, useNavigation } from '@react-navigation/native'
-import { AppStackParamList } from '../../../../types/navigation'
 import { ProfileContext } from '../../context/ProfileProvider'
+import useProfileNavigation from '../../../navigation/hooks/useProfileNavigation'
 
 const PromptList = () => {
     const {
         setPrompt,
+        setPromptAnswer,
     } = useContext(ProfileContext);
 
     const dummyPrompt = [
@@ -23,7 +23,7 @@ const PromptList = () => {
         'Typical Sunday 4',
         'Typical Sunday 5',
     ]
-    const navigation: NavigationProp<AppStackParamList> = useNavigation();
+    const navigation = useProfileNavigation();
     return (
         <View>
             <FlatList
@@ -32,11 +32,9 @@ const PromptList = () => {
                 renderItem={({item, index}) => (
                     <View style={styles.item}>
                         <TouchableHighlight onPress={() => {
-                            setPrompt({
-                                prompt: item,
-                                answer: '',
-                            })
-                            navigation.navigate('PromptDetail')
+                            setPrompt(item);
+                            setPromptAnswer('');
+                            navigation.navigate('PromptDetail');
                         }}
                         >
                             <Text style={styles.title}>{item}</Text>
