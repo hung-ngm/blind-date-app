@@ -3,12 +3,16 @@ import { View, StyleSheet, Text, TouchableOpacity } from 'react-native';
 import ProfileAvatar from '../../shared/components/ProfileAvatar';
 import NotificationIcon from './NotificationIcon';
 
-const ChatPreview = () => {
+interface ChatPreviewProps {
+  onPress: () => void;
+}
+
+const ChatPreview: React.FC<ChatPreviewProps> = ({ onPress }) => {
   // TODO: Change this
   const fakeUrl = "http://www.swaggermagazine.com/home/wp-content/uploads/2018/instagrammodels/13.jpg";
 
   return (
-    <TouchableOpacity style={styles.container}>
+    <TouchableOpacity style={styles.container} onPress={onPress}>
       <ProfileAvatar 
         imageUrl={fakeUrl} 
         width={80}

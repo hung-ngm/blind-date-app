@@ -12,9 +12,6 @@ export type AppStackParamList = {
   Match: undefined;
   Chat: undefined;
   Profile: undefined;
-}
-
-export type ChatStackParamList = {
   ChatOverview: undefined;
   ChatMessages: undefined;
 }

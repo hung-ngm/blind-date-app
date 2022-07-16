@@ -1,8 +1,10 @@
 import React from 'react';
 import { View, StyleSheet, Text, FlatList } from 'react-native';
 import ChatHeader from '../shared/components/ChatHeader';
-import { SafeAreaView } from "react-native-safe-area-context";
 import ChatPreview from './components/ChatPreview';
+import * as RootNavigator from '../../navigation/components/RootNavigation';
+
+
 
 export const ChatList = () => {
   return (
@@ -13,7 +15,9 @@ export const ChatList = () => {
       <FlatList
         data={mockData}
         renderItem={() => (
-          <ChatPreview />
+          <ChatPreview onPress={() => {
+            RootNavigator.navigate('ChatMessages');
+          }} />
         )}
       />
       

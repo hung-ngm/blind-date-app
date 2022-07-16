@@ -1,9 +1,13 @@
+import { NativeStackScreenProps } from '@react-navigation/native-stack'
 import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import ChatHeader from '../shared/components/ChatHeader';
 import SearchBar from '../shared/components/SearchBar';
 import MatchedProfiles from '../matched_profiles/MatchedProfiles';
 import ChatList from '../chat_list/ChatList';
+import { AppStackParamList } from '../../../types/navigation';
+
+
 
 const ChatOverviewScreen = () => {
   return (

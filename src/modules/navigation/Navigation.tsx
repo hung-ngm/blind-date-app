@@ -4,12 +4,13 @@ import AuthNavigator from './components/AuthNavigator';
 import { observer } from 'mobx-react-lite';
 import { NavigationContainer } from '@react-navigation/native';
 import { useStore } from '../stores/store';
+import { navigationRef } from './components/RootNavigation';
 
 const Navigation = () => {
   const { user } = useStore().userStore;
 
   return (
-    <NavigationContainer>
+    <NavigationContainer ref={navigationRef}>
       {user ? <AppNavigator /> : <AuthNavigator />}
     </NavigationContainer>
   )
