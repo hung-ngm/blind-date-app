@@ -5,9 +5,6 @@ import ChatHeader from '../shared/components/ChatHeader';
 import SearchBar from '../shared/components/SearchBar';
 import MatchedProfiles from '../matched_profiles/MatchedProfiles';
 import ChatList from '../chat_list/ChatList';
-import { AppStackParamList } from '../../../types/navigation';
-
-
 
 const ChatOverviewScreen = () => {
   return (
