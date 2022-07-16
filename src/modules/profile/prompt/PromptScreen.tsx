@@ -4,12 +4,12 @@ import NavigationButtons from '../components/NavigationButtons'
 import PrimaryButton from '../../../common/PrimaryButton'
 import { mainTheme } from '../../../themes/mainTheme'
 import { NativeStackScreenProps } from '@react-navigation/native-stack'
-import { AppStackParamList } from '../../../types/navigation'
+import { ProfileStackParamList } from '../../../types/navigation'
 import { ProfileContext } from '../context/ProfileProvider'
 
 type ProfileAnswerScreenNavigationProps = NativeStackScreenProps<
-    AppStackParamList,
-    'ProfileAnswer'
+    ProfileStackParamList,
+    'Prompt'
 >
 const ProfileAnswerScreen = ({ navigation }: ProfileAnswerScreenNavigationProps) => {
     const {
@@ -18,7 +18,6 @@ const ProfileAnswerScreen = ({ navigation }: ProfileAnswerScreenNavigationProps)
     } = useContext(ProfileContext)
     const handleContinuePress = () => {
         submitProfile()
-        navigation.navigate('Home')
     }
 
     const handlePromptPress = () => {
@@ -107,7 +106,7 @@ const styles = StyleSheet.create({
     promptContainer: {
         width: 300,
         borderWidth: 5,
-        borderColor: mainTheme.GREY_COLOR,
+        borderColor: mainTheme.GRAY_COLOR,
         borderRadius: 15,
         paddingTop: 10,
         paddingLeft: 10,

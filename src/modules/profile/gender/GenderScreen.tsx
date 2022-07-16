@@ -4,11 +4,11 @@ import NavigationButtons from '../components/NavigationButtons'
 import PrimaryButton from '../../../common/PrimaryButton'
 import { mainTheme } from '../../../themes/mainTheme'
 import { NativeStackScreenProps } from '@react-navigation/native-stack'
-import { AppStackParamList } from '../../../types/navigation'
+import { ProfileStackParamList } from '../../../types/navigation'
 import { Gender } from '../context/ProfileProvider'
 
 type GenderScreenNavigationProps = NativeStackScreenProps<
-    AppStackParamList,
+    ProfileStackParamList,
     'Gender'
 >
 const GenderScreen = ({ navigation }: GenderScreenNavigationProps) => {

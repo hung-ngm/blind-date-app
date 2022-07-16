@@ -1,14 +1,14 @@
 import { View, Text, StyleSheet, Button, TextInput, KeyboardAvoidingView, Keyboard, TouchableWithoutFeedback } from 'react-native'
 import React, { useContext, useState } from 'react'
 import { NativeStackScreenProps } from '@react-navigation/native-stack'
-import { AppStackParamList } from '../../../types/navigation'
+import { ProfileStackParamList } from '../../../types/navigation'
 import NavigationButtons from '../components/NavigationButtons'
 import { mainTheme } from '../../../themes/mainTheme'
 import { Link } from '@react-navigation/native'
 import { ProfileContext, Prompt } from '../context/ProfileProvider'
 
 type PromptDetailScreenNavigationProps = NativeStackScreenProps<
-  AppStackParamList,
+  ProfileStackParamList,
   'PromptDetail'
 >
 const PromptDetailScreen = ({ navigation }: PromptDetailScreenNavigationProps) => {
@@ -22,7 +22,7 @@ const PromptDetailScreen = ({ navigation }: PromptDetailScreenNavigationProps) =
       ...prevPrompt,
       answer
     }))
-    navigation.navigate('ProfileAnswer')
+    navigation.navigate('Prompt')
   }
   return (
     <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
@@ -106,7 +106,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     borderRadius: 15,
     borderWidth: 5,
-    borderColor: mainTheme.GREY_COLOR,
+    borderColor: mainTheme.GRAY_COLOR,
   },
   promptPrompt: {
     width: '100%',
@@ -114,7 +114,7 @@ const styles = StyleSheet.create({
     paddingLeft: 10,
     borderRadius: 15,
     borderWidth: 5,
-    borderColor: mainTheme.GREY_COLOR,
+    borderColor: mainTheme.GRAY_COLOR,
   },
   promptAnswer: {
     width: '100%',
@@ -122,6 +122,6 @@ const styles = StyleSheet.create({
     paddingLeft: 10,
     borderRadius: 15,
     borderWidth: 5,
-    borderColor: mainTheme.GREY_COLOR,
+    borderColor: mainTheme.GRAY_COLOR,
   },
 })

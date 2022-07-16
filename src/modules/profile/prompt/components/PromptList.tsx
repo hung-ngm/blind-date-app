@@ -54,7 +54,7 @@ const styles = StyleSheet.create({
     item: {
         width: '100%',
         height: 50,
-        borderColor: mainTheme.GREY_COLOR,
+        borderColor: mainTheme.GRAY_COLOR,
         borderWidth: 1,
         justifyContent: 'center',
     },

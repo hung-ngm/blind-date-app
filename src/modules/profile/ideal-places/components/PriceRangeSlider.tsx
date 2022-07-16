@@ -45,7 +45,7 @@ const PriceRangeSlider = () => {
                     backgroundColor: mainTheme.PRIMARY_COLOR,
                 }}
                 trackStyle={{
-                    backgroundColor: mainTheme.GREY_COLOR,
+                    backgroundColor: mainTheme.GRAY_COLOR,
                 }}
                 selectedStyle={{
                     backgroundColor: mainTheme.PRIMARY_COLOR,

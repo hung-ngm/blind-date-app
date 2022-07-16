@@ -5,11 +5,11 @@ import NavigationButtons from '../components/NavigationButtons'
 import PrimaryButton from '../../../common/PrimaryButton'
 import PassionList from './components/PassionList'
 import { NativeStackScreenProps } from '@react-navigation/native-stack'
-import { AppStackParamList } from '../../../types/navigation'
+import { ProfileStackParamList } from '../../../types/navigation'
 import { ProfileContext } from '../context/ProfileProvider'
 
 type PassionScreenNavigationProps = NativeStackScreenProps<
-  AppStackParamList,
+  ProfileStackParamList,
   'Passion'
 >
 const PassionScreen = ({ navigation }: PassionScreenNavigationProps) => {

@@ -5,13 +5,13 @@ import NavigationButtons from '../components/NavigationButtons';
 import PrimaryButton from '../../../common/PrimaryButton';
 import RestaurantCategoriesList from './components/RestaurantCategoriesList';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
-import { AppStackParamList } from '../../../types/navigation';
+import { ProfileStackParamList } from '../../../types/navigation';
 import DistanceSlider from './components/DistanceSlider';
 import PriceRangeSlider from './components/PriceRangeSlider';
 import { ProfileContext } from '../context/ProfileProvider';
 
 type IdealPlacesScreenNavigationProps = NativeStackScreenProps<
-    AppStackParamList,
+    ProfileStackParamList,
     'IdealPlace'
 >
 const IdealPlacesScreen = ({ navigation }: IdealPlacesScreenNavigationProps) => {

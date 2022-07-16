@@ -6,12 +6,12 @@ import { FloatingLabelInput } from 'react-native-floating-label-input';
 import BirthdayDatePicker from './components/BirthdayDatePicker';
 import AvatarUpload from './components/AvatarUpload';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
-import { AppStackParamList } from '../../../types/navigation';
+import { AppStackParamList, ProfileStackParamList } from '../../../types/navigation';
 import NavigationButtons from '../components/NavigationButtons';
 import { ProfileContext } from '../context/ProfileProvider';
 
 type ProfileDetailScreenNavigationProps = NativeStackScreenProps<
-  AppStackParamList,
+  ProfileStackParamList,
   'ProfileDetail'
 >
 const ProfileDetailScreen = ({ navigation }: ProfileDetailScreenNavigationProps) => {
