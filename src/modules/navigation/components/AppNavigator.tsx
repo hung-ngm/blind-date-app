@@ -2,6 +2,7 @@ import React from 'react';
 import { mainTheme } from '../../../themes/mainTheme';
 import { FontAwesome, MaterialCommunityIcons, Entypo, AntDesign } from '@expo/vector-icons';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { getFocusedRouteNameFromRoute } from "@react-navigation/native";
 import HomeScreen from '../../home/HomeScreen';
 import MatchScreen from '../../match/MatchScreen';
 import ChatScreen from '../../chat/ChatScreen';
@@ -13,8 +14,15 @@ const AppNavigator = () => {
   return (
     <Tab.Navigator
       initialRouteName="Home"
-      screenOptions={{
-        tabBarActiveTintColor: mainTheme.PRIMARY_COLOR,
+      screenOptions={(props) => {
+        return {
+          tabBarActiveTintColor: mainTheme.PRIMARY_COLOR,
+          tabBarStyle: {
+            display: 
+              getFocusedRouteNameFromRoute(props.route) === "ChatMessages"
+                ? "none" : "flex"
+          }
+        }
       }}
     >
       <Tab.Screen
