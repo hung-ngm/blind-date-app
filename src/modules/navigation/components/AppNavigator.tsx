@@ -2,7 +2,6 @@ import React from 'react';
 import { mainTheme } from '../../../themes/mainTheme';
 import { FontAwesome, MaterialCommunityIcons, Entypo, AntDesign } from '@expo/vector-icons';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { NavigationContainer } from '@react-navigation/native';
 import HomeScreen from '../../home/HomeScreen';
 import MatchScreen from '../../match/MatchScreen';
 import ChatScreen from '../../chat/ChatScreen';

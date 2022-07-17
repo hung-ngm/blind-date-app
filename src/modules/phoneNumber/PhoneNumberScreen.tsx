@@ -73,7 +73,7 @@ const PhoneNumberScreen = ({ route, navigation }: PhoneNumberScreenNavigationPro
             text='Continue'
             textColor={mainTheme.WHITE_COLOR}
             onPress={handleVerifyPhoneNumber}
-            extraProps={styles.mobileButton}
+            extraStyles={styles.mobileButton}
           />
         </View>
       </View>
