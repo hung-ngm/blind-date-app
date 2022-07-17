@@ -26,9 +26,7 @@ const PassionScreen = () => {
                   </Text>
             </View>
             <View style={styles.detailContainer}>
-                <View style={{
-                    flex: 3,
-                }}>
+                <View style={{ flex: 3 }}>
                     <PassionList/>
                 </View>
                 <View style={{

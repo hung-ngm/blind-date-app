@@ -32,24 +32,16 @@ const IdealPlacesScreen = () => {
                 justifyContent: 'flex-start',
                 alignItems: 'center',
             }}>
-                <View style={{
-                    flex: 2,
-                }}>
+                <View style={{ flex: 2 }}>
                     <DistanceSlider/>
                 </View>
-                <View style={{
-                    flex: 2,
-                }}>
+                <View style={{flex: 2 }}>
                     <PriceRangeSlider/>
                 </View>
-                <View style={{
-                    flex: 3,
-                }}>
+                <View style={{ flex: 3 }}>
                     <RestaurantCategoriesList/>
                 </View>
-                <View style={{
-                    flex: 2,
-                }}>
+                <View style={{ flex: 2 }}>
                     <PrimaryButton
                         text='Continue'
                         onPress={handleContinuePress}

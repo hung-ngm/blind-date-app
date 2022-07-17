@@ -32,27 +32,18 @@ const ProfileDetailScreen = () => {
       behavior="position"
       contentContainerStyle={styles.keyboardAvoid}
     >
-      <View style={{
-          flex: 1,
-        }}
-      >
+      <View style={{ flex: 1 }}>
         <Text style={styles.title}>Profile Details</Text>
       </View>
       <View style={{
         ...styles.formContainer,
         flex: 6
       }}>
-        <View style={{
-          flex: 2
-        }}>
+        <View style={{ flex: 2 }}>
           <AvatarUpload/>
         </View>
-        <View style={{
-          flex: 4
-        }}>
-          <View style={{
-            flex: 1,
-          }}>
+        <View style={{ flex: 4 }}>
+          <View style={{ flex: 1 }}>
               <View style={styles.textInputContainer}>
                 <FloatingLabelInput
                   label={'First name'}
@@ -61,9 +52,7 @@ const ProfileDetailScreen = () => {
                 />
               </View>
           </View>
-          <View style={{
-            flex: 1
-          }}>
+          <View style={{ flex: 1 }}>
             <View style={styles.textInputContainer}>
               <FloatingLabelInput
                 label={'Last name'}
@@ -72,9 +61,7 @@ const ProfileDetailScreen = () => {
               />
             </View>
           </View>
-          <View style={{
-            flex: 1,
-          }}>
+          <View style={{ flex: 1 }}>
               <View style={styles.textInputContainer}>
                 <FloatingLabelInput
                   label={'Job'}
@@ -83,15 +70,11 @@ const ProfileDetailScreen = () => {
                 />
               </View>
           </View>
-          <View style={{
-            flex: 1
-          }}>
+          <View style={{ flex: 1 }}>
             <BirthdayDatePicker/>
           </View>
         </View>
-        <View style={{
-          flex: 1
-        }}>
+        <View style={{ flex: 1 }}>
           <PrimaryButton
             text='Confirm'
             textColor={mainTheme.WHITE_COLOR}

@@ -11,9 +11,7 @@ const PromptListScreen = () => {
             }}>
                 <Text style={styles.title}>Prompts</Text>
             </View>
-            <View style={{
-                flex: 5,
-            }}>
+            <View style={{ flex: 5 }}>
                 <PromptList />
             </View>
         </View>
