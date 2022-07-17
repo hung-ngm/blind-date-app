@@ -6,18 +6,19 @@ interface onPressFunc {
     (): void;
 }
 export type PrimaryButtonProps = {
-    text: string;
-    textColor: string;
+    text?: string;
+    textColor?: string;
     backgroundColor?: string;
     onPress: onPressFunc;
-    extraProps?: object;
+    extraStyles?: object;
     disabled? : boolean;
+    extraTouchableHighlightProps?: object;
+    extraTextProps?: object;
 };
 const PrimaryButton = (props: PrimaryButtonProps) => {
     return (
         <TouchableHighlight
             style={{
-                ...props.extraProps,
                 width: 300,
                 height: 50,
                 backgroundColor: props.backgroundColor || mainTheme.PRIMARY_COLOR,
@@ -25,11 +26,15 @@ const PrimaryButton = (props: PrimaryButtonProps) => {
                 display: 'flex',
                 justifyContent: 'center',
                 alignItems: 'center',
+                ...props.extraStyles,
             }}
             onPress={props.onPress}
+            underlayColor="orange"
+            {...props.extraTouchableHighlightProps}
         >
             <Text style={{
-                color: props.textColor
+                color: props.textColor,
+                ...props.extraTextProps
             }}>
                 {props.text}
             </Text>
