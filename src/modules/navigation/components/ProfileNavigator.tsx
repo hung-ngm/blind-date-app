@@ -11,7 +11,6 @@ import PromptListScreen from '../../profile/prompt/PromptListScreen';
 import PromptDetailScreen from '../../profile/prompt/PromptDetailScreen';
 import { mainTheme } from '../../../themes/mainTheme';
 import SkipButton from '../../../common/SkipButton';
-import DoneButton from '../../profile/prompt/components/DoneButton';
 import useProfileNavigation from '../hooks/useProfileNavigation';
 
 const Stack = createNativeStackNavigator<ProfileStackParamList>();
@@ -43,7 +42,7 @@ const ProfileNavigator = () => {
                 component={PromptDetailScreen}
                 options={{
                     headerRight: () => (                        
-                        <DoneButton />
+                      <SkipButton name="Done" onPress={() => navigation.navigate('Prompt')}  />
                     ),
                 }}
             />
