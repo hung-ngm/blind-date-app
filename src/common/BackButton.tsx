@@ -4,14 +4,18 @@ import Icon from 'react-native-vector-icons/AntDesign'
 import { mainTheme } from '../themes/mainTheme';
 
 export type BackButtonProps = {
-  name: string;
+  name?: string;
   onPress: () => void;
+  extraProps? : object;
 }
 
-const BackButton = ({ name, onPress } : BackButtonProps) => {
+const BackButton = ({ name, onPress, extraProps } : BackButtonProps) => {
     return (
         <TouchableWithoutFeedback
             onPress={onPress}
+            style={{
+              ...extraProps,
+            }}
         >
             <View style={{
                 flexDirection: 'row',

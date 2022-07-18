@@ -2,9 +2,7 @@ import React from 'react';
 import { View, StyleSheet, Text, FlatList } from 'react-native';
 import ChatHeader from '../shared/components/ChatHeader';
 import ChatPreview from './components/ChatPreview';
-import * as RootNavigator from '../../navigation/components/RootNavigation';
 import useChatNavigation from '../../navigation/hooks/useChatNavigation';
-
 
 export const ChatList = () => {
   const navigation = useChatNavigation();

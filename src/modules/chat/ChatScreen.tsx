@@ -15,7 +15,10 @@ const ChatScreen = () => {
       }}
     >
       <Stack.Screen name="ChatOverview" component={ChatOverviewScreen} />
-      <Stack.Screen name="ChatMessages" component={ChatMessagesScreen} />
+      <Stack.Screen 
+        name="ChatMessages"
+        component={ChatMessagesScreen} 
+      />
     </Stack.Navigator>
   )
 }
