@@ -1,14 +1,17 @@
 import React from 'react'
 import { Text, TouchableWithoutFeedback, View } from 'react-native';
 import Icon from 'react-native-vector-icons/AntDesign'
-import { mainTheme } from '../../../themes/mainTheme';
-import useProfileNavigation from '../../navigation/hooks/useProfileNavigation';
+import { mainTheme } from '../themes/mainTheme';
 
-const SkipButton = () => {
-    const navigation = useProfileNavigation();
+export type SkipButtonProps = {
+  name: string;
+  onPress: () => void;
+}
+
+const SkipButton = ({ name, onPress } : SkipButtonProps) => {
     return (
         <TouchableWithoutFeedback
-            onPress={() => navigation.navigate('Prompt')}
+            onPress={onPress}
         >
             <View style={{
                 flexDirection: 'row',
@@ -16,7 +19,7 @@ const SkipButton = () => {
                 <Text style={{
                     color: mainTheme.PRIMARY_COLOR,
                     fontSize: 18,
-                }}>Prompt</Text>
+                }}>{name}</Text>
                 <Icon name="right" size={25} color={mainTheme.PRIMARY_COLOR} />
             </View>
         </TouchableWithoutFeedback>

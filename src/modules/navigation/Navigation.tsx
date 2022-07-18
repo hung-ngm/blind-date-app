@@ -9,7 +9,7 @@ import ProfileNavigator from './components/ProfileNavigator';
 
 const Navigation = () => {
   const { user } = useStore().userStore;
-  const isProfileCompleted = true;
+  const isProfileCompleted = false;
   let Navigator: JSX.Element = <></>;
   if (user) {
     if (isProfileCompleted) {

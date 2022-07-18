@@ -1,5 +1,3 @@
-import { View, Text } from 'react-native'
-import React from 'react'
 import { NavigationProp, useNavigation } from '@react-navigation/native'
 import { ProfileStackParamList } from '../../../types/navigation'
 
