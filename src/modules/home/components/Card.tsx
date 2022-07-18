@@ -12,13 +12,13 @@ interface CardProps {
 }
 
 const Card: React.FC<CardProps> = ({ card }) => {
-  const { displayName, age, job, photoURL, promptStart, promptEnd } = card;
+  const { firstName, age, job, photoURL, promptStart, promptEnd } = card;
 
   return (
     <View style={styles.container}>
       <View style={styles.personalDetailsContainer}>
         <View style={styles.personalDetails}>
-          <Text style={styles.nameAge}>{displayName} {age}</Text>
+          <Text style={styles.nameAge}>{firstName} {age}</Text>
           <Text style={styles.job}>{job}</Text>
         </View>
       </View>

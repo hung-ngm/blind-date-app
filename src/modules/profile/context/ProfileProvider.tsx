@@ -12,7 +12,6 @@ export enum Gender {
   Other
 };
 
-
 // Passion type declaration
 export enum Passions {
   Photography = 1,

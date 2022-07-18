@@ -79,7 +79,7 @@ const rightLabel = StyleSheet.create({
 const mockData = [
   {
     id: 1,
-    displayName: 'Kylie',
+    firstName: 'Kylie',
     age: 17,
     job: 'Model',
     photoURL: 'http://www.swaggermagazine.com/home/wp-content/uploads/2018/instagrammodels/13.jpg',
@@ -88,7 +88,7 @@ const mockData = [
   },
   {
     id: 2,
-    displayName: 'Kylie',
+    firstName: 'Kylie',
     age: 17,
     job: 'Model',
     photoURL: 'http://www.swaggermagazine.com/home/wp-content/uploads/2018/instagrammodels/13.jpg',
@@ -97,7 +97,7 @@ const mockData = [
   },
   {
     id: 3,
-    displayName: 'Kylie',
+    firstName: 'Kylie',
     age: 17,
     job: 'Model',
     photoURL: 'http://www.swaggermagazine.com/home/wp-content/uploads/2018/instagrammodels/13.jpg',
