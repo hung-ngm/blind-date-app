@@ -4,12 +4,11 @@ import AuthNavigator from './components/AuthNavigator';
 import { observer } from 'mobx-react-lite';
 import { NavigationContainer } from '@react-navigation/native';
 import { useStore } from '../stores/store';
-import { navigationRef } from './components/RootNavigation';
 import ProfileNavigator from './components/ProfileNavigator';
 
 const Navigation = () => {
   const { user } = useStore().userStore;
-  const isProfileCompleted = false;
+  const isProfileCompleted = true;
   let Navigator: JSX.Element = <></>;
   if (user) {
     if (isProfileCompleted) {
@@ -23,7 +22,7 @@ const Navigation = () => {
     Navigator = <AuthNavigator />
   }
   return (
-    <NavigationContainer ref={navigationRef}>
+    <NavigationContainer>
       {Navigator}
     </NavigationContainer>
   )

@@ -1,10 +1,10 @@
 import React from 'react';
-import { AppStackParamList } from '../../types/navigation';
+import { ChatStackParamList } from '../../types/navigation';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import ChatOverviewScreen from './chat_overview/ChatOverviewScreen';
 import ChatMessagesScreen from './messages/ChatMessagesScreen';
 
-const Stack = createNativeStackNavigator<AppStackParamList>();
+const Stack = createNativeStackNavigator<ChatStackParamList>();
 
 const ChatScreen = () => {
   return (

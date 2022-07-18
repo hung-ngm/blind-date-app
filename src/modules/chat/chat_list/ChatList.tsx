@@ -3,10 +3,12 @@ import { View, StyleSheet, Text, FlatList } from 'react-native';
 import ChatHeader from '../shared/components/ChatHeader';
 import ChatPreview from './components/ChatPreview';
 import * as RootNavigator from '../../navigation/components/RootNavigation';
-
+import useChatNavigation from '../../navigation/hooks/useChatNavigation';
 
 
 export const ChatList = () => {
+  const navigation = useChatNavigation();
+
   return (
     <View style={styles.container}>
       <View style={styles.headerContainer}>
@@ -16,7 +18,7 @@ export const ChatList = () => {
         data={mockData}
         renderItem={() => (
           <ChatPreview onPress={() => {
-            RootNavigator.navigate('ChatMessages');
+            navigation.navigate('ChatMessages');
           }} />
         )}
       />
