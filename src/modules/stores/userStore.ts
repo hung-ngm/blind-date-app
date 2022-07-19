@@ -54,7 +54,7 @@ class UserStore {
       this.user = {
         uid: user.uid!,
         email: user.email!,
-        name: user.displayName!,
+        displayName: user.displayName!,
         photoUrl: user.photoURL!,
         phoneNumber: user.phoneNumber!
       };
