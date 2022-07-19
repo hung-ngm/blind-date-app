@@ -30,8 +30,8 @@ const EnableNotiScreen = () => {
               </Text>
         </View>
         <View style={{
-                    flex: 1,
-                    marginTop: 20,
+          flex: 1,
+          marginTop: 20,
         }}>
           <PrimaryButton
             text='I want to be notified'

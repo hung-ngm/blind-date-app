@@ -26,9 +26,7 @@ const PromptDetailScreen = () => {
                 flex: 1,
                 ...styles.contentItem,
               }}>
-                <Text style={styles.title}>
-                  Write Answer
-                </Text>
+                <Text style={styles.title}>Write Answer</Text>
               </View>
               <View style={{
                 flex: 1,
@@ -82,7 +80,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     borderRadius: 15,
     borderWidth: 5,
-    borderColor: mainTheme.GRAY_COLOR,
+    borderColor: mainTheme.DARK_GREY_COLOR,
   },
   promptPrompt: {
     width: '100%',
@@ -90,7 +88,7 @@ const styles = StyleSheet.create({
     paddingLeft: 10,
     borderRadius: 15,
     borderWidth: 5,
-    borderColor: mainTheme.GRAY_COLOR,
+    borderColor: mainTheme.DARK_GREY_COLOR,
   },
   promptAnswer: {
     width: '100%',
@@ -98,6 +96,6 @@ const styles = StyleSheet.create({
     paddingLeft: 10,
     borderRadius: 15,
     borderWidth: 5,
-    borderColor: mainTheme.GRAY_COLOR,
+    borderColor: mainTheme.DARK_GREY_COLOR,
   },
 })

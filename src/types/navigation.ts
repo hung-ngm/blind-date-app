@@ -9,7 +9,9 @@ export type AuthStackParamList = {
 
 export type AppStackParamList = {
   Root: undefined;
+  ChatMessages: undefined;
 }
+
 
 export type AppNavigationProp = NativeStackNavigationProp<AppStackParamList>
 

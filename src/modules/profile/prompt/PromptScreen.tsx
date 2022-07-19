@@ -101,7 +101,7 @@ const styles = StyleSheet.create({
     promptContainer: {
         width: 300,
         borderWidth: 5,
-        borderColor: mainTheme.GRAY_COLOR,
+        borderColor: mainTheme.DARK_GREY_COLOR,
         borderRadius: 15,
         paddingTop: 10,
         paddingLeft: 10,

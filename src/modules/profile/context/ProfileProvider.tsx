@@ -12,7 +12,6 @@ export enum Gender {
   Other
 };
 
-
 // Passion type declaration
 export enum Passions {
   Photography = 1,
@@ -28,7 +27,7 @@ export enum Passions {
   Extreme,
   Music,
   Drink,
-  Video_games,
+  VideoGames,
 }
 
 export type Passion = {
