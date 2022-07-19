@@ -6,7 +6,7 @@ import ChatMessagesScreen from './messages/ChatMessagesScreen';
 
 const Stack = createNativeStackNavigator<ChatStackParamList>();
 
-const ChatScreen = () => {
+const ChatTab = () => {
   return (
     <Stack.Navigator
       initialRouteName="ChatOverview"
@@ -23,4 +23,4 @@ const ChatScreen = () => {
   )
 }
 
-export default ChatScreen;
+export default ChatTab;

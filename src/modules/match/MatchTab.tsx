@@ -4,7 +4,7 @@ import Header from './components/Header';
 import Cards from './components/Cards';
 
 
-const MatchScreen = () => {
+const MatchTab = () => {
   return (
     <View style={styles.container}>
       <View style={styles.headerContainer}>
@@ -17,7 +17,7 @@ const MatchScreen = () => {
   )
 }
 
-export default MatchScreen;
+export default MatchTab;
 
 const styles = StyleSheet.create({
   container: {
@@ -31,6 +31,5 @@ const styles = StyleSheet.create({
   card: {
     flex:4,
     alignItems: 'center',
-    
   }
 })
