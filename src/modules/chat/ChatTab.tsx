@@ -1,15 +1,15 @@
 import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 
-const ChatScreen = () => {
+const ChatTab = () => {
   return (
     <View style={styles.container}>
-      <Text>ChatScreen</Text>
+      <Text>ChatTab</Text>
     </View>
   )
 }
 
-export default ChatScreen;
+export default ChatTab;
 
 const styles = StyleSheet.create({
   container: {

@@ -1,17 +1,10 @@
-import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import React from 'react';
-import { View, Text, TouchableOpacity, StyleSheet, Button } from 'react-native';
+import { View, StyleSheet, Button } from 'react-native';
 import useAuth from '../../hooks/useAuth';
-import { AppStackParamList } from '../../types/navigation';
 import Header from './components/Header';
 import Cards from './components/Cards';
 
-type HomeScreenNavigationProps = NativeStackScreenProps<
-  AppStackParamList,
-  'Home'
->
-
-const HomeScreen = ({ route, navigation }: HomeScreenNavigationProps) => {
+const HomeTab = () => {
   const { signOut } = useAuth();
   const handlePress = () => {
     signOut();
@@ -27,7 +20,7 @@ const HomeScreen = ({ route, navigation }: HomeScreenNavigationProps) => {
   )
 }
 
-export default HomeScreen;
+export default HomeTab;
 
 const styles = StyleSheet.create({
   container: {
