@@ -2,10 +2,10 @@ import React from 'react';
 import { View, StyleSheet, Text, FlatList } from 'react-native';
 import ChatHeader from '../shared/components/ChatHeader';
 import ChatPreview from './components/ChatPreview';
-import useChatNavigation from '../../navigation/hooks/useChatNavigation';
+import useAppNavigation from '../../navigation/hooks/useAppNavigation';
 
 export const ChatList = () => {
-  const navigation = useChatNavigation();
+  const navigation = useAppNavigation();
 
   return (
     <View style={styles.container}>

@@ -3,10 +3,10 @@ import { View, Text, StyleSheet } from 'react-native';
 import ProfileAvatar from '../../shared/components/ProfileAvatar';
 import OnlineStatusIcon from '../components/OnlineStatusIcon';
 import BackButton from '../../../../common/BackButton';
-import useChatNavigation from '../../../navigation/hooks/useChatNavigation';
+import useRootNavigation from '../../../navigation/hooks/useRootNavigation';
 
 const ChatMessagesHeader = () => {
-  const navigation = useChatNavigation();
+  const navigation = useRootNavigation();
 
   // TODO: Change this
   const fakeUrl = "http://www.swaggermagazine.com/home/wp-content/uploads/2018/instagrammodels/13.jpg";
@@ -18,7 +18,7 @@ const ChatMessagesHeader = () => {
           paddingLeft: 20,
           marginLeft: 10,
         }}
-        onPress={() => navigation.navigate('ChatOverview')} 
+        onPress={() => navigation.navigate('Chat')} 
       />
 
       <ProfileAvatar
