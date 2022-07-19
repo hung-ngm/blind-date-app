@@ -27,7 +27,7 @@ export enum Passions {
   Extreme,
   Music,
   Drink,
-  Video_games,
+  VideoGames,
 }
 
 export type Passion = {

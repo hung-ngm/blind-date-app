@@ -83,8 +83,8 @@ const mockData = [
     age: 17,
     job: 'Model',
     photoURL: 'http://www.swaggermagazine.com/home/wp-content/uploads/2018/instagrammodels/13.jpg',
-    promptStart: 'My simple pleasure is',
-    promptEnd: 'buscus',
+    prompt: 'My simple pleasure is',
+    promptAnswer: 'buscus',
   },
   {
     id: 2,
@@ -92,8 +92,8 @@ const mockData = [
     age: 17,
     job: 'Model',
     photoURL: 'http://www.swaggermagazine.com/home/wp-content/uploads/2018/instagrammodels/13.jpg',
-    promptStart: 'My simple pleasure is',
-    promptEnd: 'buscus',
+    prompt: 'My simple pleasure is',
+    promptAnswer: 'buscus',
   },
   {
     id: 3,
@@ -101,7 +101,7 @@ const mockData = [
     age: 17,
     job: 'Model',
     photoURL: 'http://www.swaggermagazine.com/home/wp-content/uploads/2018/instagrammodels/13.jpg',
-    promptStart: 'My simple pleasure is',
-    promptEnd: 'buscus',
+    prompt: 'My simple pleasure is',
+    promptAnswer: 'buscus',
   },
 ]
