@@ -11,7 +11,9 @@ export type AppStackParamList = {
   Root: undefined;
   ProfileEditMain: undefined;
   ProfileEditPrompt: undefined;
+  ChatMessages: undefined;
 }
+
 
 export type AppNavigationProp = NativeStackNavigationProp<AppStackParamList>
 

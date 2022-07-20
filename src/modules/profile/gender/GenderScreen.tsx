@@ -14,10 +14,7 @@ const GenderScreen = () => {
     const isContinueButtonDisabled = gender !== null;
     return (
         <View style={styles.container}>
-            <View style={{
-                flex: 1,
-            }}
-            >
+            <View style={{ flex: 1 }}>
                 <Text style={styles.title}>I am a</Text>
             </View>
             <View style={{
@@ -26,35 +23,43 @@ const GenderScreen = () => {
                 alignItems: 'center',
                 margin: 5,
             }}>
-                <View style={{
-                    flex: 3
-                }}>
+                <View style={{ flex: 3 }}>
                     <View style={styles.item}>
                         <PrimaryButton
                             text='Man'
-                            extraStyles={gender === Gender.Man ? {...styles.buttonStyle, ...styles.buttonSelected} : {...styles.buttonStyle, ...styles.buttonDefault}}
-                            extraTextProps={gender === Gender.Man ? {...styles.textStyle, ...styles.textSelected} : {...styles.textStyle, ...styles.textDefault}}
+                            extraStyles={gender === Gender.Man ? 
+                              {...styles.buttonStyle, ...styles.buttonSelected} : {...styles.buttonStyle, ...styles.buttonDefault}
+                            }
+                            extraTextProps={gender === Gender.Man ? 
+                              {...styles.textStyle, ...styles.textSelected} : {...styles.textStyle, ...styles.textDefault}
+                            }
                             onPress={() => setGender(Gender.Man)}
                         />
                     </View>
                     <View style={styles.item}>
                         <PrimaryButton
                             text='Woman'
-                            extraStyles={gender === Gender.Woman ? {...styles.buttonStyle, ...styles.buttonSelected} : {...styles.buttonStyle, ...styles.buttonDefault}}
-                            extraTextProps={gender === Gender.Woman ? {...styles.textStyle, ...styles.textSelected} : {...styles.textStyle, ...styles.textDefault}}
+                            extraStyles={gender === Gender.Woman ? 
+                              {...styles.buttonStyle, ...styles.buttonSelected} : {...styles.buttonStyle, ...styles.buttonDefault}
+                            }
+                            extraTextProps={gender === Gender.Woman ? 
+                              {...styles.textStyle, ...styles.textSelected} : {...styles.textStyle, ...styles.textDefault}
+                            }
                             onPress={() => setGender(Gender.Woman)}/>
                     </View>
                     <View style={styles.item}>
                         <PrimaryButton
                             text='Other'
-                            extraStyles={gender === Gender.Other ? {...styles.buttonStyle, ...styles.buttonSelected} : {...styles.buttonStyle, ...styles.buttonDefault}}
-                            extraTextProps={gender === Gender.Other ? {...styles.textStyle, ...styles.textSelected} : {...styles.textStyle, ...styles.textDefault}}
+                            extraStyles={gender === Gender.Other ? 
+                              {...styles.buttonStyle, ...styles.buttonSelected} : {...styles.buttonStyle, ...styles.buttonDefault}
+                            }
+                            extraTextProps={gender === Gender.Other ? 
+                              {...styles.textStyle, ...styles.textSelected} : {...styles.textStyle, ...styles.textDefault}
+                            }
                             onPress={() => setGender(Gender.Other)}/>
                     </View>
                 </View>
-                <View style={{
-                    flex: 1,
-                }}>
+                <View style={{ flex: 1 }}>
                     <PrimaryButton
                         text='Continue'
                         onPress={handleContinuePress}

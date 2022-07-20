@@ -1,17 +1,21 @@
 import React from 'react'
 import { Text, TouchableWithoutFeedback, View } from 'react-native';
 import Icon from 'react-native-vector-icons/AntDesign'
-import { mainTheme } from '../../../../themes/mainTheme';
-import useProfileNavigation from '../../../navigation/hooks/useProfileNavigation';
+import { mainTheme } from '../themes/mainTheme';
 
-const DoneButton = () => {
-    const navigation = useProfileNavigation();
-    const handleDonePress = () => {
-        navigation.navigate('Prompt')
-    }
+export type SkipButtonProps = {
+  name?: string;
+  onPress: () => void;
+  extraProps?: object;
+}
+
+const SkipButton = ({ name, onPress, extraProps } : SkipButtonProps) => {
     return (
         <TouchableWithoutFeedback
-            onPress={handleDonePress}
+            onPress={onPress}
+            style={{
+              ...extraProps,
+            }}
         >
             <View style={{
                 flexDirection: 'row',
@@ -19,11 +23,11 @@ const DoneButton = () => {
                 <Text style={{
                     color: mainTheme.PRIMARY_COLOR,
                     fontSize: 18,
-                }}>Done</Text>
+                }}>{name}</Text>
                 <Icon name="right" size={25} color={mainTheme.PRIMARY_COLOR} />
             </View>
         </TouchableWithoutFeedback>
     )
 }
 
-export default DoneButton
+export default SkipButton

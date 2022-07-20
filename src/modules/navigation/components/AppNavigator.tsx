@@ -6,6 +6,7 @@ import RootScreen from '../../root/RootScreen';
 import ProfileEditMainScreen from '../../profile/edit-main/ProfileEditMainScreen';
 import EditPromptScreen from '../../profile/prompt/EditPromptScreen';
 import { useStore } from '../../stores/store';
+import ChatMessagesScreen from '../../chat/messages/ChatMessagesScreen';
 
 const Stack = createNativeStackNavigator<AppStackParamList>();
 
@@ -22,6 +23,9 @@ const AppNavigator = () => {
           title: user?.firstName || "Lam"
         }}/>
         <Stack.Screen name="ProfileEditPrompt" component={EditPromptScreen} />
+        <Stack.Screen name="ChatMessages" component={ChatMessagesScreen} options={{
+          headerShown: false,
+        }} />
     </Stack.Navigator>
   )
 } 

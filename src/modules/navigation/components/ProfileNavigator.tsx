@@ -10,13 +10,14 @@ import PromptScreen from '../../profile/prompt/PromptScreen';
 import PromptListScreen from '../../profile/prompt/PromptListScreen';
 import PromptDetailScreen from '../../profile/prompt/PromptDetailScreen';
 import { mainTheme } from '../../../themes/mainTheme';
-import SkipButton from '../../enable-noti/components/SkipButton';
-import DoneButton from '../../profile/prompt/components/DoneButton';
-
+import SkipButton from '../../../common/SkipButton';
+import useProfileNavigation from '../hooks/useProfileNavigation';
 
 const Stack = createNativeStackNavigator<ProfileStackParamList>();
 
 const ProfileNavigator = () => {
+    const navigation = useProfileNavigation();
+
     return (
         <Stack.Navigator screenOptions={{
             headerTintColor: mainTheme.PRIMARY_COLOR
@@ -30,7 +31,7 @@ const ProfileNavigator = () => {
                 component={EnableNotiScreen}
                 options={{
                     headerRight: () => (                        
-                        <SkipButton />
+                      <SkipButton name="Prompt" onPress={() => navigation.navigate('Prompt')}  />
                     ),
                 }}
             />
@@ -41,7 +42,7 @@ const ProfileNavigator = () => {
                 component={PromptDetailScreen}
                 options={{
                     headerRight: () => (                        
-                        <DoneButton />
+                      <SkipButton name="Done" onPress={() => navigation.navigate('Prompt')}  />
                     ),
                 }}
             />
