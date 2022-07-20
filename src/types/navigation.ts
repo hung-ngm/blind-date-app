@@ -11,6 +11,11 @@ export type AppStackParamList = {
   Root: undefined;
   ProfileEditMain: undefined;
   ProfileEditPrompt: undefined;
+  ProfileEditPromptList: undefined;
+  ProfileEditPromptDetail: undefined;
+  ProfileEditPassion: undefined;
+  ProfileEditIdealPlaces: undefined
+  ProfileEditGender: undefined;
   ChatMessages: undefined;
 }
 

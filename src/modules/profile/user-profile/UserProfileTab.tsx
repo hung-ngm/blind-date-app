@@ -5,12 +5,11 @@ import { getAge } from '../../utils/userUtils';
 import AntDesIcon from 'react-native-vector-icons/AntDesign';
 import EntypoIcon from 'react-native-vector-icons/Entypo';
 import { mainTheme } from '../../../themes/mainTheme';
-import { NavigationProp, useNavigation } from '@react-navigation/native';
-import { AppStackParamList } from '../../../types/navigation';
+import useAppNavigation from '../../navigation/hooks/useAppNavigation';
 
 const UserProfileTab = () => {
     const { user } = useStore().userStore;
-    const navigation = useNavigation<NavigationProp<AppStackParamList>>();
+    const navigation = useAppNavigation();
     // get avatar uri from user object
     const dummyAvatarUri = 'https://ict-imgs.vgcloud.vn/2020/09/01/19/huong-dan-tao-facebook-avatar.jpg';
 

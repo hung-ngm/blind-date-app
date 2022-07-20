@@ -26,7 +26,7 @@ const DistanceSlider = () => {
                 minimumValue={0}
                 maximumValue={40}
                 minimumTrackTintColor={mainTheme.PRIMARY_COLOR}
-                maximumTrackTintColor={mainTheme.GRAY_COLOR}
+                maximumTrackTintColor={mainTheme.LIGHT_GREY_COLOR}
                 thumbTintColor={mainTheme.PRIMARY_COLOR}
                 tapToSeek={true}
                 value={distance}

@@ -1,35 +1,15 @@
-import { View, Text, StyleSheet } from 'react-native'
 import React from 'react'
 import PromptList from './components/PromptList'
+import useProfileNavigation from '../../navigation/hooks/useProfileNavigation'
 
 const PromptListScreen = () => {
+    const navigation = useProfileNavigation();
+    const navigateToDetailScreen = () => {
+        navigation.navigate("PromptDetail");
+    }
     return (
-        <View style={styles.container}>
-            <View style={{
-                flex: 1,
-                marginHorizontal: 20,
-            }}>
-                <Text style={styles.title}>Prompts</Text>
-            </View>
-            <View style={{ flex: 5 }}>
-                <PromptList />
-            </View>
-        </View>
+        <PromptList navigateToDetailScreen={navigateToDetailScreen} />
     )
 }
 
 export default PromptListScreen
-
-const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        marginVertical: 10,
-    },
-    item: {
-        flex: 1,
-    },
-    title: {
-        fontSize: 34,
-        padding: 5,
-    },
-})

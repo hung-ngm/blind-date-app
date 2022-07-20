@@ -25,7 +25,11 @@ const ProfileDetailScreen = () => {
       navigation.navigate('Gender');
   }
 
-  const isConfirmButtonDisabled = (firstName === '') || (lastName === '') || (job === null) || (birthday === null) || (avatar === null);
+  const isConfirmButtonDisabled = (firstName === '')
+    || (lastName === '')
+    || (job === null)
+    || (birthday === null)
+    || (avatar === null);
   return (
     <KeyboardAvoidingView
       style={styles.container}

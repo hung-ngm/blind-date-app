@@ -85,7 +85,7 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
         borderRadius: 15,
-        width: 150,
+        width: 120,
         height: 45,
     },
     buttonLabelContainer: {

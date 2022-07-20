@@ -1,9 +1,21 @@
-import { View, Text, StyleSheet } from 'react-native'
 import React from 'react'
+import useAppNavigation from '../../navigation/hooks/useAppNavigation';
+import PromptSelector from './components/PromptSelector';
 
 const EditPromptScreen = () => {
+    const navigation = useAppNavigation();
+    const handleContinuePress = () => {
+        navigation.navigate('ProfileEditMain');
+    }
+    const handlePromptPress = () => {
+        navigation.navigate('ProfileEditPromptList');
+    }
+    
     return (
-        <View />
+        <PromptSelector
+            handleContinuePress={handleContinuePress}
+            handlePromptPress={handlePromptPress}
+        />
     )
 }
 

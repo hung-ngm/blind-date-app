@@ -7,14 +7,20 @@ export type Avatar = {
 }
 
 export enum Gender {
-  Man = 1,
+  Man = 0,
   Woman,
   Other
 };
 
+export const GenderNames = [
+  'Man',
+  'Woman',
+  'Other'
+];
+
 // Passion type declaration
 export enum Passions {
-  Photography = 1,
+  Photography = 0,
   Shopping,
   Karaoke,
   Yoga,
@@ -30,8 +36,25 @@ export enum Passions {
   VideoGames,
 }
 
+export const PassionNames = [
+  'Photography',
+  'Shopping',
+  'Karaoke',
+  'Yoga',
+  'Cooking',
+  'Tennis',
+  'Run',
+  'Swimming',
+  'Art',
+  'Travelling',
+  'Extreme',
+  'Music',
+  'Drink',
+  'VideoGames',
+]
+
 export type Passion = {
-  iconName: string;
+  iconName?: string;
   name: string;
   type: Passions;
 }
@@ -44,11 +67,18 @@ export type selectPassionFuncType = (passionType: Passions) => void;
 
 // Category type declaration
 export enum Categories {
-  Coffee = 1,
+  Coffee = 0,
   Desserts,
   Chicken,
   Pizza,
 }
+
+export const CategoryNames = [
+  'Coffee',
+  'Desserts',
+  'Chicken',
+  'Pizza',
+]
 
 export type Category = {
   iconName: string;
@@ -100,6 +130,7 @@ type Props = {
 }
 
 export const ProfileProvider = ({ children }: Props) => {
+  // TODO: Initialize all states from obj user stored in userStore
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
   const [job, setJob] = useState('');
@@ -108,7 +139,6 @@ export const ProfileProvider = ({ children }: Props) => {
   const [gender, setGender] = useState<Gender | null>(null);
   const [selectedPassions, setSelectedPassions] = useState<SelectedPassionType>({});
   const [numSelectedPassions, setNumSelectedPassions] = useState(0);
-  //TODO:  const [idealLocation, setIdealLocation] = useState<Location>();
   const [distance, setDistance] = useState(20); // in km
   const [minPrice, setMinPrice] = useState(20); // in USD
   const [maxPrice, setMaxPrice] = useState(100); // in USD
@@ -167,14 +197,14 @@ export const ProfileProvider = ({ children }: Props) => {
       console.log("gender: ", gender);
       console.log("selectedPassions: ");
       Object.keys(selectedPassions).forEach((passion) => {
-        console.log("- ", passion);
+        console.log("- ", PassionNames[Number(passion)]);
       })
       console.log("distance: ", distance);
       console.log("minPrice: ", minPrice);
       console.log("maxPrice: ", maxPrice);
       console.log("selectedCategories: ");
       Object.keys(selectedCategories).forEach((category) => {
-        console.log("- ", category);
+        console.log("- ", CategoryNames[Number(category)]);
       })
       console.log("prompt: ");
       console.log("- ", prompt, " ", promptAnswer);
