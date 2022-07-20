@@ -1,5 +1,4 @@
 import { Place } from './place';
-import { Gender } from '../modules/profile/context/ProfileProvider';
 
 export interface Profile {
   id: string;
@@ -10,9 +9,8 @@ export interface Profile {
   photoUrl: string;
   prompt: string;
   promptAnswer: string;
-  timestamp?: Date;
-  birthday: Date;
-  gender: Gender;
+  gender: string;
   passions: Array<String>;
-  idealPlace: Place;
+  idealPlace?: Place;
+  timestamp?: Date;
 }

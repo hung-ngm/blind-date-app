@@ -1,9 +1,9 @@
-import { Gender } from '../modules/profile/context/ProfileProvider';
-
 export interface User {
   uid: string;
   email: string;
-  displayName: string;
+  firstName: string;
+  lastName: string;
   photoUrl: string;
   phoneNumber: string;
+  birthday: Date;
 }

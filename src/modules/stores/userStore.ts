@@ -1,9 +1,14 @@
-import { auth, signInWithPhoneNumber } from '../utils/firebase';
+import { auth, signInWithPhoneNumber, db } from '../utils/firebase';
 import { User } from '../../types/user';
-import { GoogleAuthProvider, signInWithCredential, User as FirebaseUser } from '@firebase/auth';
+import { GoogleAuthProvider, signInWithCredential } from '@firebase/auth';
 import { makeAutoObservable, runInAction } from 'mobx';
 import { AuthSessionResult } from 'expo-auth-session';
 import { resetStore } from './store';
+import { doc, setDoc, serverTimestamp } from '@firebase/firestore';
+import useRootNavigation from '../navigation/hooks/useRootNavigation';
+import { Place } from '../../types/place';
+import { getAge } from '../../modules/utils/userUtils';
+
 class UserStore {
   user: User | null = null;
   loading = true;
@@ -49,20 +54,53 @@ class UserStore {
     resetStore();
   }
 
-  setUser = (user : FirebaseUser | null) => {
+  setUser = (user : User | null) => {
     if (user) {
       this.user = {
-        uid: user.uid!,
+        uid: user.uid,
         email: user.email!,
-        displayName: user.displayName!,
-        photoUrl: user.photoURL!,
-        phoneNumber: user.phoneNumber!
+        firstName: user.firstName!,
+        lastName: user.lastName!,
+        photoUrl: user.photoUrl!,
+        phoneNumber: user.phoneNumber!,
+        birthday: user.birthday!,
       };
     } else {
       this.user = null;
     }
     this.loading = false;
   }
+
+  updateUserProfile = async (
+    job: string, 
+    prompt: string, 
+    promptAnswer: string, 
+    gender: string, 
+    passions: Array<String>, 
+    idealPlace: Place
+  ) => {
+    if (!this.user) return;
+
+    const age = getAge(this.user);
+
+    await setDoc(doc(db, "users", this.user.uid), {
+      id: this.user.uid,
+      firstName: this.user.firstName,
+      lastName: this.user.lastName,
+      age: age,
+      job: job,
+      photoUrl: this.user.photoUrl,
+      prompt: prompt,
+      promptAnswer: promptAnswer,
+      gender: gender,
+      passions: passions,
+      idealPlace: idealPlace,
+      timestamp: serverTimestamp(),
+    })
+
+    const navigation = useRootNavigation();
+    navigation.navigate("Home");
+  } 
 }
 
 export default UserStore;
