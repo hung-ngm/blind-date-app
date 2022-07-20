@@ -9,6 +9,8 @@ export type AuthStackParamList = {
 
 export type AppStackParamList = {
   Root: undefined;
+  ProfileEditMain: undefined;
+  ProfileEditPrompt: undefined;
 }
 
 export type AppNavigationProp = NativeStackNavigationProp<AppStackParamList>
