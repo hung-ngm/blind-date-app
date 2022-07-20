@@ -10,8 +10,9 @@ module.exports = function(api) {
           path: ".env",
           safe: true,
           allowUndefined: false,
-        },
+        }
       ],
+      'react-native-reanimated/plugin',
     ],
   };
 };

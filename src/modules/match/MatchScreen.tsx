@@ -1,19 +1,31 @@
 import React from 'react';
-import { View, StyleSheet } from 'react-native';
+import { View, StyleSheet, Button } from 'react-native';
+import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import Header from './components/Header';
 import Cards from './components/Cards';
+import BottomSheet from '../chat/shared/ProfileBottomsheet/BottomSheet';
 
 
 const MatchScreen = () => {
   return (
-    <View style={styles.container}>
-      <View style={styles.headerContainer}>
-        <Header/>
+    <GestureHandlerRootView style={{ flex:1 }}>
+      <View style={styles.container}>
+        <View style={styles.headerContainer}>
+          <Header/>
+        </View>
+        <View style={styles.card}>
+          <Cards/>
+        </View>
+        
       </View>
-      <View style={styles.card}>
-        <Cards/>
+      <View>
+        <Button 
+          title="open sheet"
+          onPress={()=> {}}
+        />
       </View>
-    </View>
+      <BottomSheet/>
+    </GestureHandlerRootView>
   )
 }
 
