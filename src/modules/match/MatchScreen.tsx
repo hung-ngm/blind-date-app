@@ -3,7 +3,7 @@ import { View, StyleSheet, Button } from 'react-native';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import Header from './components/Header';
 import Cards from './components/Cards';
-import BottomSheet from '../chat/shared/ProfileBottomsheet/BottomSheet';
+//import BottomSheet from '../chat/shared/ProfileBottomsheet/BottomSheet';
 
 
 const MatchScreen = () => {
@@ -24,7 +24,7 @@ const MatchScreen = () => {
           onPress={()=> {}}
         />
       </View>
-      <BottomSheet/>
+      {/* <BottomSheet/> */}
     </GestureHandlerRootView>
   )
 }
