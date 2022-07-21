@@ -1,11 +1,17 @@
 import React, { useRef } from 'react';
 import Card from './Card';
 import CardsButtons from './CardsButtons';
+import NoCard from './NoCard';
 import { View, StyleSheet } from 'react-native';
 import Swiper from 'react-native-deck-swiper';
+import { observer } from 'mobx-react-lite';
+import { useStore } from '../../stores/store';
+import { Profile } from '../../../types/profile';
+
 
 const Cards = () => {
   const swipeRef = useRef<Swiper<any>>(null);
+  const { profiles } = useStore().profileStore;
 
   return (
     <>
@@ -13,8 +19,8 @@ const Cards = () => {
         <Swiper
           ref={swipeRef}
           containerStyle={styles.swiper}
-          cards={mockData}
-          stackSize={5}
+          cards={profiles}
+          stackSize={profiles.length > 0 ? 5: 1}
           cardIndex={0}
           animateCardOpacity
           verticalSwipe={false}
@@ -35,7 +41,9 @@ const Cards = () => {
               style: rightLabel,
             },
           }}
-          renderCard={(card) => <Card key={card.id} card={card} />}
+          renderCard={(card: Profile) => 
+            card ? <Card key={card.id} card={card} /> : <NoCard />
+          }
 
         />
       </View>
@@ -46,7 +54,7 @@ const Cards = () => {
   )
 }
 
-export default Cards;
+export default observer(Cards);
 
 const styles = StyleSheet.create({
   container: {
@@ -82,7 +90,7 @@ const mockData = [
     firstName: 'Kylie',
     age: 17,
     job: 'Model',
-    photoURL: 'http://www.swaggermagazine.com/home/wp-content/uploads/2018/instagrammodels/13.jpg',
+    photoUrl: 'http://www.swaggermagazine.com/home/wp-content/uploads/2018/instagrammodels/13.jpg',
     prompt: 'My simple pleasure is',
     promptAnswer: 'buscus',
   },
@@ -91,7 +99,7 @@ const mockData = [
     firstName: 'Kylie',
     age: 17,
     job: 'Model',
-    photoURL: 'http://www.swaggermagazine.com/home/wp-content/uploads/2018/instagrammodels/13.jpg',
+    photoUrl: 'http://www.swaggermagazine.com/home/wp-content/uploads/2018/instagrammodels/13.jpg',
     prompt: 'My simple pleasure is',
     promptAnswer: 'buscus',
   },
@@ -100,7 +108,7 @@ const mockData = [
     firstName: 'Kylie',
     age: 17,
     job: 'Model',
-    photoURL: 'http://www.swaggermagazine.com/home/wp-content/uploads/2018/instagrammodels/13.jpg',
+    photoUrl: 'http://www.swaggermagazine.com/home/wp-content/uploads/2018/instagrammodels/13.jpg',
     prompt: 'My simple pleasure is',
     promptAnswer: 'buscus',
   },
