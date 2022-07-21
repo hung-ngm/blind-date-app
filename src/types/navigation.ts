@@ -8,10 +8,27 @@ export type AuthStackParamList = {
 };
 
 export type AppStackParamList = {
+  Root: undefined;
+  ChatMessages: undefined;
+}
+
+
+export type AppNavigationProp = NativeStackNavigationProp<AppStackParamList>
+
+export type ProfileStackParamList = {
+  ProfileDetail: undefined;
+  Gender: undefined;
+  Passion: undefined;
+  IdealPlace: undefined;
+  EnableNoti: undefined;
+  Prompt: undefined;
+  PromptList: undefined;
+  PromptDetail: undefined;
+}
+
+export type RootScreenTabParamList = {
   Home: undefined;
   Match: undefined;
   Chat: undefined;
   Profile: undefined;
 }
-
-export type AppNavigationProp = NativeStackNavigationProp<AppStackParamList>

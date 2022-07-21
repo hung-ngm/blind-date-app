@@ -1,10 +1,10 @@
 import React from 'react';
-import { View, Text, TouchableOpacity, StyleSheet, Button } from 'react-native';
+import { View, StyleSheet, Button } from 'react-native';
 import useAuth from '../../hooks/useAuth';
 import Header from './components/Header';
 import Cards from './components/Cards';
 
-const HomeScreen = () => {
+const HomeTab = () => {
   const { signOut } = useAuth();
   const handlePress = () => {
     signOut();
@@ -20,7 +20,7 @@ const HomeScreen = () => {
   )
 }
 
-export default HomeScreen;
+export default HomeTab;
 
 const styles = StyleSheet.create({
   container: {

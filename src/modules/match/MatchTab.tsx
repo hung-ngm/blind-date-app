@@ -6,7 +6,7 @@ import Cards from './components/Cards';
 //import BottomSheet from '../chat/shared/ProfileBottomsheet/BottomSheet';
 
 
-const MatchScreen = () => {
+const MatchTab = () => {
   return (
     <GestureHandlerRootView style={{ flex:1 }}>
       <View style={styles.container}>
@@ -29,7 +29,7 @@ const MatchScreen = () => {
   )
 }
 
-export default MatchScreen;
+export default MatchTab;
 
 const styles = StyleSheet.create({
   container: {
@@ -43,6 +43,5 @@ const styles = StyleSheet.create({
   card: {
     flex:4,
     alignItems: 'center',
-    
   }
 })

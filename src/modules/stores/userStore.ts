@@ -52,6 +52,7 @@ class UserStore {
   setUser = (user : FirebaseUser | null) => {
     if (user) {
       this.user = {
+        uid: user.uid!,
         email: user.email!,
         name: user.displayName!,
         photoUrl: user.photoURL!,
