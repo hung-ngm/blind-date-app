@@ -5,7 +5,6 @@ import { makeAutoObservable, runInAction } from 'mobx';
 import { AuthSessionResult } from 'expo-auth-session';
 import { resetStore } from './store';
 import { doc, setDoc, serverTimestamp } from '@firebase/firestore';
-import useRootNavigation from '../navigation/hooks/useRootNavigation';
 import { Place } from '../../types/place';
 import { getAge } from '../../modules/utils/userUtils';
 
@@ -97,9 +96,6 @@ class UserStore {
       idealPlace: idealPlace,
       timestamp: serverTimestamp(),
     })
-
-    const navigation = useRootNavigation();
-    navigation.navigate("Home");
   } 
 }
 
