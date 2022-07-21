@@ -1,37 +1,42 @@
 import { auth, signInWithPhoneNumber, db } from '../utils/firebase';
 import { User } from '../../types/user';
-import { GoogleAuthProvider, signInWithCredential } from '@firebase/auth';
-import { makeAutoObservable, runInAction } from 'mobx';
+import { GoogleAuthProvider, signInWithCredential, onAuthStateChanged, User as FirebaseUser } from '@firebase/auth';
+import { makeAutoObservable, runInAction, reaction } from 'mobx';
 import { AuthSessionResult } from 'expo-auth-session';
 import { resetStore } from './store';
-import { doc, setDoc, serverTimestamp } from '@firebase/firestore';
+import { doc, setDoc, serverTimestamp, Unsubscribe } from '@firebase/firestore';
 import { Place } from '../../types/place';
 import { getAge } from '../../modules/utils/userUtils';
+import { store } from './store';
 
 class UserStore {
   user: User | null = null;
-  loading = true;
+  userLoading = true;
+  unsubscribeUser: Unsubscribe;
 
   constructor() {
     makeAutoObservable(this);
+
+    this.unsubscribeUser = onAuthStateChanged(auth, (user) => {
+      this.setUser(user);
+    });
+
+    reaction(
+      () => this.user,
+      (user) => {
+        if (user) {
+          store.profileStore.subscribeStore(user);
+        }
+      }
+    )
   }
 
-  reset = () => {
-    this.user = null;
-  };
-
   signInGoogle = async (response: AuthSessionResult) => {
-    this.loading = true;
-
     if (response?.type === 'success') {
       const { id_token } = response.params;
       const credential = GoogleAuthProvider.credential(id_token);
       await signInWithCredential(auth, credential);
     }
-
-    runInAction(() => {
-      this.loading = false;
-    });
   }
 
   // signUpMobilePhone = async () => {
@@ -53,25 +58,25 @@ class UserStore {
     resetStore();
   }
 
-  setUser = (user : User | null) => {
+  setUser = (user : FirebaseUser | null) => {
     if (user) {
       this.user = {
         uid: user.uid,
         email: user.email!,
-        firstName: user.firstName!,
-        lastName: user.lastName!,
-        photoUrl: user.photoUrl!,
-        phoneNumber: user.phoneNumber!,
-        birthday: user.birthday!,
+        phoneNumber: user.phoneNumber!
       };
     } else {
       this.user = null;
     }
-    this.loading = false;
+    this.userLoading = false;
   }
 
   updateUserProfile = async (
+    firstName: string,
+    lastName: string,
+    birthday: Date,
     job: string, 
+    photoUrl: string,
     prompt: string, 
     promptAnswer: string, 
     gender: string, 
@@ -80,15 +85,15 @@ class UserStore {
   ) => {
     if (!this.user) return;
 
-    const age = getAge(this.user);
+    const age = getAge(birthday);
 
     await setDoc(doc(db, "users", this.user.uid), {
       id: this.user.uid,
-      firstName: this.user.firstName,
-      lastName: this.user.lastName,
+      firstName: firstName,
+      lastName: lastName,
       age: age,
       job: job,
-      photoUrl: this.user.photoUrl,
+      photoUrl: photoUrl,
       prompt: prompt,
       promptAnswer: promptAnswer,
       gender: gender,
