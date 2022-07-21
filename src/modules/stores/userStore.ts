@@ -31,6 +31,10 @@ class UserStore {
     )
   }
 
+  reset = () => {
+    this.user = null;
+  }
+
   signInGoogle = async (response: AuthSessionResult) => {
     if (response?.type === 'success') {
       const { id_token } = response.params;
