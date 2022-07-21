@@ -2,9 +2,52 @@ import { View, Text, StyleSheet, TouchableHighlight, Modal, Button } from 'react
 import React, { useState } from 'react'
 import Icon from 'react-native-vector-icons/AntDesign';
 import { mainTheme } from '../../../../themes/mainTheme';
+import SearchBar from '../../../chat/shared/components/SearchBar';
 
+type CitySelectorModalProps = {
+    open: boolean;
+    setOpen: Function
+}
+const CitySelectorModal: React.FC<CitySelectorModalProps> = ({ open, setOpen }) => {
+    return (
+        <Modal
+            visible={open}
+            transparent={true}
+            animationType="slide"
+            onRequestClose={() => {
+                setOpen(false);
+            }}
+        >
+            <View style={{
+                height: '80%',
+                borderTopLeftRadius: 25,
+                borderTopRightRadius: 25,
+                marginTop: 'auto',
+                backgroundColor: mainTheme.WHITE_COLOR,
+            }}>
+                <View style={{
+                    flexDirection: "column",
+                }}>
+                    <View style={{
+                        flexDirection: 'row',
+                        justifyContent: "space-between",
+                        padding: 20,
+                    }}>
+                        <Button title='Cancel' onPress={() => setOpen(false)} color={mainTheme.PRIMARY_COLOR}/>
+                        <Button title='Done' onPress={() => setOpen(false)} color={mainTheme.PRIMARY_COLOR}/>
+                    </View>
+                    <View style={{
+                        alignItems: 'center',
+                    }}>
+                        <SearchBar />
+                    </View>
+                </View>
+            </View>
+        </Modal>
+    )
+}
 const CitySelector = () => {
-    const [modalOpen, setModalOpen] = useState(false);
+    const [modalOpen, setModalOpen] = useState(false);    
     return (
         <View style={styles.container}>
             <TouchableHighlight
@@ -23,33 +66,7 @@ const CitySelector = () => {
                     />
                 </View>                  
             </TouchableHighlight>
-            <Modal
-                visible={modalOpen}
-                transparent={true}
-                animationType="slide"
-                onRequestClose={() => {
-                    setModalOpen(false);
-                }}
-            >
-                <View style={{
-                    height: '80%',
-                    borderTopLeftRadius: 25,
-                    borderTopRightRadius: 25,
-                    marginTop: 'auto',
-                    backgroundColor: mainTheme.WHITE_COLOR,
-                }}>
-                    <View style={{
-                        flexDirection: "row",
-                        justifyContent: "space-between",
-                        padding: 20,
-                    }}>
-                        <Button title='Cancel' onPress={() => setModalOpen(false)} color={mainTheme.PRIMARY_COLOR}/>
-                        <Button title='Done' onPress={() => setModalOpen(false)} color={mainTheme.PRIMARY_COLOR}/>
-                    </View>
-                    {/* Show city list here */}
-                    <View />
-                </View>
-            </Modal>
+            <CitySelectorModal open={modalOpen} setOpen={setModalOpen} />
         </View>
     )
 }
