@@ -1,15 +1,16 @@
 import { Place } from './place';
 
 export interface Profile {
+  id: string;
   firstName: string;
   lastName: string;
   age: number;
   job: string;
-  photoURL: string;
+  photoUrl: string;
   prompt: string;
   promptAnswer: string;
-  timestamp?: Date;
-  gender: String;
+  gender: string;
   passions: Array<String>;
-  idealPlace: Place;
+  idealPlace?: Place;
+  timestamp?: Date;
 }

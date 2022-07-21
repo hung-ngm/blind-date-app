@@ -6,13 +6,14 @@ import {
   Image,
 } from 'react-native';
 import { Profile } from '../../../types/profile';
+import { mainTheme } from '../../../themes/mainTheme';
 
 interface CardProps {
   card: Profile;
 }
 
 const Card: React.FC<CardProps> = ({ card }) => {
-  const { firstName, age, job, photoURL, prompt, promptAnswer } = card;
+  const { firstName, age, job, photoUrl, prompt, promptAnswer } = card;
 
   return (
     <View style={styles.container}>
@@ -25,7 +26,7 @@ const Card: React.FC<CardProps> = ({ card }) => {
       
       <View style={styles.imageContainer}>
         <Image
-          source={{ uri: photoURL }} 
+          source={{ uri: photoUrl }} 
           resizeMode="cover"
           style={styles.image}
           blurRadius={30}
@@ -45,7 +46,7 @@ export default Card;
 const styles = StyleSheet.create({
   container: {
     paddingTop: 0,
-    backgroundColor: 'white',
+    backgroundColor: mainTheme.WHITE_COLOR,
     position: 'relative',
     width: 300,
     marginLeft: 35,
