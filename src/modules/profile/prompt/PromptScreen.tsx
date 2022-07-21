@@ -8,10 +8,12 @@ const ProfileAnswerScreen = () => {
     const {
         submitProfile,
     } = useContext(ProfileContext)
-    const handleContinuePress = () => {
+    const handleContinuePress = async () => {
         // TODO: Add some loading effects to prevent user from pressing button multiple times 
         // during asynchronous operation
         submitProfile()
+            .then()
+            .catch();
     }
     const handlePromptPress = () => {
         navigation.navigate('PromptList');

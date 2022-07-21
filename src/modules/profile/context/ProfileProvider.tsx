@@ -1,4 +1,5 @@
 import React, { createContext, useState } from 'react'
+import { useStore } from '../../stores/store';
 
 export const ProfileContext = createContext<ProfileContextValueType>();
 
@@ -122,7 +123,7 @@ export type ProfileContextValueType = {
   setPrompt: Function;
   promptAnswer: string;
   setPromptAnswer: Function;
-  submitProfile: Function;
+  submitProfile: () => Promise<void>;
 }
 
 type Props = {
@@ -131,6 +132,7 @@ type Props = {
 
 export const ProfileProvider = ({ children }: Props) => {
   // TODO: Initialize all states from obj user stored in userStore
+  const { updateUserProfile } = useStore().userStore;
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
   const [job, setJob] = useState('');
@@ -186,8 +188,20 @@ export const ProfileProvider = ({ children }: Props) => {
     }
   }
 
-  const submitProfile = () => {
+  const submitProfile = async () => {
       // TODO: Add all profile details to firestore and storage
+      updateUserProfile(
+        job,
+        prompt,
+        promptAnswer,
+        GenderNames[Number(gender)],
+        selectedPassions,
+        {
+          priceMin: minPrice,
+          priceMax: maxPrice,
+          categories: selectedCategories,
+        }
+      )
       console.log("=== Profile submitted ===");
       console.log("First name: ", firstName);
       console.log("Last name: ", lastName);
