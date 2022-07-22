@@ -11,7 +11,8 @@ import {
   DocumentData,
   QuerySnapshot,
   query,
-  where
+  where,
+  setDoc
 } from '@firebase/firestore';
 import { db } from '../utils/firebase';
 import { store } from './store';
@@ -47,20 +48,20 @@ class ProfileStore {
     )
 
     // Get all the users ids that this user did not like
-    const passedIds = await getDocs(
-      collection(db, "users", user.uid, "passes")
+    const dislikedIds = await getDocs(
+      collection(db, "users", user.uid, "dislikes")
     ).then((snap) => snap.docs.map((doc) => doc.id));
 
     // Get all the users ids that this user liked
-    const matchedIds = await getDocs(
-      collection(db, "users", user.uid, "matches")
+    const likedIds = await getDocs(
+      collection(db, "users", user.uid, "likes")
     ).then((snap) => snap.docs.map((doc) => doc.id));
     
     // Only return the users that this user has not swiped left or right by
     this.unsubscribeProfiles = onSnapshot(
       query (
         collection(db, "users"),
-        where("id", "not-in", [...passedIds, ...matchedIds, user.uid])
+        where("id", "not-in", [...dislikedIds, ...likedIds, user.uid])
       ),
       this.setProfiles
     )
@@ -89,6 +90,38 @@ class ProfileStore {
         this.profilesMap.set(doc.id, this.getProfile(doc))
       }
     })
+  }
+
+  unlikeProfile = async (cardIndex: number) => {
+    if (this.profiles.length <= cardIndex || cardIndex < 0) return;
+
+    const userSwipedBy = this.profiles[cardIndex];
+
+    if (!this.userProfile) return;
+
+    await setDoc(
+      doc(db, "users", this.userProfile.id, "dislikes", userSwipedBy.id), 
+      {
+        id: userSwipedBy.id,
+      }
+    )
+  }
+
+  likeProfile = async (cardIndex: number) => {
+    if (this.profiles.length <= cardIndex || cardIndex < 0) return;
+
+    const userSwipedBy = this.profiles[cardIndex];
+
+    if (!this.userProfile) return;
+
+    await setDoc(
+      doc(db, "users", this.userProfile.id, "likes", userSwipedBy.id),
+      {
+        id: userSwipedBy.id,
+      }
+    )
+
+    await store.matchStore.checkMatch(this.userProfile, userSwipedBy);
   }
 
   resetStore = () => {

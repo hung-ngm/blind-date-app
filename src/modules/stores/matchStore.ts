@@ -22,11 +22,11 @@ class MatchStore {
   // check if the user swiped by current user has already wanted to match
   checkMatch = async (userProfile: Profile, userSwipedBy: Profile) => {
     const userWasMatched = await getDoc(
-      doc(db, "users", userSwipedBy.id, "matches", userProfile.id)
+      doc(db, "users", userSwipedBy.id, "likes", userProfile.id)
     )
 
     if (userWasMatched.exists()) {
-
+      this.createMatch(userProfile, userSwipedBy);
     }
   }
 
