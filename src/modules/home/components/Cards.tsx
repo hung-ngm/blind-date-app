@@ -1,6 +1,6 @@
 import React, { useRef } from 'react';
 import Card from './Card';
-import CardsButtons from './CardsButtons';
+import CardsButtons from './SwipeButtons';
 import NoCard from './NoCard';
 import { View, StyleSheet } from 'react-native';
 import Swiper from 'react-native-deck-swiper';

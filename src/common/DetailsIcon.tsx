@@ -8,14 +8,15 @@ export type DetailsIconProps = {
   borderRadius: number;
   buttonExtraProps?: object;
   textExtraProps?: object;
-  onPress?: () => void;
+  onPress: () => void;
 }
 
 const DetailsIcon = (props: DetailsIconProps) => {
-  const { width, height, borderRadius, buttonExtraProps, textExtraProps  } = props;
+  const { width, height, borderRadius, buttonExtraProps, textExtraProps, onPress  } = props;
 
   return (
     <TouchableHighlight
+      onPress={onPress}
       style={{
         ...buttonExtraProps,
         width: width,
