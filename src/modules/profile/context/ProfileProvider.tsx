@@ -1,4 +1,5 @@
 import React, { createContext, useState } from 'react'
+import { useStore } from '../../stores/store';
 
 export const ProfileContext = createContext<ProfileContextValueType>();
 
@@ -100,6 +101,8 @@ type Props = {
 }
 
 export const ProfileProvider = ({ children }: Props) => {
+  const { setUser, updateUserProfile } = useStore().userStore;
+
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
   const [job, setJob] = useState('');

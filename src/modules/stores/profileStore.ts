@@ -42,6 +42,11 @@ class ProfileStore {
         this.profileLoading = false;
       }
     )
+
+    this.unsubscribeProfiles = onSnapshot(
+      collection(db, "users"),
+      this.setProfiles
+    )
   }  
 
   getProfile = (snap: QueryDocumentSnapshot<DocumentData>): Profile => {

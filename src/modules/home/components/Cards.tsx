@@ -8,7 +8,6 @@ import { observer } from 'mobx-react-lite';
 import { useStore } from '../../stores/store';
 import { Profile } from '../../../types/profile';
 
-
 const Cards = () => {
   const swipeRef = useRef<Swiper<any>>(null);
   const { profiles } = useStore().profileStore;
