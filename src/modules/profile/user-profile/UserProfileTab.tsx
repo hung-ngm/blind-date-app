@@ -1,13 +1,13 @@
 import { View, Text, StyleSheet, Image, TouchableHighlight } from 'react-native'
 import React from 'react'
 import { useStore } from '../../stores/store'
-import { getAge } from '../../utils/userUtils';
 import AntDesIcon from 'react-native-vector-icons/AntDesign';
 import EntypoIcon from 'react-native-vector-icons/Entypo';
 import { mainTheme } from '../../../themes/mainTheme';
 
 const UserProfileTab = () => {
-    const { user } = useStore().userStore;
+    const { userProfile } = useStore().profileStore;
+
     // get avatar uri from user object
     const dummyAvatarUri = 'https://ict-imgs.vgcloud.vn/2020/09/01/19/huong-dan-tao-facebook-avatar.jpg';
 
@@ -39,7 +39,7 @@ const UserProfileTab = () => {
                 flex: 1,
             }}>
                 <Text style={styles.title}>
-                    {user?.firstName || 'Lam'}, &nbsp; {getAge(user) || '20'}
+                    {userProfile?.firstName || 'Lam'}, &nbsp; {'20'}
                 </Text>
             </View>
             <View style={{
