@@ -10,7 +10,7 @@ import { Profile } from '../../../types/profile';
 
 const Cards = () => {
   const swipeRef = useRef<Swiper<any>>(null);
-  const { profiles } = useStore().profileStore;
+  const { profiles, unlikeProfile, likeProfile } = useStore().profileStore;
 
   return (
     <>
@@ -24,19 +24,15 @@ const Cards = () => {
           animateCardOpacity
           verticalSwipe={false}
           horizontalSwipe={true}
-          onSwipedLeft={() => {
-            console.log("Swipe PASS");
-          }}
-          onSwipedRight={() => {
-            console.log("Swipe MATCH");
-          }}
+          onSwipedLeft={unlikeProfile}
+          onSwipedRight={likeProfile}
           overlayLabels={{
             left: {
               title: "NOPE",
               style: leftLabel,
             },
             right: {
-              title: "MATCH",
+              title: "LIKE",
               style: rightLabel,
             },
           }}

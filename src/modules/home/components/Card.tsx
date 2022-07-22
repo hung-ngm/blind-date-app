@@ -7,6 +7,7 @@ import {
 } from 'react-native';
 import { Profile } from '../../../types/profile';
 import { mainTheme } from '../../../themes/mainTheme';
+import DetailsIcon from '../../../common/DetailsIcon';
 
 interface CardProps {
   card: Profile;
@@ -34,8 +35,28 @@ const Card: React.FC<CardProps> = ({ card }) => {
       </View>
 
       <View style={styles.promptContainer}>
-        <Text style={styles.promptStart}>{prompt}</Text>
-        <Text style={styles.promptEnd}>{promptAnswer}</Text>
+        <View style={styles.firstRow}>
+          <Text style={styles.promptStart}>{prompt}</Text>
+          <DetailsIcon
+            width={20}
+            height={20}
+            borderRadius={10}
+            buttonExtraProps={{
+              marginLeft: 160,
+              marginTop: 2,
+            }}
+            textExtraProps={{
+              paddingLeft: 8,
+              paddingTop: 1,
+            }}
+          />
+        </View>
+        <View style={styles.secondRow}>
+          <Text style={styles.promptEnd}>{promptAnswer}</Text>
+        </View>
+        
+       
+        
       </View>
     </View>
   )
@@ -93,9 +114,15 @@ const styles = StyleSheet.create({
     borderBottomLeftRadius: 10,
     paddingLeft: 10,
   },
+  firstRow: {
+    flexDirection: "row",
+  },
   promptStart: {
     paddingTop: 5,
     fontSize: 10,
+  },
+  secondRow: {
+    flexDirection: "row",
   },
   promptEnd: {
     fontSize: 30,
