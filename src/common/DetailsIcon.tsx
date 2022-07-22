@@ -21,7 +21,7 @@ const DetailsIcon = (props: DetailsIconProps) => {
         width: width,
         height: height,
         borderRadius: borderRadius,
-        backgroundColor: mainTheme.DARK_COLOR
+        backgroundColor: mainTheme.PRIMARY_COLOR
       }}
     >
       <Text
