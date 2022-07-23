@@ -7,10 +7,15 @@ import Swiper from 'react-native-deck-swiper';
 import { observer } from 'mobx-react-lite';
 import { useStore } from '../../stores/store';
 import { Profile } from '../../../types/profile';
+import useAppNavigation from '../../navigation/hooks/useAppNavigation';
 
 const Cards = () => {
   const swipeRef = useRef<Swiper<any>>(null);
   const { profiles, unlikeProfile, likeProfile } = useStore().profileStore;
+  const navigation = useAppNavigation();
+  const handleTabCard = (_index: any) => {
+    navigation.navigate('ProfileFullView');
+  }
 
   return (
     <>
@@ -22,6 +27,7 @@ const Cards = () => {
           stackSize={profiles.length > 0 ? 5: 1}
           cardIndex={0}
           animateCardOpacity
+          onTapCard={handleTabCard}
           verticalSwipe={false}
           horizontalSwipe={true}
           onSwipedLeft={unlikeProfile}

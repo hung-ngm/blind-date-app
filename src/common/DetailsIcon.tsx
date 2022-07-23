@@ -1,5 +1,5 @@
 import React from 'react';
-import { TouchableHighlight, Text } from 'react-native';
+import { Text, TouchableOpacity } from 'react-native';
 import { mainTheme } from '../themes/mainTheme';
 
 export type DetailsIconProps = {
@@ -13,16 +13,18 @@ export type DetailsIconProps = {
 
 const DetailsIcon = (props: DetailsIconProps) => {
   const { width, height, borderRadius, buttonExtraProps, textExtraProps, onPress  } = props;
-
+  
   return (
-    <TouchableHighlight
+    <TouchableOpacity
       onPress={onPress}
       style={{
         ...buttonExtraProps,
         width: width,
         height: height,
         borderRadius: borderRadius,
-        backgroundColor: mainTheme.PRIMARY_COLOR
+        backgroundColor: mainTheme.PRIMARY_COLOR,
+        alignItems: 'center',
+        justifyContent: 'center',
       }}
     >
       <Text
@@ -33,7 +35,7 @@ const DetailsIcon = (props: DetailsIconProps) => {
       >
         i
       </Text>
-    </TouchableHighlight>
+    </TouchableOpacity>
   )
 }
 

@@ -2,8 +2,8 @@ import React from 'react'
 import { StyleSheet, View, Text, Image } from 'react-native'
 import { Profile } from '../../../types/profile'
 import { mainTheme } from '../../../themes/mainTheme'
-import DetailsIcon from '../../../common/DetailsIcon'
-import useAppNavigation from '../../navigation/hooks/useAppNavigation'
+import DetailsIcon from '../../../common/DetailsIcon';
+import useAppNavigation from '../../navigation/hooks/useAppNavigation';
 
 interface CardProps {
   card: Profile
@@ -11,21 +11,39 @@ interface CardProps {
 
 const Card: React.FC<CardProps> = ({ card }) => {
   const { firstName, age, job, photoUrl, prompt, promptAnswer } = card
-  const navigation = useAppNavigation()
-
-  const handleDetailsIconPress = () => {
-    console.log('Details Icon Pressed')
-    navigation.navigate('ProfileFullView')
+  const navigation = useAppNavigation();
+  const handleDetailsIconPressed = () => {
+    navigation.navigate('ProfileFullView');
   }
-
   return (
     <View style={styles.container}>
       <View style={styles.personalDetailsContainer}>
         <View style={styles.personalDetails}>
-          <Text style={styles.nameAge}>
-            {firstName} {age}
-          </Text>
+          <View style={styles.firstRow}>
+            <Text style={styles.nameAge}>
+              {firstName} {age}
+            </Text>
+            <DetailsIcon
+              width={20}
+              height={20}
+              borderRadius={10}
+              buttonExtraProps={{
+                marginLeft: 180,
+                marginTop: 2,
+              }}
+              textExtraProps={{
+                paddingTop: 1,
+              }}
+              onPress={handleDetailsIconPressed}
+            />
+          </View>
+          <View style={styles.secondRow}></View>
+          
+          
           <Text style={styles.job}>{job}</Text>
+        </View>
+        <View>
+          
         </View>
       </View>
 
@@ -37,28 +55,10 @@ const Card: React.FC<CardProps> = ({ card }) => {
           blurRadius={30}
         />
       </View>
-
+      
       <View style={styles.promptContainer}>
-        <View style={styles.firstRow}>
-          <Text style={styles.promptStart}>{prompt}</Text>
-          <DetailsIcon
-            onPress={handleDetailsIconPress}
-            width={20}
-            height={20}
-            borderRadius={10}
-            buttonExtraProps={{
-              marginLeft: 160,
-              marginTop: 2,
-            }}
-            textExtraProps={{
-              paddingLeft: 8,
-              paddingTop: 1,
-            }}
-          />
-        </View>
-        <View style={styles.secondRow}>
-          <Text style={styles.promptEnd}>{promptAnswer}</Text>
-        </View>
+        <Text style={styles.promptStart}>{prompt}</Text>  
+        <Text style={styles.promptEnd}>{promptAnswer}</Text>
       </View>
     </View>
   )
@@ -97,10 +97,15 @@ const styles = StyleSheet.create({
     fontSize: 20,
     fontWeight: 'bold',
   },
+  firstRow: {
+    flexDirection: 'row',
+  },
+  secondRow: {
+    flexDirection: 'row',
+  },
   job: {
     fontSize: 15,
   },
-
   image: {
     width: 300,
     height: 310,
@@ -116,15 +121,9 @@ const styles = StyleSheet.create({
     borderBottomLeftRadius: 10,
     paddingLeft: 10,
   },
-  firstRow: {
-    flexDirection: 'row',
-  },
   promptStart: {
     paddingTop: 5,
     fontSize: 10,
-  },
-  secondRow: {
-    flexDirection: 'row',
   },
   promptEnd: {
     fontSize: 30,
