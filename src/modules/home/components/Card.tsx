@@ -13,7 +13,7 @@ const Card: React.FC<CardProps> = ({ card }) => {
   const { firstName, age, job, photoUrl, prompt, promptAnswer } = card
   const navigation = useAppNavigation();
   const handleDetailsIconPressed = () => {
-    navigation.navigate('ProfileFullView');
+    navigation.navigate('ProfileFullView', { profile: card });
   }
   return (
     <View style={styles.container}>
