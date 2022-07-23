@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React, { useRef, useState } from 'react';
 import Card from './Card';
 import CardsButtons from './SwipeButtons';
 import NoCard from './NoCard';
@@ -11,10 +11,11 @@ import useAppNavigation from '../../navigation/hooks/useAppNavigation';
 
 const Cards = () => {
   const swipeRef = useRef<Swiper<any>>(null);
+  const [card, setCard] = useState<Profile>();
   const { profiles, unlikeProfile, likeProfile } = useStore().profileStore;
   const navigation = useAppNavigation();
   const handleTabCard = (_index: any) => {
-    navigation.navigate('ProfileFullView');
+    navigation.navigate('ProfileFullView', { profile: card });
   }
 
   return (
@@ -42,9 +43,14 @@ const Cards = () => {
               style: rightLabel,
             },
           }}
-          renderCard={(card: Profile) => 
-            card ? <Card key={card.id} card={card} /> : <NoCard />
-          }
+          renderCard={(card: Profile) => {
+            if (card) {
+              setCard(card);
+              return <Card key={card.id} card={card} />;
+            } else {
+              return <NoCard />
+            }
+          }}
 
         />
       </View>

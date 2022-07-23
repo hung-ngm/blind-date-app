@@ -11,7 +11,7 @@ export type AuthStackParamList = {
 export type AppStackParamList = {
   Root: undefined;
   ChatMessages: undefined;
-  ProfileFullView: { profile: Profile } | undefined;
+  ProfileFullView: { profile: Profile | undefined }
 }
 
 export type AppNavigationProp = NativeStackNavigationProp<AppStackParamList>

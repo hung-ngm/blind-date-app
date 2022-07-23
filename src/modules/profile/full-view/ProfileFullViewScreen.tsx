@@ -1,36 +1,41 @@
 import React from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import { View, StyleSheet, Image, SafeAreaView, ScrollView } from 'react-native';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { AppStackParamList } from '../../../types/navigation';
-import PrimaryButton from '../../../common/PrimaryButton';
 import useRootNavigation from '../../navigation/hooks/useRootNavigation';
-import { mainTheme } from '../../../themes/mainTheme';
 import BackButton from '../../../common/BackButton';
 
 type ProfileFullViewNavigationProps = NativeStackScreenProps<AppStackParamList, "ProfileFullView">
 
 const ProfileFullViewScreen = ({ route, navigation }: ProfileFullViewNavigationProps) => {
   const nav = useRootNavigation();
+  const { profile }: any = route.params;
+  const { firstName, age, job, photoUrl, prompt, promptAnswer, passions } = profile;
+
   const handleBackButtonPressed = () => {
      nav.navigate('Home');
   }
 
   return (
-    <View style={styles.container}>
-      <View style={styles.backButtonContainer}>
-        <BackButton
-          onPress={handleBackButtonPressed}
-        />
-      </View>
-      <View style={styles.buttonContainer}>
-        <PrimaryButton
-          text="Test button to Home"
-          textColor={mainTheme.WHITE_COLOR}
-          onPress={handleBackButtonPressed}
-        />
-      </View>
+    <SafeAreaView style={styles.container}>
+      <ScrollView style={styles.scrollView}>
+        <View style={styles.backButtonContainer}>
+          <BackButton
+            onPress={handleBackButtonPressed}
+          />
+        </View>
+        <View style={styles.imageContainer}>
+          <Image
+            source={{ uri: photoUrl }}
+            resizeMode="cover"
+            style={styles.image}
+            blurRadius={30}
+          />
+        </View>
+        
+      </ScrollView>
       
-    </View>
+    </SafeAreaView>
   )
 }
 
@@ -40,13 +45,24 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
   }, 
+  scrollView: {
+
+  },
   backButtonContainer: {
-    paddingTop: 30,
+    paddingTop: 10,
     paddingLeft: 20,
   },
   buttonContainer: {
     flex: 2,
     justifyContent: 'center',
     alignItems: 'center',
+  },
+  imageContainer: {
+    paddingTop: 5,
+  },
+  image: {
+    width: '100%',
+    height: 400,
+
   }
 })

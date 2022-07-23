@@ -37,13 +37,10 @@ const Card: React.FC<CardProps> = ({ card }) => {
               onPress={handleDetailsIconPressed}
             />
           </View>
-          <View style={styles.secondRow}></View>
-          
-          
-          <Text style={styles.job}>{job}</Text>
-        </View>
-        <View>
-          
+          <View style={styles.secondRow}>
+            <Text style={styles.job}>{job}</Text>
+          </View>
+    
         </View>
       </View>
 
