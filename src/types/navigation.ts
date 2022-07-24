@@ -30,7 +30,7 @@ export type RootScreenTabParamList = {
   Home: undefined;
   Match: undefined;
   Place: undefined;
-  MatchScreen: undefined;
+  GetMatchedScreen: undefined;
   Chat: undefined;
   Profile: undefined;
 }

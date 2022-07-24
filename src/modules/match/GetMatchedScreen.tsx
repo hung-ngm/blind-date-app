@@ -8,10 +8,10 @@ import { RootScreenTabParamList } from '../../types/navigation';
 
 type MatchScreenNavigationProps = NativeStackScreenProps<
     RootScreenTabParamList,
-    'MatchScreen'
+    'GetMatchedScreen'
 >
 
-const MatchScreen = ({navigation}: MatchScreenNavigationProps) => {
+const GetMatchedScreen = ({navigation}: MatchScreenNavigationProps) => {
 
     const navigateToPlaceRecommendation = () => {
         //navigation.navigate('PlaceRecommendation');
@@ -61,7 +61,7 @@ const MatchScreen = ({navigation}: MatchScreenNavigationProps) => {
     )
 }
 
-export default MatchScreen;
+export default GetMatchedScreen;
 
 const styles = StyleSheet.create({
     container: {
