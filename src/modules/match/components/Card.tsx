@@ -6,63 +6,50 @@ import {
   Image,
 } from 'react-native';
 import { Profile } from '../../../types/profile';
+import { mainTheme } from '../../../themes/mainTheme';
 
 interface CardProps {
   card: Profile;
 }
 
 const Card: React.FC<CardProps> = ({card}) => {
-  const { displayName, age, job, photoURL, promptStart, promptEnd } = card;
+  const { firstName, age, photoUrl } = card;
 
   return (
-    <View style={styles.container}>
       <View style={styles.imageContainer}>
         <Image
-          source={{ uri: photoURL }} 
+          source={{ uri: photoUrl }} 
           resizeMode="cover"
           style={styles.image}
-          blurRadius={30}
+          blurRadius={20}
         />
         <View style={styles.footer}>
-            <Text style={styles.name}>{displayName}</Text>
-            <Text style={styles.name}> {age}</Text>
+            <Text style={styles.name}>{firstName}, {age} </Text>
         </View>
       </View>
-    </View>
   )
 }
 
 export default Card;
 
 const styles = StyleSheet.create({
-  container: {
-    paddingTop: 0,
+  imageContainer: {
+    paddingTop: 160,  
+    paddingLeft: 10,
     position: 'relative',
     width: 150,
     height: 200,
-    borderRadius: 20,
     margin: '2%',
-    
   },
-  imageContainer: {
-    paddingTop: 160,    
-    paddingBottom: 0,
-    paddingLeft: 10,
-  },
-
   image: {
-    width: 150,
-    height: 200,
-    paddingBottom: 0,
-    marginBottom: 0,
     ...StyleSheet.absoluteFillObject,
-    borderRadius: 8,
+    borderRadius: 15,
   },
   footer: {
     flexDirection: "row",
   },
   name: {
-    color: "white",
+    color: mainTheme.WHITE_COLOR,
     fontSize: 15,
   }
 })
