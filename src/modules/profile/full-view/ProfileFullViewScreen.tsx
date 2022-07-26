@@ -14,6 +14,7 @@ import useRootNavigation from '../../navigation/hooks/useRootNavigation';
 import BackButton from '../../../common/BackButton';
 import { Entypo } from '@expo/vector-icons';
 import { mainTheme } from '../../../themes/mainTheme';
+import PassionButton from './components/PassionButton';
 
 type ProfileFullViewNavigationProps = NativeStackScreenProps<AppStackParamList, "ProfileFullView">
 
@@ -57,9 +58,28 @@ const ProfileFullViewScreen = ({ route, navigation }: ProfileFullViewNavigationP
               <Entypo name="chat" color={mainTheme.PRIMARY_COLOR} size={35} />
             </TouchableWithoutFeedback>
           </View>
-          
-          
-          
+        </View>
+        <View style={styles.promptContainer}>
+          <Text style={styles.promptTitle}>Prompt</Text>
+          <View style={styles.promptDetailsContainer}>
+            <Text style={styles.promptText}>{prompt}</Text>
+            <Text style={styles.promptAnswerText}>{promptAnswer}</Text>
+          </View>
+        </View>
+        <View style={styles.passionsContainer}>
+          <View style={styles.passionsTitleContainer}>
+            <Text style={styles.passionsTitle}>Passions</Text>
+          </View>
+          <View style={styles.passionsLabels}>
+            {mockPassionsData.map((passion: string) => (
+              <PassionButton 
+                passion={passion} 
+                extraStyles={{
+                  margin: 5,
+                }}
+              />
+            ))}
+          </View>
           
         </View>
         
@@ -78,7 +98,7 @@ const styles = StyleSheet.create({
     flex: 1,
   }, 
   scrollView: {
-
+    
   },
   backButtonContainer: {
     paddingTop: 10,
@@ -90,7 +110,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   imageContainer: {
-    paddingTop: 5,
+    paddingTop: 7,
   },
   image: {
     width: '100%',
@@ -98,7 +118,7 @@ const styles = StyleSheet.create({
   },
   personalDetailsContainer: {
     flexDirection: 'row',
-    paddingTop: 40,
+    paddingTop: 80,
     paddingLeft: 30,
   },
   nameAgeContainer: {
@@ -116,4 +136,44 @@ const styles = StyleSheet.create({
     paddingLeft: 115,
     paddingTop: 12,
   },
+  promptContainer: {
+    paddingLeft: 30,
+    paddingTop: 40,
+  },
+  promptTitle: {
+    fontSize: 25,
+  },
+  promptDetailsContainer: {
+    paddingTop: 15,
+  },
+  promptText: {
+    fontSize: 20,
+  },
+  promptAnswerText: {
+    fontSize: 30,
+  },
+  passionsContainer: {
+    paddingTop: 30,
+  },
+  passionsTitleContainer: {
+    paddingLeft: 30,
+  },
+  passionsTitle: {
+    fontSize: 25,
+  },
+  passionsLabels: {
+    flexDirection: 'row',
+    alignItems: 'stretch',
+    justifyContent: 'center',
+    margin: 15,
+    flexWrap: 'wrap',
+  },
 })
+
+const mockPassionsData = [
+  'American',
+  'Burgers',
+  'Music',
+  'Dancing',
+  'Modeling'
+]
