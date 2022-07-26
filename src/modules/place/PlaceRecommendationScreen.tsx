@@ -1,33 +1,35 @@
-import React from 'react';
-import { View, StyleSheet } from 'react-native';
+import * as React from 'react';
+import {View, StyleSheet} from 'react-native';
 import Header from './components/Header';
-import Cards from './components/Cards';
+import PlaceCards from './components/PlaceCards';
 
-const MatchTab = () => {
+
+const PlaceRecommendationScreen = () => {
   return (
       <View style={styles.container}>
         <View style={styles.headerContainer}>
           <Header/>
         </View>
-        <View style={styles.card}>
-          <Cards/>
+        <View style={styles.placeCards}>
+          <PlaceCards/>
         </View>
+        
       </View>
   )
 }
 
-export default MatchTab;
+export default PlaceRecommendationScreen;
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    padding: 20
+    padding: 15
   },
   headerContainer: {
     flex: 1,
     paddingTop: 1,
   },
-  card: {
+  placeCards: {
     flex:4,
     alignItems: 'center',
   }
