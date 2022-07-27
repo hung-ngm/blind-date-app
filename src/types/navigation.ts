@@ -36,6 +36,8 @@ export type ProfileStackParamList = {
 export type RootScreenTabParamList = {
   Home: undefined;
   Match: undefined;
+  Place: undefined;
+  GetMatchedScreen: undefined;
   Chat: undefined;
   Profile: undefined;
 }
