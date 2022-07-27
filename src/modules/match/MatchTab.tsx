@@ -3,7 +3,6 @@ import { View, StyleSheet } from 'react-native';
 import Header from './components/Header';
 import Cards from './components/Cards';
 
-
 const MatchTab = () => {
   return (
       <View style={styles.container}>

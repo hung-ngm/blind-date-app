@@ -1,4 +1,5 @@
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
+import { Profile } from './profile';
 
 export type AuthStackParamList = {
   Login: undefined;
@@ -10,8 +11,8 @@ export type AuthStackParamList = {
 export type AppStackParamList = {
   Root: undefined;
   ChatMessages: undefined;
+  ProfileFullView: { profile: Profile | undefined }
 }
-
 
 export type AppNavigationProp = NativeStackNavigationProp<AppStackParamList>
 

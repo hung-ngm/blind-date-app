@@ -1,16 +1,22 @@
-import React, { useRef } from 'react';
+import React, { useRef, useState } from 'react';
 import Card from './Card';
-import CardsButtons from './CardsButtons';
+import CardsButtons from './SwipeButtons';
 import NoCard from './NoCard';
 import { View, StyleSheet } from 'react-native';
 import Swiper from 'react-native-deck-swiper';
 import { observer } from 'mobx-react-lite';
 import { useStore } from '../../stores/store';
 import { Profile } from '../../../types/profile';
+import useAppNavigation from '../../navigation/hooks/useAppNavigation';
 
 const Cards = () => {
   const swipeRef = useRef<Swiper<any>>(null);
-  const { profiles } = useStore().profileStore;
+  const [card, setCard] = useState<Profile>();
+  const { profiles, unlikeProfile, likeProfile } = useStore().profileStore;
+  const navigation = useAppNavigation();
+  const handleTabCard = (_index: any) => {
+    navigation.navigate('ProfileFullView', { profile: card });
+  }
 
   return (
     <>
@@ -22,27 +28,29 @@ const Cards = () => {
           stackSize={profiles.length > 0 ? 5: 1}
           cardIndex={0}
           animateCardOpacity
+          onTapCard={handleTabCard}
           verticalSwipe={false}
           horizontalSwipe={true}
-          onSwipedLeft={() => {
-            console.log("Swipe PASS");
-          }}
-          onSwipedRight={() => {
-            console.log("Swipe MATCH");
-          }}
+          onSwipedLeft={unlikeProfile}
+          onSwipedRight={likeProfile}
           overlayLabels={{
             left: {
               title: "NOPE",
               style: leftLabel,
             },
             right: {
-              title: "MATCH",
+              title: "LIKE",
               style: rightLabel,
             },
           }}
-          renderCard={(card: Profile) => 
-            card ? <Card key={card.id} card={card} /> : <NoCard />
-          }
+          renderCard={(card: Profile) => {
+            if (card) {
+              setCard(card);
+              return <Card key={card.id} card={card} />;
+            } else {
+              return <NoCard />
+            }
+          }}
 
         />
       </View>

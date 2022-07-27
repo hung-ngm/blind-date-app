@@ -1,14 +1,14 @@
 import React from 'react';
-import { View, StyleSheet, Text, TouchableOpacity } from 'react-native';
+import { View, StyleSheet, TouchableOpacity } from 'react-native';
 import { AntDesign, Entypo } from '@expo/vector-icons';
 import Swiper from 'react-native-deck-swiper';
 import { mainTheme } from '../../../themes/mainTheme';
 
-interface CardsButtonsProps {
+interface SwipeButtonsProps {
   swipeRef: React.RefObject<Swiper<any>>;
 }
 
-const CardsButtons: React.FC<CardsButtonsProps> = ({ swipeRef }) => {
+const SwipeButtons: React.FC<SwipeButtonsProps> = ({ swipeRef }) => {
   return (
     <View style={styles.container}>
       <TouchableOpacity
@@ -32,7 +32,7 @@ const CardsButtons: React.FC<CardsButtonsProps> = ({ swipeRef }) => {
   )
 }
 
-export default CardsButtons;
+export default SwipeButtons;
 
 const styles = StyleSheet.create({
   container: {

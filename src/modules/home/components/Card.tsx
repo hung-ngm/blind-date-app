@@ -1,47 +1,67 @@
-import React from 'react';
-import { 
-  StyleSheet, 
-  View, 
-  Text, 
-  Image,
-} from 'react-native';
-import { Profile } from '../../../types/profile';
-import { mainTheme } from '../../../themes/mainTheme';
+import React from 'react'
+import { StyleSheet, View, Text, Image } from 'react-native'
+import { Profile } from '../../../types/profile'
+import { mainTheme } from '../../../themes/mainTheme'
+import DetailsIcon from '../../../common/DetailsIcon';
+import useAppNavigation from '../../navigation/hooks/useAppNavigation';
 
 interface CardProps {
-  card: Profile;
+  card: Profile
 }
 
 const Card: React.FC<CardProps> = ({ card }) => {
-  const { firstName, age, job, photoUrl, prompt, promptAnswer } = card;
-
+  const { firstName, age, job, photoUrl, prompt, promptAnswer } = card
+  const navigation = useAppNavigation();
+  const handleDetailsIconPressed = () => {
+    navigation.navigate('ProfileFullView', { profile: card });
+  }
   return (
     <View style={styles.container}>
       <View style={styles.personalDetailsContainer}>
         <View style={styles.personalDetails}>
-          <Text style={styles.nameAge}>{firstName} {age}</Text>
-          <Text style={styles.job}>{job}</Text>
+          <View style={styles.firstRow}>
+            <Text style={styles.nameAge}>
+              {firstName} {age}
+            </Text>
+            <DetailsIcon
+              width={20}
+              height={20}
+              borderRadius={10}
+              buttonExtraProps={{
+                marginLeft: 180,
+                marginTop: 2,
+              }}
+              textExtraProps={{
+                paddingTop: 1,
+              }}
+              onPress={handleDetailsIconPressed}
+            />
+          </View>
+          <View style={styles.secondRow}>
+            <Text style={styles.job}>{job}</Text>
+          </View>
+    
         </View>
       </View>
-      
+
       <View style={styles.imageContainer}>
         <Image
-          source={{ uri: photoUrl }} 
+          source={{ uri: photoUrl }}
           resizeMode="cover"
           style={styles.image}
           blurRadius={30}
         />
       </View>
-
+      
       <View style={styles.promptContainer}>
-        <Text style={styles.promptStart}>{prompt}</Text>
+        <Text style={styles.promptStart}>{prompt}</Text>  
         <Text style={styles.promptEnd}>{promptAnswer}</Text>
       </View>
     </View>
   )
 }
 
-export default Card;
+export default Card
 
 const styles = StyleSheet.create({
   container: {
@@ -54,7 +74,7 @@ const styles = StyleSheet.create({
     borderRadius: 10,
   },
   imageContainer: {
-    paddingTop: 0,    
+    paddingTop: 0,
     paddingBottom: 0,
     marginBottom: 5,
     borderWidth: 1,
@@ -74,10 +94,15 @@ const styles = StyleSheet.create({
     fontSize: 20,
     fontWeight: 'bold',
   },
+  firstRow: {
+    flexDirection: 'row',
+  },
+  secondRow: {
+    flexDirection: 'row',
+  },
   job: {
     fontSize: 15,
   },
-
   image: {
     width: 300,
     height: 310,
@@ -99,5 +124,5 @@ const styles = StyleSheet.create({
   },
   promptEnd: {
     fontSize: 30,
-  }
+  },
 })

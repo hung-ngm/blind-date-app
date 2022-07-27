@@ -74,7 +74,7 @@ const dummyList: Passion[] = [
     {
         iconName: 'shopping-cart',
         name: 'Video games',
-        type: Passions.Video_games,
+        type: Passions.VideoGames,
     },
 ]
 const PassionList = () => {

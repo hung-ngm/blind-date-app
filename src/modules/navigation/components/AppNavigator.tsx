@@ -4,6 +4,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { mainTheme } from '../../../themes/mainTheme';
 import RootScreen from '../../root/RootScreen';
 import ChatMessagesScreen from '../../chat/messages/ChatMessagesScreen';
+import ProfileFullViewScreen from '../../profile/full-view/ProfileFullViewScreen';
 
 const Stack = createNativeStackNavigator<AppStackParamList>();
 
@@ -16,6 +17,9 @@ const AppNavigator = () => {
           headerShown: false,
         }} />
         <Stack.Screen name="ChatMessages" component={ChatMessagesScreen} options={{
+          headerShown: false,
+        }} />
+        <Stack.Screen name="ProfileFullView" component={ProfileFullViewScreen} options={{
           headerShown: false,
         }} />
     </Stack.Navigator>
