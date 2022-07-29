@@ -15,12 +15,15 @@ import ProfileEditPromptDetailScreen from '../../profile/prompt/EditPromptDetail
 import SkipButton from '../../../common/SkipButton';
 import { ProfileContext } from '../../profile/context/ProfileProvider';
 import useRootNavigation from '../hooks/useRootNavigation';
+import ProfileFullViewScreen from '../../profile/full-view/ProfileFullViewScreen';
+import useAppNavigation from '../hooks/useAppNavigation';
 
 const Stack = createNativeStackNavigator<AppStackParamList>();
 
 const AppNavigator = () => {
   const { user } = useStore().userStore;
-  const navigation = useRootNavigation();
+  const appNavigation = useAppNavigation();
+  const rootNavigation = useRootNavigation();
   const {
     submitProfile,
   } = useContext(ProfileContext);
@@ -42,7 +45,7 @@ const AppNavigator = () => {
                 onPress={() => {
                   submitProfile();
                   // TODO: Add loading effect during asynchronous operation
-                  navigation.navigate("Profile");
+                  rootNavigation.navigate("Profile");
                 }}
               />
             ),
@@ -55,7 +58,7 @@ const AppNavigator = () => {
           component={ProfileEditPromptDetailScreen}
           options={{
               headerRight: () => (                        
-                  <SkipButton name="Done" onPress={() => navigation.navigate("ProfileEditMain")}  />
+                  <SkipButton name="Done" onPress={() => appNavigation.navigate("ProfileEditMain")}  />
               ),
           }}
         />
@@ -63,6 +66,9 @@ const AppNavigator = () => {
         <Stack.Screen name="ProfileEditIdealPlaces" component={ProfileEditIdealPlacesScreen} />
         <Stack.Screen name="ProfileEditGender" component={ProfileEditGenderScreen} />
         <Stack.Screen name="ChatMessages" component={ChatMessagesScreen} options={{
+          headerShown: false,
+        }} />
+        <Stack.Screen name="ProfileFullView" component={ProfileFullViewScreen} options={{
           headerShown: false,
         }} />
     </Stack.Navigator>
