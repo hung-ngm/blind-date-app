@@ -1,10 +1,15 @@
 import React from 'react';
 import { View, StyleSheet, Text, FlatList } from 'react-native';
+import { observer } from 'mobx-react-lite';
 import ChatHeader from '../shared/components/ChatHeader';
 import ChatPreview from './components/ChatPreview';
 import useAppNavigation from '../../navigation/hooks/useAppNavigation';
+import { useStore } from '../../stores/store';
 
 export const ChatList = () => {
+  // TODO: Pull data from matchStore to render ChatList
+  const { matches, matchesLimit, loadMore, hasMore, selectMatch } = useStore().matchStore;
+
   const navigation = useAppNavigation();
 
   return (
@@ -14,7 +19,7 @@ export const ChatList = () => {
       </View>
       <FlatList
         data={mockData}
-        renderItem={() => (
+        renderItem={({ item }) => (
           <ChatPreview onPress={() => {
             navigation.navigate('ChatMessages');
           }} />
@@ -25,7 +30,7 @@ export const ChatList = () => {
   ) 
 }
 
-export default ChatList
+export default observer(ChatList);
 
 const styles = StyleSheet.create({
   container: {

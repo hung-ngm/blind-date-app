@@ -6,6 +6,7 @@ import {
   doc,
   getDoc,
   setDoc,
+  getDocs,
   QueryDocumentSnapshot,
   QuerySnapshot,
   DocumentData,
@@ -18,6 +19,7 @@ import {
   where,
   orderBy,
   limit,
+  startAfter
 } from '@firebase/firestore'
 import { db } from '../utils/firebase'
 import { store } from './store'
@@ -36,7 +38,7 @@ class MatchStore {
 
   get matches() {
     return Array.from(this.matchesMap.values()).sort(
-      (a, b) => b.timestamp.getTime() - a.timestamp.getTime(),
+      (a, b) => b.timestamp.getTime() - a.timestamp.getTime()
     )
   }
 
@@ -49,6 +51,24 @@ class MatchStore {
         limit(this.matchesLimit),
       ),
       this.setMatches,
+    )
+  }
+
+  loadMore = async () => {
+    if (!this.hasMore) return;
+
+    const { user } = store.userStore;
+
+    if (!user) return;
+
+    const matchesSnap = await getDocs(
+      query(
+        collection(db, "matches"),
+        where("userMatched", "array-contains", user.uid),
+        orderBy("timestamp", "desc"),
+        startAfter(this.lastMatchTimestamp),
+        limit(this.matchesLimit)
+      )
     )
   }
 

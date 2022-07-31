@@ -1,14 +1,17 @@
 import React from 'react';
 import { View, StyleSheet, Text, TouchableOpacity } from 'react-native';
+import { observer } from 'mobx-react-lite';
 import ProfileAvatar from '../../shared/components/ProfileAvatar';
 import NotificationIcon from './NotificationIcon';
+import { Match } from '../../../../types/match';
 
 interface ChatPreviewProps {
+  // match: Match;
   onPress: () => void;
 }
 
 const ChatPreview: React.FC<ChatPreviewProps> = ({ onPress }) => {
-  // TODO: Change this
+  // TODO: get the match data and custom logic from store
   const fakeUrl = "http://www.swaggermagazine.com/home/wp-content/uploads/2018/instagrammodels/13.jpg";
 
   return (
@@ -37,17 +40,13 @@ const ChatPreview: React.FC<ChatPreviewProps> = ({ onPress }) => {
               marginLeft: 174,
             }}
           />
-        </View>
-        
-        
+        </View> 
       </View>
-      
-
     </TouchableOpacity>
   )
 }
 
-export default ChatPreview;
+export default observer(ChatPreview);
 
 const styles = StyleSheet.create({
   container: {
