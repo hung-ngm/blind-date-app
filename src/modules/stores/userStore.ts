@@ -31,10 +31,6 @@ class UserStore {
     )
   }
 
-  reset = () => {
-    this.user = null;
-  }
-
   signInGoogle = async (response: AuthSessionResult) => {
     if (response?.type === 'success') {
       const { id_token } = response.params;
@@ -58,9 +54,12 @@ class UserStore {
   // }
 
   signOut = async () => {
-    await auth.signOut();
-    store.profileStore.resetStore();
-    store.matchStore.resetStore();
+    if (this.user) {
+      store.profileStore.resetStore();
+      store.matchStore.resetStore();
+      store.messageStore.resetStore();
+      await auth.signOut();
+    }
   }
 
   setUser = (user : FirebaseUser | null) => {

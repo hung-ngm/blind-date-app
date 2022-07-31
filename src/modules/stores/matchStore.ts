@@ -36,7 +36,7 @@ class MatchStore {
     makeAutoObservable(this)
   }
 
-  get matches() {
+  get matches(): Match[] {
     return Array.from(this.matchesMap.values()).sort(
       (a, b) => b.timestamp.getTime() - a.timestamp.getTime()
     )
@@ -70,7 +70,9 @@ class MatchStore {
         limit(this.matchesLimit)
       )
     )
-  }
+
+    this.setMatches(matchesSnap);
+  };
 
   // check if the user swiped by current user has already wanted to match
   checkMatch = async (userProfile: Profile, userSwipedBy: Profile) => {
@@ -108,12 +110,13 @@ class MatchStore {
   }
 
   selectMatch = (id: string) => {
-    if (this.matchesMap.has(id)) {
-      this.currentMatch = this.matchesMap.get(id) as Match;
-      // Navigate to the ChatMessages screen ?
-    } else {
+    if (!this.matchesMap.has(id)) {
       this.currentMatch = null;
+      return;
     }
+
+    this.currentMatch = this.matchesMap.get(id) as Match;
+    // Load messages of this match, then navigate to ChatMessagesScreen
   }
 
   private getMatch = (snap: QueryDocumentSnapshot<DocumentData>): Match => {
@@ -121,11 +124,14 @@ class MatchStore {
       id: snap.id,
       users: snap.data().users,
       userMatched: snap.data().userMatched,
+      lastMessage: snap.data().lastMessage,
       timestamp: new Date(snap.data().timestamp?.toDate()),
     }
   }
 
   private setMatches = (snap: QuerySnapshot<DocumentData>) => {
+    this.checkHasMore(snap);
+
     snap.docs.forEach((doc) => {
       if (!doc.exists()) return
 
@@ -133,6 +139,14 @@ class MatchStore {
 
       this.matchesMap.set(doc.id, this.getMatch(doc))
     })
+  }
+
+  private checkHasMore = (snap: QuerySnapshot<DocumentData>) => {
+    if (snap.size < this.matchesLimit) {
+      this.hasMore = false;
+    } else {
+      this.hasMore = true;
+    }
   }
 
   private setLastMatchTimestamp = (
