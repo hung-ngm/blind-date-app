@@ -19,7 +19,3 @@ export const StoreContext = createContext(store);
 export const useStore = () => {
   return useContext(StoreContext)
 }
-
-export const resetStore = () => {
-  store.userStore.reset();
-}

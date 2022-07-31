@@ -3,7 +3,6 @@ import { User } from '../../types/user';
 import { GoogleAuthProvider, signInWithCredential, onAuthStateChanged, User as FirebaseUser } from '@firebase/auth';
 import { makeAutoObservable, runInAction, reaction } from 'mobx';
 import { AuthSessionResult } from 'expo-auth-session';
-import { resetStore } from './store';
 import { doc, setDoc, serverTimestamp, Unsubscribe } from '@firebase/firestore';
 import { Place } from '../../types/place';
 import { getAge } from '../../modules/utils/userUtils';
@@ -26,6 +25,7 @@ class UserStore {
       (user) => {
         if (user) {
           store.profileStore.subscribeStore(user);
+          store.matchStore.subscribeStore(user);
         }
       }
     )
@@ -59,7 +59,8 @@ class UserStore {
 
   signOut = async () => {
     await auth.signOut();
-    resetStore();
+    store.profileStore.resetStore();
+    store.matchStore.resetStore();
   }
 
   setUser = (user : FirebaseUser | null) => {

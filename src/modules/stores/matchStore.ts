@@ -1,32 +1,65 @@
-import { Profile } from '../../types/profile';
-import { Match } from '../../types/match';
-import { User } from '../../types/user';
-import { makeAutoObservable, runInAction } from 'mobx';
+import { Profile } from '../../types/profile'
+import { Match } from '../../types/match'
+import { User } from '../../types/user'
+import { makeAutoObservable, runInAction } from 'mobx'
 import {
   doc,
   getDoc,
   setDoc,
   QueryDocumentSnapshot,
+  QuerySnapshot,
   DocumentData,
   serverTimestamp,
-} from '@firebase/firestore';
-import { db } from '../utils/firebase';
+  FieldValue,
+  Unsubscribe,
+  onSnapshot,
+  query,
+  collection,
+  where,
+  orderBy,
+  limit,
+} from '@firebase/firestore'
+import { db } from '../utils/firebase'
+import { store } from './store'
 
 class MatchStore {
-  currentMatch: Match | null = null;
+  currentMatch: Match | null = null
+  matchesMap = new Map<string, Match>()
+  matchesLimit = 15
+  hasMore = false
+  lastMatchTimestamp: FieldValue | null = null
+  unsubscribeMatches?: Unsubscribe
 
   constructor() {
-    makeAutoObservable(this);
+    makeAutoObservable(this)
+  }
+
+  get matches() {
+    return Array.from(this.matchesMap.values()).sort(
+      (a, b) => b.timestamp.getTime() - a.timestamp.getTime(),
+    )
+  }
+
+  subscribeStore = async (user: User) => {
+    this.unsubscribeMatches = onSnapshot(
+      query(
+        collection(db, 'matches'),
+        where('userMatched', 'array-contains', user.uid),
+        orderBy('timestamp', 'desc'),
+        limit(this.matchesLimit),
+      ),
+      this.setMatches,
+    )
   }
 
   // check if the user swiped by current user has already wanted to match
   checkMatch = async (userProfile: Profile, userSwipedBy: Profile) => {
     const userWasMatched = await getDoc(
-      doc(db, "users", userSwipedBy.id, "likes", userProfile.id)
+      doc(db, 'users', userSwipedBy.id, 'likes', userProfile.id),
     )
 
     if (userWasMatched.exists()) {
-      this.createMatch(userProfile, userSwipedBy);
+      this.createMatch(userProfile, userSwipedBy)
     }
   }
 
@@ -34,41 +67,93 @@ class MatchStore {
   createMatch = async (userProfile: Profile, userSwipedBy: Profile) => {
     const matchDoc = doc(
       db,
-      "matches",
-      this.combineIds(userProfile.id, userSwipedBy.id)
-    );
+      'matches',
+      this.combineIds(userProfile.id, userSwipedBy.id),
+    )
 
-    await setDoc(
-      matchDoc,
-      {
-        users: {
-          [userProfile.id]: userProfile,
-          [userSwipedBy.id]: userSwipedBy
-        },
-        userMatched: [userProfile.id, userSwipedBy.id],
-        timestamp: serverTimestamp(),
-      }
-    );
+    await setDoc(matchDoc, {
+      users: {
+        [userProfile.id]: userProfile,
+        [userSwipedBy.id]: userSwipedBy,
+      },
+      userMatched: [userProfile.id, userSwipedBy.id],
+      timestamp: serverTimestamp(),
+    })
 
-    const match = await getDoc(matchDoc);
+    const match = await getDoc(matchDoc)
 
-    if (!match.exists()) return;
+    if (!match.exists()) return
 
-    this.currentMatch = this.getMatch(match);
+    this.currentMatch = this.getMatch(match)
   }
 
-  getMatch = (snap: QueryDocumentSnapshot<DocumentData>) : Match => {
+  selectMatch = (id: string) => {
+    if (this.matchesMap.has(id)) {
+      this.currentMatch = this.matchesMap.get(id) as Match;
+      // Navigate to the ChatMessages screen ?
+    } else {
+      this.currentMatch = null;
+    }
+  }
+
+  private getMatch = (snap: QueryDocumentSnapshot<DocumentData>): Match => {
     return {
+      id: snap.id,
       users: snap.data().users,
       userMatched: snap.data().userMatched,
-      timestamp: new Date(snap.data().timestamp?.toDate())
+      timestamp: new Date(snap.data().timestamp?.toDate()),
+    }
+  }
+
+  private setMatches = (snap: QuerySnapshot<DocumentData>) => {
+    snap.docs.forEach((doc) => {
+      if (!doc.exists()) return
+
+      this.setLastMatchTimestamp(doc)
+
+      this.matchesMap.set(doc.id, this.getMatch(doc))
+    })
+  }
+
+  private setLastMatchTimestamp = (
+    doc: QueryDocumentSnapshot<DocumentData>
+  ) => {
+    if (!this.lastMatchTimestamp) {
+      this.lastMatchTimestamp = doc.data().timestamp;
+    } else {
+      const lastTimestamp = new Date(
+        // @ts-ignore
+        this.lastMatchTimestamp?.toDate()
+      ).getTime();
+
+      const currentTimestamp = new Date(
+        doc.data().timestamp?.toDate()
+      ).getTime();
+
+      if (currentTimestamp < lastTimestamp) {
+        this.lastMatchTimestamp = doc.data().timestamp;
+      }
     }
   }
 
   private combineIds = (firstProfileId: string, secondProfileId: string) => {
-    return (firstProfileId > secondProfileId) ? (firstProfileId + secondProfileId) : (secondProfileId + firstProfileId)
+    return firstProfileId > secondProfileId
+      ? firstProfileId + secondProfileId
+      : secondProfileId + firstProfileId
   }
 
+  resetStore = () => {
+    this.currentMatch = null
+    this.matchesMap.clear()
+    this.matchesLimit = 15
+    this.hasMore = false
+    this.lastMatchTimestamp = null
+
+    if (this.unsubscribeMatches) {
+      this.unsubscribeMatches()
+      this.unsubscribeMatches = undefined
+    }
+  }
 }
 
-export default MatchStore;
+export default MatchStore
