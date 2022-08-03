@@ -79,8 +79,13 @@ class ProfileStore {
       promptAnswer: snap.data().promptAnswer,
       gender: snap.data().gender,
       passions: snap.data().passions,
-      idealPlace: snap.data().idealPlace,
-      timestamp: new Date(snap.data().timeStamp?.toDate())
+      priceMin: snap.data().priceMin,
+      priceMax: snap.data().priceMax,
+      city: snap.data().city,
+      country: snap.data().country,
+      categories: snap.data().categories
+      // idealPlace: snap.data().idealPlace,
+      // timestamp: new Date(snap.data().timeStamp?.toDate())
     }
   }
 

@@ -1,9 +1,11 @@
 import { Profile } from './profile';
 
 export interface Match {
-  users: {
-    [id: string]: Profile
-  },
-  userMatched: string[],
-  timestamp: Date
+    id: string;
+    users: {
+        [id: string]: Profile
+    },
+    userMatched: string[],
+    lastMessage: string,
+    // timestamp: Date
 }

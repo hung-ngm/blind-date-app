@@ -37,9 +37,10 @@ class MatchStore {
   }
 
   get matches(): Match[] {
-    return Array.from(this.matchesMap.values()).sort(
-      (a, b) => b.timestamp.getTime() - a.timestamp.getTime()
-    )
+    return Array.from(this.matchesMap.values())
+    // .sort(
+    //   (a, b) => b.timestamp.getTime() - a.timestamp.getTime()
+    // )
   }
 
   subscribeStore = async (user: User) => {
@@ -87,26 +88,34 @@ class MatchStore {
 
   // Create a new match in the "matches" collection with key is combinedId and value is an object with Match type
   createMatch = async (userProfile: Profile, userSwipedBy: Profile) => {
-    const matchDoc = doc(
-      db,
-      'matches',
-      this.combineIds(userProfile.id, userSwipedBy.id),
-    )
+      const matchDoc = doc(
+        db,
+        'matches',
+        this.combineIds(userProfile.id, userSwipedBy.id),
+      )
+      try {
+        await setDoc(matchDoc, {
+          users: {
+            [userProfile.id]: userProfile,
+            [userSwipedBy.id]: userSwipedBy,
+          },
+          userMatched: [userProfile.id, userSwipedBy.id],
+          // timestamp: serverTimestamp(),
+        })
+      } catch (err) {
+        console.log(err);
+      }
+      
+      try {
+        const match = await getDoc(matchDoc)
 
-    await setDoc(matchDoc, {
-      users: {
-        [userProfile.id]: userProfile,
-        [userSwipedBy.id]: userSwipedBy,
-      },
-      userMatched: [userProfile.id, userSwipedBy.id],
-      timestamp: serverTimestamp(),
-    })
+        if (!match.exists()) return
 
-    const match = await getDoc(matchDoc)
-
-    if (!match.exists()) return
-
-    this.currentMatch = this.getMatch(match)
+        this.currentMatch = this.getMatch(match)
+      } catch (err) {
+        console.log(err);
+      }
+      
   }
 
   selectMatch = (id: string) => {
@@ -125,7 +134,7 @@ class MatchStore {
       users: snap.data().users,
       userMatched: snap.data().userMatched,
       lastMessage: snap.data().lastMessage,
-      timestamp: new Date(snap.data().timestamp?.toDate()),
+      // timestamp: new Date(snap.data().timestamp?.toDate()),
     }
   }
 
