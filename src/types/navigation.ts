@@ -12,6 +12,8 @@ export type AppStackParamList = {
   Root: undefined;
   ChatMessages: undefined;
   ProfileFullView: { profile: Profile | undefined }
+  Places: undefined;
+  GetMatchedScreen: undefined;
 }
 
 export type AppNavigationProp = NativeStackNavigationProp<AppStackParamList>

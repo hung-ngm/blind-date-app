@@ -112,10 +112,10 @@ class MatchStore {
         if (!match.exists()) return
 
         this.currentMatch = this.getMatch(match)
+
       } catch (err) {
         console.log(err);
       }
-      
   }
 
   selectMatch = (id: string) => {

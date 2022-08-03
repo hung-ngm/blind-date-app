@@ -3,23 +3,20 @@ import {StyleSheet, View, Text, Image} from 'react-native';
 import { mainTheme } from '../../themes/mainTheme';
 import PrimaryButton from '../../common/PrimaryButton';
 import SkipButton from '../../common/SkipButton';
-import { NativeStackScreenProps } from '@react-navigation/native-stack' 
-import { RootScreenTabParamList } from '../../types/navigation';
+import useAppNavigation from '../navigation/hooks/useAppNavigation';
+import useRootNavigation from '../navigation/hooks/useRootNavigation';
 
-type MatchScreenNavigationProps = NativeStackScreenProps<
-    RootScreenTabParamList,
-    'GetMatchedScreen'
->
-
-const GetMatchedScreen = ({navigation}: MatchScreenNavigationProps) => {
+const GetMatchedScreen = () => {
+    const appNav = useAppNavigation();
+    const rootNav = useRootNavigation();
 
     const navigateToPlaceRecommendation = () => {
-        //navigation.navigate('PlaceRecommendation');
+        appNav.navigate('Places');
         console.log('to place')
     }
 
     const navigateToHome = () => {
-        //navigation.navigate('Home')
+        rootNav.navigate('Home');
         console.log('to home')
     }
 
