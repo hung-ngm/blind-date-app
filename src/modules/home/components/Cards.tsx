@@ -8,6 +8,7 @@ import { observer } from 'mobx-react-lite';
 import { useStore } from '../../stores/store';
 import { Profile } from '../../../types/profile';
 import useAppNavigation from '../../navigation/hooks/useAppNavigation';
+import { action } from 'mobx';
 
 const Cards = () => {
   const swipeRef = useRef<Swiper<any>>(null);
@@ -17,6 +18,12 @@ const Cards = () => {
   const handleTabCard = (_index: any) => {
     navigation.navigate('ProfileFullView', { profile: card });
   }
+
+  const handleSwipeRight = action(async (cardIndex: number) => {
+    likeProfile(cardIndex);
+
+    
+  })
 
   return (
     <>
@@ -32,7 +39,7 @@ const Cards = () => {
           verticalSwipe={false}
           horizontalSwipe={true}
           onSwipedLeft={unlikeProfile}
-          onSwipedRight={likeProfile}
+          onSwipedRight={handleSwipeRight}
           overlayLabels={{
             left: {
               title: "NOPE",

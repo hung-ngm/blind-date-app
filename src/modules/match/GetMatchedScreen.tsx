@@ -12,12 +12,10 @@ const GetMatchedScreen = () => {
 
     const navigateToPlaceRecommendation = () => {
         appNav.navigate('Places');
-        console.log('to place')
     }
 
     const navigateToHome = () => {
         rootNav.navigate('Home');
-        console.log('to home')
     }
 
     const fakeUrl = 'http://www.swaggermagazine.com/home/wp-content/uploads/2018/instagrammodels/13.jpg';
@@ -27,9 +25,9 @@ const GetMatchedScreen = () => {
         <View style = {styles.container}>
             <View style={styles.imageContainer}>
                 <Image
-                        source={{uri: fakeUrl2}}
-                        resizeMode="cover"
-                        style={styles.myImage}
+                    source={{uri: fakeUrl2}}
+                    resizeMode="cover"
+                    style={styles.myImage}
                 />
                 <Image
                     source={{uri: fakeUrl}}

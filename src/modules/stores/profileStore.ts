@@ -129,6 +129,7 @@ class ProfileStore {
     await store.matchStore.checkMatch(this.userProfile, userSwipedBy);
   }
 
+
   resetStore = () => {
     this.profilesMap.clear();
     this.userProfile = null;

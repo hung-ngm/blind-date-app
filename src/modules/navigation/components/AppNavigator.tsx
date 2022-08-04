@@ -27,7 +27,7 @@ const AppNavigator = () => {
         <Stack.Screen name="Places" component={PlaceRecommendationScreen} options={{
           headerShown: false,
         }} />
-        <Stack.Screen name="GetMatchedScreen" component={GetMatchedScreen} options={{
+        <Stack.Screen name="GetMatched" component={GetMatchedScreen} options={{
           headerShown: false,
         }} />
     </Stack.Navigator>

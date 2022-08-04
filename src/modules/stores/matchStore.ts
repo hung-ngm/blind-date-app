@@ -23,6 +23,7 @@ import {
 } from '@firebase/firestore'
 import { db } from '../utils/firebase'
 import { store } from './store'
+import * as RootNavigation from '../navigation/components/RootNavigation'
 
 class MatchStore {
   currentMatch: Match | null = null
@@ -112,6 +113,8 @@ class MatchStore {
         if (!match.exists()) return
 
         this.currentMatch = this.getMatch(match)
+        
+        RootNavigation.navigate('GetMatched')
 
       } catch (err) {
         console.log(err);

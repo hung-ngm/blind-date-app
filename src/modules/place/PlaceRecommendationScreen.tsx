@@ -2,9 +2,16 @@ import * as React from 'react';
 import {View, StyleSheet} from 'react-native';
 import Header from './components/Header';
 import PlaceCards from './components/PlaceCards';
-
+import PrimaryButton from '../../common/PrimaryButton';
+import useRootNavigation from '../navigation/hooks/useRootNavigation';
 
 const PlaceRecommendationScreen = () => {
+  const rootNav = useRootNavigation();
+
+  const handleButtonPressed = () => {
+    rootNav.navigate('Home');
+  }
+
   return (
       <View style={styles.container}>
         <View style={styles.headerContainer}>
@@ -12,6 +19,12 @@ const PlaceRecommendationScreen = () => {
         </View>
         <View style={styles.placeCards}>
           <PlaceCards/>
+        </View>
+        <View>
+          <PrimaryButton 
+            text="Back to Home" 
+            onPress={handleButtonPressed}
+          />
         </View>
         
       </View>
