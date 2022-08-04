@@ -9,15 +9,12 @@ import {
 import { observer } from 'mobx-react-lite';
 import ChatHeader from '../shared/components/ChatHeader';
 import ChatPreview from './components/ChatPreview';
-import useAppNavigation from '../../navigation/hooks/useAppNavigation';
 import { useStore } from '../../stores/store';
 import { mainTheme } from '../../../themes/mainTheme';
 
 export const ChatList = () => {
   // TODO: Pull data from matchStore to render ChatList
   const { matches, matchesLimit, loadMore, hasMore, selectMatch } = useStore().matchStore;
-
-  const navigation = useAppNavigation();
 
   return (
     <View style={styles.container}>

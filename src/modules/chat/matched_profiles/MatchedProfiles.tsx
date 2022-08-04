@@ -2,14 +2,15 @@ import React from 'react';
 import { View, Text, StyleSheet, ScrollView } from 'react-native';
 import ProfileAvatar from '../shared/components/ProfileAvatar';
 import ChatHeader from "../shared/components/ChatHeader";
+import { useStore } from '../../stores/store';
+import { Match } from '../../../types/match';
 
 const MatchedProfiles = () => {
-  // TO DO: not hard code this
-  const fakeImageUrl = "http://www.swaggermagazine.com/home/wp-content/uploads/2018/instagrammodels/13.jpg";
+  const { matches } = useStore().matchStore;
+  const { user } = useStore().userStore;
 
   return (
     <View style={styles.container}>
-
       <View style={styles.headerContainer}>
         <ChatHeader fontSize={15} text="Matches"/>
       </View>
@@ -20,34 +21,26 @@ const MatchedProfiles = () => {
         showsHorizontalScrollIndicator={false}
       >
         <View style={styles.matchedProfilesListContainer}>
-          <ProfileAvatar 
-            imageUrl={fakeImageUrl} 
-            width={80}
-            height={80}
-            borderRadius={40}
-            isBlurred={true}
-          />
-          <ProfileAvatar 
-            imageUrl={fakeImageUrl} 
-            width={80}
-            height={80}
-            borderRadius={40}
-            isBlurred={true}
-          />  
-          <ProfileAvatar 
-            imageUrl={fakeImageUrl} 
-            width={80}
-            height={80}
-            borderRadius={40}
-            isBlurred={true}
-          />  
-          <ProfileAvatar 
-            imageUrl={fakeImageUrl} 
-            width={80}
-            height={80}
-            borderRadius={40}
-            isBlurred={true}
-          />           
+          {matches.length > 0 ? 
+            matches.map((match: Match) => {
+              const otherUser = match.users[match.userMatched.find((id) => id !== user?.uid) as string]
+              return (
+                <ProfileAvatar
+                  key={match.id}
+                  imageUrl={otherUser.photoUrl} 
+                  width={80}
+                  height={80}
+                  borderRadius={40}
+                  isBlurred={true}
+                />
+              )
+            })
+          : (
+            <View>
+              <Text>Empty</Text>
+            </View>
+          )}
+          
         </View>
       </ScrollView>
 
