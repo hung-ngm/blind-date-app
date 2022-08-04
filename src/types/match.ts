@@ -7,5 +7,5 @@ export interface Match {
     },
     userMatched: string[],
     lastMessage: string,
-    // timestamp: Date
+    timestamp: Date
 }

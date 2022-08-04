@@ -4,20 +4,21 @@ import { observer } from 'mobx-react-lite';
 import ProfileAvatar from '../../shared/components/ProfileAvatar';
 import NotificationIcon from './NotificationIcon';
 import { Match } from '../../../../types/match';
+import { useStore } from '../../../stores/store';
 
 interface ChatPreviewProps {
-  // match: Match;
+  match: Match;
   onPress: () => void;
 }
 
-const ChatPreview: React.FC<ChatPreviewProps> = ({ onPress }) => {
-  // TODO: get the match data and custom logic from store
-  const fakeUrl = "http://www.swaggermagazine.com/home/wp-content/uploads/2018/instagrammodels/13.jpg";
+const ChatPreview: React.FC<ChatPreviewProps> = ({ onPress, match }) => {
+  const { user } = useStore().userStore;
+  const otherUser = match.users[match.userMatched.find((id) => id !== user?.uid) as string]
 
   return (
     <TouchableOpacity style={styles.container} onPress={onPress}>
       <ProfileAvatar 
-        imageUrl={fakeUrl} 
+        imageUrl={otherUser.photoUrl} 
         width={80}
         height={80}
         borderRadius={40}
@@ -26,11 +27,11 @@ const ChatPreview: React.FC<ChatPreviewProps> = ({ onPress }) => {
       /> 
       <View style={styles.chatPreviewTextContainer}>
         <View style={styles.firstRow}>
-          <Text style={styles.displayName}>Kylie</Text>
+          <Text style={styles.displayName}>{otherUser.firstName} {otherUser.lastName}</Text>
           <Text style={styles.minutes}>23 min</Text>
         </View>
         <View style={styles.secondRow}>
-          <Text style={styles.lastMessage}>Typing..</Text>
+          <Text style={styles.lastMessage}>{false ? "{lastMessage}" : "Typing"}</Text>
           <NotificationIcon
             numNotifications={1}
             width={20}

@@ -18,7 +18,7 @@ import PassionButton from './components/PassionButton';
 
 type ProfileFullViewNavigationProps = NativeStackScreenProps<AppStackParamList, "ProfileFullView">
 
-const ProfileFullViewScreen = ({ route, navigation }: ProfileFullViewNavigationProps) => {
+const ProfileFullViewScreen = ({ route }: ProfileFullViewNavigationProps) => {
   const nav = useRootNavigation();
   const { profile }: any = route.params;
   const { firstName, lastName, age, job, photoUrl, prompt, promptAnswer, passions } = profile;

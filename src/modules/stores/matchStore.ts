@@ -39,9 +39,9 @@ class MatchStore {
 
   get matches(): Match[] {
     return Array.from(this.matchesMap.values())
-    // .sort(
-    //   (a, b) => b.timestamp.getTime() - a.timestamp.getTime()
-    // )
+    .sort(
+      (a, b) => b.timestamp.getTime() - a.timestamp.getTime()
+    )
   }
 
   subscribeStore = async (user: User) => {
@@ -101,7 +101,7 @@ class MatchStore {
             [userSwipedBy.id]: userSwipedBy,
           },
           userMatched: [userProfile.id, userSwipedBy.id],
-          // timestamp: serverTimestamp(),
+          timestamp: new Date(),
         })
       } catch (err) {
         console.log(err);
@@ -128,6 +128,7 @@ class MatchStore {
     }
 
     this.currentMatch = this.matchesMap.get(id) as Match;
+    RootNavigation.navigate('ChatMessages');
     // Load messages of this match, then navigate to ChatMessagesScreen
   }
 
@@ -137,7 +138,7 @@ class MatchStore {
       users: snap.data().users,
       userMatched: snap.data().userMatched,
       lastMessage: snap.data().lastMessage,
-      // timestamp: new Date(snap.data().timestamp?.toDate()),
+      timestamp: new Date(snap.data().timestamp?.toDate()),
     }
   }
 
