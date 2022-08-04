@@ -32,7 +32,13 @@ const Cards = () => {
           verticalSwipe={false}
           horizontalSwipe={true}
           onSwipedLeft={unlikeProfile}
-          onSwipedRight={likeProfile}
+          onSwipedRight={(cardIndex) => {
+            likeProfile(cardIndex).then((isMatched) => {
+              if (isMatched) {
+                navigation.navigate('GetMatched');
+              }
+            })
+          }}
           overlayLabels={{
             left: {
               title: "NOPE",

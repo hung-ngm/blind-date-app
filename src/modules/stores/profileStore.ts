@@ -126,7 +126,7 @@ class ProfileStore {
       }
     )
 
-    await store.matchStore.checkMatch(this.userProfile, userSwipedBy);
+    return await store.matchStore.checkMatch(this.userProfile, userSwipedBy);
   }
 
 

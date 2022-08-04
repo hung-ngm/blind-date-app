@@ -11,10 +11,12 @@ import ChatHeader from '../shared/components/ChatHeader';
 import ChatPreview from './components/ChatPreview';
 import { useStore } from '../../stores/store';
 import { mainTheme } from '../../../themes/mainTheme';
+import useAppNavigation from '../../navigation/hooks/useAppNavigation';
 
 export const ChatList = () => {
   // TODO: Pull data from matchStore to render ChatList
   const { matches, matchesLimit, loadMore, hasMore, selectMatch } = useStore().matchStore;
+  const navigation = useAppNavigation();
 
   return (
     <View style={styles.container}>
@@ -29,7 +31,10 @@ export const ChatList = () => {
             <ChatPreview
               match={item}
               onPress={() => {
-                selectMatch(item.id)
+                const res = selectMatch(item.id);
+                if (res) {
+                  navigation.navigate('ChatMessages');
+                }
               }} 
             />
           )}

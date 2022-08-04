@@ -23,7 +23,7 @@ import {
 } from '@firebase/firestore'
 import { db } from '../utils/firebase'
 import { store } from './store'
-import * as RootNavigation from '../navigation/components/RootNavigation'
+
 
 class MatchStore {
   currentMatch: Match | null = null
@@ -84,6 +84,7 @@ class MatchStore {
 
     if (userWasMatched.exists()) {
       this.createMatch(userProfile, userSwipedBy)
+      return true;
     }
   }
 
@@ -114,7 +115,6 @@ class MatchStore {
 
         this.currentMatch = this.getMatch(match)
         
-        RootNavigation.navigate('GetMatched')
 
       } catch (err) {
         console.log(err);
@@ -124,12 +124,12 @@ class MatchStore {
   selectMatch = (id: string) => {
     if (!this.matchesMap.has(id)) {
       this.currentMatch = null;
-      return;
+      return false;
     }
 
     this.currentMatch = this.matchesMap.get(id) as Match;
-    RootNavigation.navigate('ChatMessages');
-    // Load messages of this match, then navigate to ChatMessagesScreen
+
+    return true;
   }
 
   private getMatch = (snap: QueryDocumentSnapshot<DocumentData>): Match => {
