@@ -1,5 +1,5 @@
 import { Message } from '../../types/message';
-import { makeAutoObservable, runInAction } from 'mobx'
+import { makeAutoObservable, runInAction } from 'mobx';
 import {
   doc,
   setDoc,
@@ -10,16 +10,16 @@ import {
   DocumentData,
   serverTimestamp,
   FieldValue,
-  Unsubscribe,
   onSnapshot,
   query,
   collection,
   orderBy,
   limit,
   startAfter
-} from '@firebase/firestore'
-import { db } from '../utils/firebase'
-import { store } from './store'
+} from '@firebase/firestore';
+import { db } from '../utils/firebase';
+import { store } from './store';
+import { Unsubscribe } from '@firebase/util';
 
 class MessageStore {
   messagesMap = new Map<String, Message>();
@@ -128,7 +128,6 @@ class MessageStore {
       id: snap.id,
       value: snap.data().value,
       senderId: snap.data().senderId,
-      photoUrl: snap.data().photoUrl,
       timestamp: new Date(snap.data().timestamp?.toDate()),
     }
   }

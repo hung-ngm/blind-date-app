@@ -3,15 +3,23 @@ import {
   View, 
   StyleSheet, 
   TextInput,
-  Button
+  Button,
+  Keyboard
 } from 'react-native';
 import { mainTheme } from '../../../../themes/mainTheme';
+import { useStore } from '../../../stores/store';
 
 const ChatInput = () => {
+  const { sendMessage } = useStore().messageStore;
   const [input, setInput] = useState("");
 
-  const handleSend = (input: string) => {
-    
+  const handleSend = async (input: string) => {
+    Keyboard.dismiss();
+    const success = await sendMessage(input);
+
+    if (success) {
+      setInput("");
+    }
   }
 
   return (

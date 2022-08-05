@@ -50,10 +50,10 @@ const PlaceFullViewScreen = () => {
             style={styles.image}
           />
         </View>
-        <View style={styles.personalDetailsContainer}>
-          <View style={styles.nameAgeContainer}>
-            <Text style={styles.nameAge}>Pho Chui</Text>
-            <Text style={styles.job}>An pho la phai chui</Text>
+        <View style={styles.placeDetailsContainer}>
+          <View style={styles.placeNameDescriptionContainer}>
+            <Text style={styles.placeName}>Pho Chui</Text>
+            <Text style={styles.placeDescription}>An pho la phai chui</Text>
           </View>
           <View style={styles.chatIconContainer}>
             <TouchableWithoutFeedback onPress={handleChatIconPressed}>
@@ -107,24 +107,24 @@ const styles = StyleSheet.create({
     width: '100%',
     height: 400,
   },
-  personalDetailsContainer: {
+  placeDetailsContainer: {
     flexDirection: 'row',
     paddingTop: 80,
     paddingLeft: 30,
   },
-  nameAgeContainer: {
-    flexDirection: 'column',
+  placeNameDescriptionContainer: {
+    flex: 8
   },
-  nameAge: {
+  placeName: {
     fontSize: 25,
     fontWeight: 'bold'
   },
-  job: {
+  placeDescription: {
     fontSize: 20,
   },
   chatIconContainer: {
-    flexDirection: 'row',
-    paddingLeft: 115,
+    flex: 2,
+    paddingLeft: 50,
     paddingTop: 12,
   },
 
