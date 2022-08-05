@@ -5,13 +5,16 @@ import {
 } from 'react-native';
 import React from 'react';
 import Card from './Card';
+import { useStore } from '../../stores/store';
 
 const Cards = () => {
+  const { matches } = useStore().matchStore;
+
   return (
     <View style = {styles.container}>
       <FlatList 
         numColumns={2}
-        data={mockData}
+        data={matches}
         renderItem={({item}) => (
           <Card card={item}></Card>
         )}

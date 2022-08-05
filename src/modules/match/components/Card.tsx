@@ -6,14 +6,19 @@ import {
   Image,
 } from 'react-native';
 import { Profile } from '../../../types/profile';
+import { Match } from '../../../types/match';
 import { mainTheme } from '../../../themes/mainTheme';
+import { useStore } from '../../stores/store';
 
 interface CardProps {
-  card: Profile;
+  card: Match;
 }
 
 const Card: React.FC<CardProps> = ({card}) => {
-  const { firstName, age, photoUrl } = card;
+  const { users, userMatched } = card;
+  const { user } = useStore().userStore;
+  const otherUser = users[userMatched.find((id) => id !== user?.uid) as string] as Profile;
+  const { photoUrl, firstName, age } = otherUser;
 
   return (
       <View style={styles.imageContainer}>
@@ -24,7 +29,7 @@ const Card: React.FC<CardProps> = ({card}) => {
           blurRadius={20}
         />
         <View style={styles.footer}>
-            <Text style={styles.name}>{firstName}, {age} </Text>
+            <Text style={styles.name}>{firstName}, {age}</Text>
         </View>
       </View>
   )
