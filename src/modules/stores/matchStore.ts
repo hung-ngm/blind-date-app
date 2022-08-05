@@ -121,13 +121,14 @@ class MatchStore {
       }
   }
 
-  selectMatch = (id: string) => {
+  selectMatch = async (id: string) => {
     if (!this.matchesMap.has(id)) {
       this.currentMatch = null;
       return false;
     }
 
     this.currentMatch = this.matchesMap.get(id) as Match;
+    await store.messageStore.loadMessages(this.currentMatch.id);
 
     return true;
   }

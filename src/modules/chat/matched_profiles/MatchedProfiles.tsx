@@ -39,6 +39,9 @@ const MatchedProfiles = () => {
                   height={80}
                   borderRadius={40}
                   isBlurred={true}
+                  extraProps={{
+                    marginHorizontal: 10,
+                  }}
                 />
               )
             })
@@ -78,6 +81,7 @@ const styles = StyleSheet.create({
   matchedProfilesListContainer: {
     flex: 1,
     flexDirection: 'row',
-    justifyContent: 'space-evenly',
+    justifyContent: 'flex-start',
+    marginHorizontal: 15,
   }
 })

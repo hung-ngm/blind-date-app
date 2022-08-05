@@ -31,10 +31,11 @@ export const ChatList = () => {
             <ChatPreview
               match={item}
               onPress={() => {
-                const res = selectMatch(item.id);
-                if (res) {
-                  navigation.navigate('ChatMessages');
-                }
+                selectMatch(item.id).then((res) => {
+                  if (res) {
+                    navigation.navigate('ChatMessages');
+                  }
+                })
               }} 
             />
           )}

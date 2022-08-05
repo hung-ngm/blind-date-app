@@ -34,7 +34,8 @@ class MessageStore {
   }
 
   get messages(): Message[] {
-    return Array.from(this.messagesMap.values()).sort(
+    return Array.from(this.messagesMap.values())
+    .sort(
       (a, b) => a.timestamp?.getTime() - b.timestamp?.getTime()
     ).reverse();
   }
@@ -90,7 +91,7 @@ class MessageStore {
         value,
         senderId: userProfile.id,
         photoUrl: userProfile.photoUrl,
-        timestamp: serverTimestamp()
+        timestamp: new Date()
       }
     );
 

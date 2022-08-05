@@ -25,7 +25,11 @@ const MessagesList = () => {
       data={messages}
       keyExtractor={(item) => item.id}
       renderItem={({ item }) => (
-        <MessageItem message={item} otherUser={otherUser} isSender={Number(item.id) % 2 == 0 ? true: false} />
+        <MessageItem 
+          message={item} 
+          otherUser={otherUser} 
+          isSender={item.senderId === user.uid} 
+        />
       )}
       inverted={true}
       initialNumToRender={messageLimit}
