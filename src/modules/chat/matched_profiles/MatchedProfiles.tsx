@@ -5,10 +5,15 @@ import ChatHeader from "../shared/components/ChatHeader";
 import { useStore } from '../../stores/store';
 import { Match } from '../../../types/match';
 import { observer } from 'mobx-react-lite';
+import useAppNavigation from '../../navigation/hooks/useAppNavigation';
 
 const MatchedProfiles = () => {
   const { matches } = useStore().matchStore;
   const { user } = useStore().userStore;
+  const navigation = useAppNavigation();
+  const handleAvatarPressed = () => {
+    navigation.navigate('ChatMessages');
+  }
 
   return (
     <View style={styles.container}>
@@ -27,6 +32,7 @@ const MatchedProfiles = () => {
               const otherUser = match.users[match.userMatched.find((id) => id !== user?.uid) as string]
               return (
                 <ProfileAvatar
+                  onPress={handleAvatarPressed}
                   key={match.id}
                   imageUrl={otherUser.photoUrl} 
                   width={80}
