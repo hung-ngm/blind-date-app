@@ -66,11 +66,10 @@ const styles = StyleSheet.create({
     flexDirection: "row",
   },
   displayName: {
-
+    flex: 8,
   },
   minutes: {
-    marginRight: 0,
-    marginLeft: 175,
+    flex: 2,
   },
   secondRow: {
     flexDirection: "row",

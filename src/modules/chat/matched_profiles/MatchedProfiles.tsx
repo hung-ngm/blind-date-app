@@ -4,6 +4,7 @@ import ProfileAvatar from '../shared/components/ProfileAvatar';
 import ChatHeader from "../shared/components/ChatHeader";
 import { useStore } from '../../stores/store';
 import { Match } from '../../../types/match';
+import { observer } from 'mobx-react-lite';
 
 const MatchedProfiles = () => {
   const { matches } = useStore().matchStore;
@@ -48,7 +49,7 @@ const MatchedProfiles = () => {
   )
 }
 
-export default MatchedProfiles;
+export default observer(MatchedProfiles);
 
 const styles = StyleSheet.create({
   container: {
