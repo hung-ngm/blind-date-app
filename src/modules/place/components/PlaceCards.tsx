@@ -5,15 +5,23 @@ import {
 } from 'react-native';
 import React from 'react';
 import PlaceCard from './PlaceCard';
+import useAppNavigation from '../../navigation/hooks/useAppNavigation';
 
 const PlaceCards = () => {
+  const navigation = useAppNavigation();
+  const handlePlacePressed = () => {
+    navigation.navigate('PlaceFullView');
+  }
   return (
     <View style = {styles.container}>
       <FlatList 
         numColumns={2}
         data={mockData}
         renderItem={({item}) => (
-          <PlaceCard placeCard={item}></PlaceCard>
+          <PlaceCard 
+            placeCard={item} 
+            onPress={handlePlacePressed}
+          />
         )}
       >
       </FlatList>

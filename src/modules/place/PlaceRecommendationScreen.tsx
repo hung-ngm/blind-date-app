@@ -20,7 +20,7 @@ const PlaceRecommendationScreen = () => {
         <View style={styles.placeCards}>
           <PlaceCards/>
         </View>
-        <View>
+        <View style={styles.buttonContainer}>
           <PrimaryButton 
             text="Back to Home" 
             onPress={handleButtonPressed}
@@ -36,14 +36,20 @@ export default PlaceRecommendationScreen;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    padding: 15
+    padding: 15,
   },
   headerContainer: {
     flex: 1,
-    paddingTop: 1,
+    paddingTop: 30,
+    paddingLeft: 15,
   },
   placeCards: {
     flex:4,
+    alignItems: 'center',
+  },
+  buttonContainer: {
+    flex: 1,
+    justifyContent: 'center',
     alignItems: 'center',
   }
 })

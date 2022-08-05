@@ -4,7 +4,8 @@ import {
   View, 
   Text, 
   Image,
-  TouchableOpacity
+  TouchableOpacity,
+  TouchableWithoutFeedback
 } from 'react-native';
 import { Place } from '../../../types/place';
 import { AntDesign } from '@expo/vector-icons';
@@ -13,14 +14,16 @@ import { mainTheme } from '../../../themes/mainTheme';
 
 interface PlaceCardProps {
   placeCard: Place;
+  onPress: () => void;
 }
 
-const PlaceCard: React.FC<PlaceCardProps> = ({placeCard}) => {
+const PlaceCard: React.FC<PlaceCardProps> = ({ placeCard, onPress }) => {
   const { city, country, photoUrl } = placeCard;
   const [checked, setChecked] = useState(false);
 
   return (
     //<View style={styles.container}>
+    <TouchableWithoutFeedback onPress={onPress}>
       <View style={styles.imageContainer}>
         <Image
           source={{ uri: photoUrl }} 
@@ -40,7 +43,7 @@ const PlaceCard: React.FC<PlaceCardProps> = ({placeCard}) => {
           }
         </TouchableOpacity>
       </View>
-    //</View>
+    </TouchableWithoutFeedback>
   )
 }
 
