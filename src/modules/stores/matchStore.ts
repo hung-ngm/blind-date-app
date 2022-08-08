@@ -83,8 +83,7 @@ class MatchStore {
     )
 
     if (userWasMatched.exists()) {
-      this.createMatch(userProfile, userSwipedBy)
-      return true;
+      return this.createMatch(userProfile, userSwipedBy)
     }
   }
 
@@ -111,9 +110,11 @@ class MatchStore {
       try {
         const match = await getDoc(matchDoc)
 
-        if (!match.exists()) return
+        if (!match.exists()) return false;
 
         this.currentMatch = this.getMatch(match)
+
+        return true;
         
 
       } catch (err) {
