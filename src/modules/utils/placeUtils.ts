@@ -1,11 +1,8 @@
 import { Match } from "../../types/match";
-// import YelpClient from 'yelp-fusion';
 import {
     YELP_API_KEY
 } from "@env";
 import axios from 'axios';
-
-// const client = YelpClient.creatClient(YELP_API_KEY);
 
 export const findCommonCategories = (match: Match | null): string[] => {
     if (!match) {
