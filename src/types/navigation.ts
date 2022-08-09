@@ -1,5 +1,6 @@
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { Profile } from './profile';
+import { Place } from './place';
 
 export type AuthStackParamList = {
   Login: undefined;
