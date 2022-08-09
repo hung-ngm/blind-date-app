@@ -8,6 +8,7 @@ import PlaceCard from './PlaceCard';
 import useAppNavigation from '../../navigation/hooks/useAppNavigation';
 import { useStore } from '../../stores/store';
 import { findCommonCategories, getCommonSearchRequest, getTopFivePlaces } from '../../utils/placeUtils';
+import { Place } from '../../../types/place';
 
 const PlaceCards = () => {
   const navigation = useAppNavigation();
@@ -27,8 +28,8 @@ const PlaceCards = () => {
 
   console.log(places);
 
-  const handlePlacePressed = () => {
-    navigation.navigate('PlaceFullView');
+  const handlePlacePressed = (item: Place) => {
+    navigation.navigate('PlaceFullView', { place: item });
   }
   return (
     <View style = {styles.container}>
@@ -38,7 +39,9 @@ const PlaceCards = () => {
         renderItem={({item}) => (
           <PlaceCard 
             placeCard={item} 
-            onPress={handlePlacePressed}
+            onPress={() => {
+              handlePlacePressed(item);
+            }}
           />
         )}
       >

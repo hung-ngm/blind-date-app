@@ -22,6 +22,26 @@ export const getCommonSearchRequest = (commonCategories: string[], location: str
     return searchRequest;
 }
 
+const getAddress = (location: any): string => {
+    if (!location) return "";
+
+    if (location['display_address'].length === 0) return "";
+
+    return location['display_address'].join(",\n");
+}
+
+const getCategories = (categories: any): string[] => {
+    if (!categories) return [];
+
+    return categories.map((category: any) => category['title']).map((category: string) => category.slice(0, 10));
+}
+
+const getPriceLevel = (priceLevel: string): number  => {
+    if (!priceLevel) return 0;
+
+    return priceLevel.length;
+}
+
 export const getTopFivePlaces = async (searchRequest: object) => {
     try {
         const response = await axios.get(`https://api.yelp.com/v3/businesses/search`, {
@@ -39,10 +59,12 @@ export const getTopFivePlaces = async (searchRequest: object) => {
                     id: item.id,
                     name: item.name,
                     photoUrl: item.image_url,
-                    categories: item.categories,
-                    price: item.price,
-                    location: item.location,
-                    phone: item.phone,
+                    categories: getCategories(item.categories),
+                    priceLevel: getPriceLevel(item.price),
+                    address: getAddress(item.location),
+                    city: item.location.city,
+                    country: item.location.country,
+                    phoneNumber: item.phone,
                 }
             });
     } catch (error) {

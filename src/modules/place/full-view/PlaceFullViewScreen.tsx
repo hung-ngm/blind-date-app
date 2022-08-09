@@ -15,16 +15,14 @@ import useAppNavigation from '../../navigation/hooks/useAppNavigation';
 import BackButton from '../../../common/BackButton';
 import { Entypo } from '@expo/vector-icons';
 import { mainTheme } from '../../../themes/mainTheme';
-import PassionButton from './components/CategoryButton';
+import CategoryButton from './components/CategoryButton';
 
 type PlaceFullViewNavigationProps = NativeStackScreenProps<AppStackParamList, "PlaceFullView">
 
-const PlaceFullViewScreen = () => {
+const PlaceFullViewScreen = ({ route }: PlaceFullViewNavigationProps) => {
   const rootNav = useRootNavigation();
   const appNav = useAppNavigation();
-
-  // If we have Place type, then needs these
-  // const { name, categories, menu, address } = place;
+  const { place } : any = route.params;
 
   const handleBackButtonPressed = () => {
     appNav.navigate('Places');
@@ -34,6 +32,22 @@ const PlaceFullViewScreen = () => {
     // TODO: Change this since it should navigate to the DM chat of that profile
     rootNav.navigate('Chat');
   }
+
+  if (!place) {
+    return null;
+  }
+
+  const {
+    id,
+    name,
+    photoUrl,
+    categories,
+    priceLevel,
+    address,
+    city,
+    country,
+    phoneNumber,
+  } = place;
 
   return (
     <SafeAreaView style={styles.container}>
@@ -45,15 +59,15 @@ const PlaceFullViewScreen = () => {
         </View>
         <View style={styles.imageContainer}>
           <Image
-            source={{ uri: "https://miro.medium.com/max/1838/1*QMjdHidfxnwizai5Xqj47Q.jpeg" }}
+            source={{ uri: photoUrl }}
             resizeMode="cover"
             style={styles.image}
           />
         </View>
         <View style={styles.placeDetailsContainer}>
           <View style={styles.placeNameDescriptionContainer}>
-            <Text style={styles.placeName}>Pho Chui</Text>
-            <Text style={styles.placeDescription}>An pho la phai chui</Text>
+            <Text style={styles.placeName}>{name}</Text>
+            <Text style={styles.placeDescription}>{address}</Text>
           </View>
           <View style={styles.chatIconContainer}>
             <TouchableWithoutFeedback onPress={handleChatIconPressed}>
@@ -66,10 +80,10 @@ const PlaceFullViewScreen = () => {
             <Text style={styles.categoriesTitle}>Categories</Text>
           </View>
           <View style={styles.categoriesLabels}>
-            {mockPassionsData.map((item) => (
-              <PassionButton 
-                key={item.id}
-                passion={item.name} 
+            {categories.map((item: any, index: number) => (
+              <CategoryButton 
+                key={index}
+                category={item} 
                 extraStyles={{
                   margin: 5,
                 }}

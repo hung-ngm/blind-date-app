@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import { 
   StyleSheet, 
   View, 
@@ -18,11 +18,10 @@ interface PlaceCardProps {
 }
 
 const PlaceCard: React.FC<PlaceCardProps> = ({ placeCard, onPress }) => {
-  const { city, country, photoUrl } = placeCard;
+  const { name, photoUrl } = placeCard;
   const [checked, setChecked] = useState(false);
 
   return (
-    //<View style={styles.container}>
     <TouchableWithoutFeedback onPress={onPress}>
       <View style={styles.imageContainer}>
         <Image
@@ -31,7 +30,7 @@ const PlaceCard: React.FC<PlaceCardProps> = ({ placeCard, onPress }) => {
           style={styles.image}
         />
         <View>
-          <Text style={styles.placeName}>{city}, {country}</Text>
+          <Text style={styles.placeName}>{name}</Text>
         </View>
         <TouchableOpacity 
           style={checked? styles.close: styles.heart}

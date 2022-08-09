@@ -15,7 +15,7 @@ export type AppStackParamList = {
   ProfileFullView: { profile: Profile | undefined }
   Places: undefined;
   GetMatched: undefined;
-  PlaceFullView: undefined;
+  PlaceFullView: { place: Place | undefined };
 }
 
 export type AppNavigationProp = NativeStackNavigationProp<AppStackParamList>

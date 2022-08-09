@@ -1,13 +1,13 @@
 import React from 'react';
-import { Text, StyleSheet, TouchableHighlight } from 'react-native';
+import { Text, TouchableHighlight } from 'react-native';
 import { mainTheme } from '../../../../themes/mainTheme';
 
 export type CategoryButtonProps = {
-  passion: string;
+  category: string;
   extraStyles?: object;
 }
 
-const CategoryButton = ({ passion, extraStyles }: CategoryButtonProps) => {
+const CategoryButton = ({ category, extraStyles }: CategoryButtonProps) => {
   return (
     <TouchableHighlight
       style={{
@@ -21,7 +21,7 @@ const CategoryButton = ({ passion, extraStyles }: CategoryButtonProps) => {
         alignItems: 'center',
       }}
     >
-      <Text>{passion}</Text>
+      <Text>{category}</Text>
     </TouchableHighlight>
   )
 }
