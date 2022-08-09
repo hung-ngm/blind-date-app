@@ -28,9 +28,9 @@ const PlaceFullViewScreen = ({ route }: PlaceFullViewNavigationProps) => {
     appNav.navigate('Places');
   }
 
-  const handleChatIconPressed = () => {
+  const handlePhoneIconPressed = () => {
     // TODO: Change this since it should navigate to the DM chat of that profile
-    rootNav.navigate('Chat');
+    // rootNav.navigate('Chat');
   }
 
   if (!place) {
@@ -69,9 +69,9 @@ const PlaceFullViewScreen = ({ route }: PlaceFullViewNavigationProps) => {
             <Text style={styles.placeName}>{name}</Text>
             <Text style={styles.placeDescription}>{address}</Text>
           </View>
-          <View style={styles.chatIconContainer}>
-            <TouchableWithoutFeedback onPress={handleChatIconPressed}>
-              <Entypo name="chat" color={mainTheme.PRIMARY_COLOR} size={35} />
+          <View style={styles.phoneIconContainer}>
+            <TouchableWithoutFeedback onPress={handlePhoneIconPressed}>
+              <Entypo name="phone" color={mainTheme.PRIMARY_COLOR} size={35} />
             </TouchableWithoutFeedback>
           </View>
         </View>
@@ -136,7 +136,7 @@ const styles = StyleSheet.create({
   placeDescription: {
     fontSize: 20,
   },
-  chatIconContainer: {
+  phoneIconContainer: {
     flex: 2,
     paddingLeft: 50,
     paddingTop: 12,
