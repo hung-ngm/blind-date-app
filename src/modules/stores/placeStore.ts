@@ -2,20 +2,14 @@ import { Place } from '../../types/place';
 import { makeAutoObservable, runInAction } from 'mobx';
 import {
   doc,
-  setDoc,
   addDoc,
-  getDocs,
   QueryDocumentSnapshot,
   QuerySnapshot,
   DocumentData,
-  serverTimestamp,
-  FieldValue,
   onSnapshot,
   query,
   collection,
-  orderBy,
   limit,
-  startAfter,
   Unsubscribe
 } from '@firebase/firestore';
 import { db } from '../utils/firebase';
