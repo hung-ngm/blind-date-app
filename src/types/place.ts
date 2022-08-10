@@ -1,10 +1,11 @@
 export interface Place {
-  id: number;
+  id: string;
   name: string;
-  priceMin: number;
-  priceMax: number;
-  city: string,
-  country: string,
-  categories: Array<string>;
   photoUrl: string;
+  categories: Array<string>;
+  priceLevel: number; // Price level (1-4)
+  address: string;
+  city: string;
+  country: string;
+  phoneNumber: string;
 }

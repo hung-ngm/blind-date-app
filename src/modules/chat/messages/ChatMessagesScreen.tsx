@@ -11,11 +11,21 @@ import ChatMessagesHeader from './components/ChatMessagesHeader';
 import { mainTheme } from '../../../themes/mainTheme';
 import MessagesList from './components/MessagesList';
 import ChatInput from './components/ChatInput';
+import { useStore } from '../../stores/store';
 
 const ChatMessagesScreen = () => {
+  const { currentMatch } = useStore().matchStore;
+  const { user } = useStore().userStore;
+
+  if (!currentMatch || !user) {
+    return null;
+  }
+
+  const otherUser = currentMatch.users[currentMatch.userMatched.find((id) => id !== user.uid) as string];
+
   return (
     <SafeAreaView style={styles.container}>
-      <ChatMessagesHeader />
+      <ChatMessagesHeader otherUser={otherUser} />
       <KeyboardAvoidingView
         behavior={Platform.OS === "ios" ? "padding" : "height"}
         keyboardVerticalOffset={10}

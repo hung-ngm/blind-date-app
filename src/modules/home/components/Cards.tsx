@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react';
+import React, { useRef } from 'react';
 import Card from './Card';
 import CardsButtons from './SwipeButtons';
 import NoCard from './NoCard';
@@ -11,11 +11,11 @@ import useAppNavigation from '../../navigation/hooks/useAppNavigation';
 
 const Cards = () => {
   const swipeRef = useRef<Swiper<any>>(null);
-  const [card, setCard] = useState<Profile>();
   const { profiles, unlikeProfile, likeProfile } = useStore().profileStore;
   const navigation = useAppNavigation();
-  const handleTabCard = (_index: any) => {
-    navigation.navigate('ProfileFullView', { profile: card });
+  const handleTabCard = (index: any) => {
+    const otherUserProfile: Profile = profiles[index];
+    navigation.navigate('ProfileFullView', { profile: otherUserProfile });
   }
 
   return (
@@ -32,7 +32,13 @@ const Cards = () => {
           verticalSwipe={false}
           horizontalSwipe={true}
           onSwipedLeft={unlikeProfile}
-          onSwipedRight={likeProfile}
+          onSwipedRight={(cardIndex) => {
+            likeProfile(cardIndex).then((isMatched) => {
+              if (isMatched) {
+                navigation.navigate('GetMatched');
+              }
+            })
+          }}
           overlayLabels={{
             left: {
               title: "NOPE",
@@ -44,12 +50,9 @@ const Cards = () => {
             },
           }}
           renderCard={(card: Profile) => {
-            if (card) {
-              setCard(card);
-              return <Card key={card.id} card={card} />;
-            } else {
-              return <NoCard />
-            }
+            return (
+              card ? <Card key={card.id} card={card} /> : <NoCard />
+            )
           }}
 
         />
@@ -90,33 +93,3 @@ const rightLabel = StyleSheet.create({
     color: "#4DED30",
   },
 });
-
-const mockData = [
-  {
-    id: 1,
-    firstName: 'Kylie',
-    age: 17,
-    job: 'Model',
-    photoUrl: 'http://www.swaggermagazine.com/home/wp-content/uploads/2018/instagrammodels/13.jpg',
-    prompt: 'My simple pleasure is',
-    promptAnswer: 'buscus',
-  },
-  {
-    id: 2,
-    firstName: 'Kylie',
-    age: 17,
-    job: 'Model',
-    photoUrl: 'http://www.swaggermagazine.com/home/wp-content/uploads/2018/instagrammodels/13.jpg',
-    prompt: 'My simple pleasure is',
-    promptAnswer: 'buscus',
-  },
-  {
-    id: 3,
-    firstName: 'Kylie',
-    age: 17,
-    job: 'Model',
-    photoUrl: 'http://www.swaggermagazine.com/home/wp-content/uploads/2018/instagrammodels/13.jpg',
-    prompt: 'My simple pleasure is',
-    promptAnswer: 'buscus',
-  },
-]

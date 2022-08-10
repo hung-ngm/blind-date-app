@@ -1,10 +1,21 @@
 import React from 'react';
-import { View, StyleSheet, Text, FlatList } from 'react-native';
+import { 
+  View, 
+  StyleSheet, 
+  Text, 
+  FlatList,
+  ActivityIndicator
+} from 'react-native';
+import { observer } from 'mobx-react-lite';
 import ChatHeader from '../shared/components/ChatHeader';
 import ChatPreview from './components/ChatPreview';
+import { useStore } from '../../stores/store';
+import { mainTheme } from '../../../themes/mainTheme';
 import useAppNavigation from '../../navigation/hooks/useAppNavigation';
 
 export const ChatList = () => {
+  // TODO: Pull data from matchStore to render ChatList
+  const { matches, matchesLimit, loadMore, hasMore, selectMatch } = useStore().matchStore;
   const navigation = useAppNavigation();
 
   return (
@@ -12,20 +23,40 @@ export const ChatList = () => {
       <View style={styles.headerContainer}>
         <ChatHeader text="Messages" fontSize={15} />
       </View>
-      <FlatList
-        data={mockData}
-        renderItem={() => (
-          <ChatPreview onPress={() => {
-            navigation.navigate('ChatMessages');
-          }} />
-        )}
-      />
-      
+      {matches.length > 0 ? (
+        <FlatList
+          data={matches}
+          keyExtractor={(item) => item.id}
+          renderItem={({ item }) => (
+            <ChatPreview
+              match={item}
+              onPress={() => {
+                selectMatch(item.id).then((res) => {
+                  if (res) {
+                    navigation.navigate('ChatMessages');
+                  }
+                })
+              }} 
+            />
+          )}
+          initialNumToRender={matchesLimit}
+          onEndReachedThreshold={0.5}
+          onEndReached={loadMore}
+          ListFooterComponent={hasMore ? 
+            <ActivityIndicator size="large" color={mainTheme.PRIMARY_COLOR} /> : null
+          }
+
+        />
+      ) : (
+        <View style={styles.emptyContainer}>
+          <Text style={styles.emptyText}>There is no match at the moment 😢</Text>
+        </View>
+      )}
     </View>
   ) 
 }
 
-export default ChatList
+export default observer(ChatList);
 
 const styles = StyleSheet.create({
   container: {
@@ -34,6 +65,12 @@ const styles = StyleSheet.create({
   headerContainer: {
     paddingLeft: 15,
     paddingTop: 0,
+  },
+  emptyContainer: {
+
+  },
+  emptyText: {
+
   }
 })
 

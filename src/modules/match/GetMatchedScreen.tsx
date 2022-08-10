@@ -1,44 +1,47 @@
 import React from 'react';
-import {StyleSheet, View, Text, Image} from 'react-native';
+import { StyleSheet, View, Text, Image } from 'react-native';
 import { mainTheme } from '../../themes/mainTheme';
 import PrimaryButton from '../../common/PrimaryButton';
 import SkipButton from '../../common/SkipButton';
-import { NativeStackScreenProps } from '@react-navigation/native-stack' 
-import { RootScreenTabParamList } from '../../types/navigation';
+import useAppNavigation from '../navigation/hooks/useAppNavigation';
+import useRootNavigation from '../navigation/hooks/useRootNavigation';
+import { useStore } from '../stores/store';
 
-type MatchScreenNavigationProps = NativeStackScreenProps<
-    RootScreenTabParamList,
-    'GetMatchedScreen'
->
-
-const GetMatchedScreen = ({navigation}: MatchScreenNavigationProps) => {
+const GetMatchedScreen = () => {
+    const appNav = useAppNavigation();
+    const rootNav = useRootNavigation();
+    const { currentMatch } = useStore().matchStore;
+    const { user } = useStore().userStore;
+    const { userProfile } = useStore().profileStore;
 
     const navigateToPlaceRecommendation = () => {
-        //navigation.navigate('PlaceRecommendation');
-        console.log('to place')
+        appNav.navigate('Places');
     }
 
     const navigateToHome = () => {
-        //navigation.navigate('Home')
-        console.log('to home')
+        rootNav.navigate('Home');
     }
 
-    const fakeUrl = 'http://www.swaggermagazine.com/home/wp-content/uploads/2018/instagrammodels/13.jpg';
-    const fakeUrl2 = 'https://gamek.mediacdn.vn/zoom/700_438/133514250583805952/2020/5/16/photo-1-15896097558091974904037.png'
+    if (!currentMatch || !user || !userProfile) {
+        return null;
+    }
+
+    const otherUser = currentMatch.users[currentMatch.userMatched.find((id) => id !== user?.uid) as string];
 
     return (
         <View style = {styles.container}>
             <View style={styles.imageContainer}>
                 <Image
-                        source={{uri: fakeUrl2}}
-                        resizeMode="cover"
-                        style={styles.myImage}
+                    source={{uri: userProfile.photoUrl}}
+                    resizeMode="cover"
+                    style={styles.myImage}
+                    blurRadius={30}
                 />
                 <Image
-                    source={{uri: fakeUrl}}
+                    source={{uri: otherUser.photoUrl}}
                     resizeMode="cover"
                     style={styles.otherImage}  
-                    blurRadius={20}    
+                    blurRadius={30}    
                 />
             </View>
 

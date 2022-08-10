@@ -1,5 +1,5 @@
 import React from 'react'
-import { Text, StyleSheet, TouchableHighlight } from 'react-native';
+import { Text, TouchableHighlight } from 'react-native';
 import { mainTheme } from '../themes/mainTheme';
 
 interface onPressFunc {

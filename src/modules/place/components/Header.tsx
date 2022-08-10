@@ -1,6 +1,6 @@
 import React from 'react';
 import { StyleSheet, View, Text } from 'react-native';
-import {mainTheme} from '../../../themes/mainTheme';
+import { mainTheme } from '../../../themes/mainTheme';
 
 const Header = () => {
   return (

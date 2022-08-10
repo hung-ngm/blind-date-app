@@ -17,11 +17,14 @@ import { ProfileContext } from '../../profile/context/ProfileProvider';
 import useRootNavigation from '../hooks/useRootNavigation';
 import ProfileFullViewScreen from '../../profile/full-view/ProfileFullViewScreen';
 import useAppNavigation from '../hooks/useAppNavigation';
+import PlaceFullViewScreen from '../../place/full-view/PlaceFullViewScreen';
+import PlaceRecommendationScreen from '../../place/PlaceRecommendationScreen';
+import GetMatchedScreen from '../../match/GetMatchedScreen';
 
 const Stack = createNativeStackNavigator<AppStackParamList>();
 
 const AppNavigator = () => {
-  const { user } = useStore().userStore;
+  const { userProfile } = useStore().profileStore;
   const appNavigation = useAppNavigation();
   const rootNavigation = useRootNavigation();
   const {
@@ -38,7 +41,7 @@ const AppNavigator = () => {
           name="ProfileEditMain"
           component={ProfileEditMainScreen}
           options={{
-            title: user?.firstName || "Lam",
+            title: userProfile?.firstName || "N/A",
             headerRight: () => (                        
               <SkipButton
                 name="Done"
@@ -69,6 +72,15 @@ const AppNavigator = () => {
           headerShown: false,
         }} />
         <Stack.Screen name="ProfileFullView" component={ProfileFullViewScreen} options={{
+          headerShown: false,
+        }} />
+        <Stack.Screen name="Places" component={PlaceRecommendationScreen} options={{
+          headerShown: false,
+        }} />
+        <Stack.Screen name="GetMatched" component={GetMatchedScreen} options={{
+          headerShown: false,
+        }} />
+        <Stack.Screen name="PlaceFullView" component={PlaceFullViewScreen} options={{
           headerShown: false,
         }} />
     </Stack.Navigator>
