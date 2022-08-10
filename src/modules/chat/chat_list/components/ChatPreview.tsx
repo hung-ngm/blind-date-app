@@ -18,7 +18,7 @@ interface ChatPreviewProps {
 }
 
 const ChatPreview: React.FC<ChatPreviewProps> = ({ onPress, match }) => {
-  const { users, userMatched, lastMessage } = match;
+  const { users, userMatched, lastMessage, canChat } = match;
   const { user } = useStore().userStore;
   const otherUser = users[userMatched.find((id) => id !== user?.uid) as string]
 
@@ -31,7 +31,7 @@ const ChatPreview: React.FC<ChatPreviewProps> = ({ onPress, match }) => {
           height={80}
           borderRadius={40}
           extraProps={{ marginLeft: 16 }}
-          isBlurred={true}
+          isBlurred={!canChat}
         /> 
       </View>
       <View style={styles.chatPreviewTextContainer}>
