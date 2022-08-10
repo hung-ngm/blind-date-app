@@ -24,7 +24,6 @@ import {
 import { db } from '../utils/firebase'
 import { store } from './store'
 
-
 class MatchStore {
   currentMatch: Match | null = null
   matchesMap = new Map<string, Match>()
@@ -89,31 +88,32 @@ class MatchStore {
 
   // Create a new match in the "matches" collection with key is combinedId and value is an object with Match type
   createMatch = async (userProfile: Profile, userSwipedBy: Profile) => {
-      try {
-        const matchDoc = doc(
-          db,
-          'matches',
-          this.combineIds(userProfile.id, userSwipedBy.id),
-        )
-        
-        await setDoc(matchDoc, {
-          users: {
-            [userProfile.id]: userProfile,
-            [userSwipedBy.id]: userSwipedBy,
-          },
-          userMatched: [userProfile.id, userSwipedBy.id],
-          timestamp: new Date(),
-        })
-        
-        const match = await getDoc(matchDoc)
-        if (!match.exists()) return false;
-        this.currentMatch = this.getMatch(match)
-        return true;
-    
-      } catch (error) {
-        console.log(error);
-        return false;
-      }      
+    try {
+      const matchDoc = doc(
+        db,
+        'matches',
+        this.combineIds(userProfile.id, userSwipedBy.id),
+      )
+      
+      await setDoc(matchDoc, {
+        users: {
+          [userProfile.id]: userProfile,
+          [userSwipedBy.id]: userSwipedBy,
+        },
+        userMatched: [userProfile.id, userSwipedBy.id],
+        timestamp: new Date(),
+        canChat: false,
+      })
+      
+      const match = await getDoc(matchDoc)
+      if (!match.exists()) return false;
+      this.currentMatch = this.getMatch(match)
+      return true;
+  
+    } catch (error) {
+      console.log(error);
+      return false;
+    }      
   }
 
   selectMatch = async (id: string) => {
@@ -125,11 +125,25 @@ class MatchStore {
     try {
       this.currentMatch = this.matchesMap.get(id) as Match;
       await store.messageStore.loadMessages(this.currentMatch.id);
+      await store.placeStore.loadPlace(this.currentMatch.id);
       return true;
     } catch (error) {
       console.log(error);
       return false;
     }
+  }
+
+  setMatchCanChat = () => {
+    if (!this.currentMatch) return;
+    this.currentMatch.canChat = true;
+    const matchDoc = doc(db, 'matches', this.currentMatch.id)
+    setDoc(matchDoc, { 
+      timestamp: this.currentMatch.timestamp,
+      userMatched: this.currentMatch.userMatched,
+      users: this.currentMatch.users,
+      canChat: true 
+    })
+  
   }
 
   private getMatch = (snap: QueryDocumentSnapshot<DocumentData>): Match => {
@@ -139,6 +153,7 @@ class MatchStore {
       userMatched: snap.data().userMatched,
       lastMessage: snap.data().lastMessage,
       timestamp: new Date(snap.data().timestamp?.toDate()),
+      canChat: snap.data().canChat,
     }
   }
 

@@ -28,8 +28,16 @@ const PlaceCards = () => {
 
   console.log(places);
 
+  const handlePlaceFullViewBackButtonPressed = () => {
+    navigation.navigate('Places');
+  }
+
   const handlePlacePressed = (item: Place) => {
-    navigation.navigate('PlaceFullView', { place: item });
+    navigation.navigate('PlaceFullView',
+    { 
+      place: item, 
+      onBackButtonPressed: handlePlaceFullViewBackButtonPressed 
+    });
   }
   return (
     <View style = {styles.container}>

@@ -10,8 +10,11 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import ChatMessagesHeader from './components/ChatMessagesHeader';
 import { mainTheme } from '../../../themes/mainTheme';
 import MessagesList from './components/MessagesList';
+import PlacesList from './components/PlacesList';
 import ChatInput from './components/ChatInput';
+import LockedChatBox from './components/LockedChatBox';
 import { useStore } from '../../stores/store';
+import { observer } from 'mobx-react-lite';
 
 const ChatMessagesScreen = () => {
   const { currentMatch } = useStore().matchStore;
@@ -32,15 +35,15 @@ const ChatMessagesScreen = () => {
         style={styles.container}
       >
         <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-          <MessagesList />
+          {currentMatch.canChat ? <MessagesList /> : <PlacesList />}
         </TouchableWithoutFeedback>
-        <ChatInput />
+        {currentMatch.canChat ? <ChatInput /> : <LockedChatBox />}
       </KeyboardAvoidingView>
     </SafeAreaView>
   )
 }
 
-export default ChatMessagesScreen;
+export default observer(ChatMessagesScreen);
 
 const styles = StyleSheet.create({
   container: {

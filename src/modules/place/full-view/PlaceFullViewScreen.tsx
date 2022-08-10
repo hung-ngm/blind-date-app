@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { 
   View, 
   StyleSheet, 
@@ -6,11 +6,11 @@ import {
   SafeAreaView, 
   ScrollView, 
   Text,
-  TouchableWithoutFeedback
+  TouchableWithoutFeedback,
+  LogBox
 } from 'react-native';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { AppStackParamList } from '../../../types/navigation';
-import useAppNavigation from '../../navigation/hooks/useAppNavigation';
 import BackButton from '../../../common/BackButton';
 import { Entypo } from '@expo/vector-icons';
 import { mainTheme } from '../../../themes/mainTheme';
@@ -19,12 +19,11 @@ import CategoryButton from './components/CategoryButton';
 type PlaceFullViewNavigationProps = NativeStackScreenProps<AppStackParamList, "PlaceFullView">
 
 const PlaceFullViewScreen = ({ route }: PlaceFullViewNavigationProps) => {
-  const navigation = useAppNavigation();
-  const { place } : any = route.params;
+  const { place, onBackButtonPressed } : any = route.params;
 
-  const handleBackButtonPressed = () => {
-    navigation.navigate('Places');
-  }
+  useEffect(() => {
+    LogBox.ignoreLogs(['Non-serializable values were found in the navigation state']);
+  }, [])
 
   const handlePhoneIconPressed = () => {
     // TODO: Change this so that it can call the restaurants immediately
@@ -41,7 +40,7 @@ const PlaceFullViewScreen = ({ route }: PlaceFullViewNavigationProps) => {
       <ScrollView style={styles.scrollView}>
         <View style={styles.backButtonContainer}>
           <BackButton
-            onPress={handleBackButtonPressed}
+            onPress={onBackButtonPressed}
           />
         </View>
         <View style={styles.imageContainer}>
