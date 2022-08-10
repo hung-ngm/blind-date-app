@@ -28,7 +28,10 @@ const ChatMessagesScreen = () => {
 
   return (
     <SafeAreaView style={styles.container}>
-      <ChatMessagesHeader otherUser={otherUser} />
+      <ChatMessagesHeader 
+        otherUser={otherUser} 
+        currentMatch={currentMatch}
+      />
       <KeyboardAvoidingView
         behavior={Platform.OS === "ios" ? "padding" : "height"}
         keyboardVerticalOffset={10}

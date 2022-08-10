@@ -15,7 +15,7 @@ interface CardProps {
 }
 
 const Card: React.FC<CardProps> = ({card}) => {
-  const { users, userMatched } = card;
+  const { users, userMatched, canChat } = card;
   const { user } = useStore().userStore;
   const otherUser = users[userMatched.find((id) => id !== user?.uid) as string] as Profile;
   const { photoUrl, firstName, age } = otherUser;
@@ -26,7 +26,7 @@ const Card: React.FC<CardProps> = ({card}) => {
           source={{ uri: photoUrl }} 
           resizeMode="cover"
           style={styles.image}
-          blurRadius={20}
+          blurRadius={!canChat ? 20 : 0}
         />
         <View style={styles.footer}>
             <Text style={styles.name}>{firstName}, {age}</Text>

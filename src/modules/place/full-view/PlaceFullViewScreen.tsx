@@ -109,17 +109,18 @@ const styles = StyleSheet.create({
   },
   placeDetailsContainer: {
     flexDirection: 'row',
-    paddingTop: 80,
+    paddingTop: 30,
     paddingLeft: 30,
   },
   placeNameDescriptionContainer: {
-    flex: 8
+    flex: 8,
   },
   placeName: {
     fontSize: 25,
     fontWeight: 'bold'
   },
   placeDescription: {
+    paddingTop: 8,
     fontSize: 20,
   },
   phoneIconContainer: {

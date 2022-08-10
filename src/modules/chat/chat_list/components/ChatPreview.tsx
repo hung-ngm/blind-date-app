@@ -4,7 +4,6 @@ import {
   StyleSheet, 
   Text, 
   TouchableOpacity, 
-  TouchableWithoutFeedback 
 } from 'react-native';
 import { observer } from 'mobx-react-lite';
 import ProfileAvatar from '../../shared/components/ProfileAvatar';
@@ -40,7 +39,7 @@ const ChatPreview: React.FC<ChatPreviewProps> = ({ onPress, match }) => {
           <Text style={styles.minutes}>23 min</Text>
         </View>
         <View style={styles.secondRow}>
-          <Text style={styles.lastMessage}>{lastMessage ? lastMessage : "Say Hi!"}</Text>
+          <Text style={styles.lastMessage}>{lastMessage ? lastMessage : "Thinking about the date"}</Text>
           <NotificationIcon
             numNotifications={1}
             width={20}
