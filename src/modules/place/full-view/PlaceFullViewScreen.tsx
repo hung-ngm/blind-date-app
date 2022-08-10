@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { 
   View, 
   StyleSheet, 
@@ -6,12 +6,11 @@ import {
   SafeAreaView, 
   ScrollView, 
   Text,
-  TouchableWithoutFeedback
+  TouchableWithoutFeedback,
+  LogBox
 } from 'react-native';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { AppStackParamList } from '../../../types/navigation';
-import useRootNavigation from '../../navigation/hooks/useRootNavigation';
-import useAppNavigation from '../../navigation/hooks/useAppNavigation';
 import BackButton from '../../../common/BackButton';
 import { Entypo } from '@expo/vector-icons';
 import { mainTheme } from '../../../themes/mainTheme';
@@ -20,41 +19,28 @@ import CategoryButton from './components/CategoryButton';
 type PlaceFullViewNavigationProps = NativeStackScreenProps<AppStackParamList, "PlaceFullView">
 
 const PlaceFullViewScreen = ({ route }: PlaceFullViewNavigationProps) => {
-  const rootNav = useRootNavigation();
-  const appNav = useAppNavigation();
-  const { place } : any = route.params;
+  const { place, onBackButtonPressed } : any = route.params;
 
-  const handleBackButtonPressed = () => {
-    appNav.navigate('Places');
-  }
+  useEffect(() => {
+    LogBox.ignoreLogs(['Non-serializable values were found in the navigation state']);
+  }, [])
 
   const handlePhoneIconPressed = () => {
-    // TODO: Change this since it should navigate to the DM chat of that profile
-    // rootNav.navigate('Chat');
+    // TODO: Change this so that it can call the restaurants immediately
   }
 
   if (!place) {
     return null;
   }
 
-  const {
-    id,
-    name,
-    photoUrl,
-    categories,
-    priceLevel,
-    address,
-    city,
-    country,
-    phoneNumber,
-  } = place;
+  const { name, photoUrl, categories, address } = place;
 
   return (
     <SafeAreaView style={styles.container}>
       <ScrollView style={styles.scrollView}>
         <View style={styles.backButtonContainer}>
           <BackButton
-            onPress={handleBackButtonPressed}
+            onPress={onBackButtonPressed}
           />
         </View>
         <View style={styles.imageContainer}>
@@ -123,17 +109,18 @@ const styles = StyleSheet.create({
   },
   placeDetailsContainer: {
     flexDirection: 'row',
-    paddingTop: 80,
+    paddingTop: 30,
     paddingLeft: 30,
   },
   placeNameDescriptionContainer: {
-    flex: 8
+    flex: 8,
   },
   placeName: {
     fontSize: 25,
     fontWeight: 'bold'
   },
   placeDescription: {
+    paddingTop: 8,
     fontSize: 20,
   },
   phoneIconContainer: {
@@ -159,26 +146,3 @@ const styles = StyleSheet.create({
     flexWrap: 'wrap',
   },
 })
-
-const mockPassionsData = [
-  {
-    id: 1,
-    name: 'Cafe'
-  },
-  {
-    id: 2,
-    name: 'Vietnamese'
-  },
-  {
-    id: 3,
-    name: 'Beverage'
-  },
-  {
-    id: 4,
-    name: 'Fast Food'
-  },
-  {
-    id: 5,
-    name: 'Pho'
-  },
-]

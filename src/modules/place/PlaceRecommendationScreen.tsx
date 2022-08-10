@@ -1,5 +1,5 @@
-import * as React from 'react';
-import {View, StyleSheet} from 'react-native';
+import React from 'react';
+import { View, StyleSheet } from 'react-native';
 import Header from './components/Header';
 import PlaceCards from './components/PlaceCards';
 import PrimaryButton from '../../common/PrimaryButton';

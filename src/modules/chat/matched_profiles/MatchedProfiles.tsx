@@ -38,7 +38,7 @@ const MatchedProfiles = () => {
                   width={80}
                   height={80}
                   borderRadius={40}
-                  isBlurred={true}
+                  isBlurred={!match.canChat}
                   extraProps={{
                     marginHorizontal: 10,
                   }}

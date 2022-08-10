@@ -7,5 +7,6 @@ export interface Match {
     },
     userMatched: string[],
     lastMessage: string | null,
-    timestamp: Date
+    timestamp: Date,
+    canChat: boolean,
 }
