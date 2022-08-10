@@ -89,12 +89,13 @@ class MatchStore {
 
   // Create a new match in the "matches" collection with key is combinedId and value is an object with Match type
   createMatch = async (userProfile: Profile, userSwipedBy: Profile) => {
-      const matchDoc = doc(
-        db,
-        'matches',
-        this.combineIds(userProfile.id, userSwipedBy.id),
-      )
       try {
+        const matchDoc = doc(
+          db,
+          'matches',
+          this.combineIds(userProfile.id, userSwipedBy.id),
+        )
+        
         await setDoc(matchDoc, {
           users: {
             [userProfile.id]: userProfile,
@@ -103,23 +104,16 @@ class MatchStore {
           userMatched: [userProfile.id, userSwipedBy.id],
           timestamp: new Date(),
         })
-      } catch (err) {
-        console.log(err);
-      }
-      
-      try {
-        const match = await getDoc(matchDoc)
-
-        if (!match.exists()) return false;
-
-        this.currentMatch = this.getMatch(match)
-
-        return true;
         
-
-      } catch (err) {
-        console.log(err);
-      }
+        const match = await getDoc(matchDoc)
+        if (!match.exists()) return false;
+        this.currentMatch = this.getMatch(match)
+        return true;
+    
+      } catch (error) {
+        console.log(error);
+        return false;
+      }      
   }
 
   selectMatch = async (id: string) => {
@@ -128,10 +122,14 @@ class MatchStore {
       return false;
     }
 
-    this.currentMatch = this.matchesMap.get(id) as Match;
-    await store.messageStore.loadMessages(this.currentMatch.id);
-
-    return true;
+    try {
+      this.currentMatch = this.matchesMap.get(id) as Match;
+      await store.messageStore.loadMessages(this.currentMatch.id);
+      return true;
+    } catch (error) {
+      console.log(error);
+      return false;
+    }
   }
 
   private getMatch = (snap: QueryDocumentSnapshot<DocumentData>): Match => {

@@ -42,17 +42,21 @@ class MessageStore {
 
   // Messages will be stored as the sub-collection of a Match document in the matches collection
   loadMessages = async (matchId: string) => {
-    this.messagesMap.clear();
-    this.unsubscribeMessages && this.unsubscribeMessages();
-
-    this.unsubscribeMessages = onSnapshot(
-      query(
-        collection(db, 'matches', matchId, 'messages'),
-        orderBy('timestamp', 'desc'),
-        limit(this.messageLimit),
-      ),
-      this.setMessages
-    );
+    try {
+      this.messagesMap.clear();
+      this.unsubscribeMessages && this.unsubscribeMessages();
+  
+      this.unsubscribeMessages = onSnapshot(
+        query(
+          collection(db, 'matches', matchId, 'messages'),
+          orderBy('timestamp', 'desc'),
+          limit(this.messageLimit),
+        ),
+        this.setMessages
+      );
+    } catch (error) {
+      console.log(error);
+    }
   }
  
   loadMore = async () => {
