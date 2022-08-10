@@ -5,6 +5,9 @@ import { mainTheme } from '../../../themes/mainTheme';
 import RootScreen from '../../root/RootScreen';
 import ChatMessagesScreen from '../../chat/messages/ChatMessagesScreen';
 import ProfileFullViewScreen from '../../profile/full-view/ProfileFullViewScreen';
+import PlaceFullViewScreen from '../../place/full-view/PlaceFullViewScreen';
+import PlaceRecommendationScreen from '../../place/PlaceRecommendationScreen';
+import GetMatchedScreen from '../../match/GetMatchedScreen';
 
 const Stack = createNativeStackNavigator<AppStackParamList>();
 
@@ -20,6 +23,15 @@ const AppNavigator = () => {
           headerShown: false,
         }} />
         <Stack.Screen name="ProfileFullView" component={ProfileFullViewScreen} options={{
+          headerShown: false,
+        }} />
+        <Stack.Screen name="Places" component={PlaceRecommendationScreen} options={{
+          headerShown: false,
+        }} />
+        <Stack.Screen name="GetMatched" component={GetMatchedScreen} options={{
+          headerShown: false,
+        }} />
+        <Stack.Screen name="PlaceFullView" component={PlaceFullViewScreen} options={{
           headerShown: false,
         }} />
     </Stack.Navigator>

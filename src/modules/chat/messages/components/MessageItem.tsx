@@ -1,22 +1,25 @@
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import { Message } from '../../../../types/message';
+import { Profile } from '../../../../types/profile';
 import { mainTheme } from '../../../../themes/mainTheme';
 import ProfileAvatar from '../../shared/components/ProfileAvatar';
 
 interface MessageItemProps {
   message: Message;
   isSender: boolean;
+  otherUser: Profile
 }
 
-const MessageItem: React.FC<MessageItemProps> = ({ message, isSender }) => {
-  const { value, photoURL } = message;
+const MessageItem: React.FC<MessageItemProps> = ({ message, isSender, otherUser }) => {
+  const { value } = message;
+  const { photoUrl } = otherUser;
 
   return (
     <View style={[styles.container, isSender ? styles.sender : styles.receiver]}>
       {!isSender && 
         <ProfileAvatar 
-          imageUrl={photoURL}
+          imageUrl={photoUrl}
           width={48}
           height={48}
           borderRadius={24}

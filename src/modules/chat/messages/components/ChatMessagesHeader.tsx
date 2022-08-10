@@ -4,12 +4,17 @@ import ProfileAvatar from '../../shared/components/ProfileAvatar';
 import OnlineStatusIcon from '../components/OnlineStatusIcon';
 import BackButton from '../../../../common/BackButton';
 import useRootNavigation from '../../../navigation/hooks/useRootNavigation';
+import { Profile } from '../../../../types/profile';
 
-const ChatMessagesHeader = () => {
+interface ChatMessagesHeaderProps {
+  otherUser: Profile;
+}
+
+const ChatMessagesHeader: React.FC<ChatMessagesHeaderProps> = ({ otherUser }) => {
+  const { firstName, lastName, photoUrl } = otherUser;
   const navigation = useRootNavigation();
 
-  // TODO: Change this
-  const fakeUrl = "http://www.swaggermagazine.com/home/wp-content/uploads/2018/instagrammodels/13.jpg";
+  const onlineStatusFeature = true;
 
   return (
     <View style={styles.container}>
@@ -22,7 +27,7 @@ const ChatMessagesHeader = () => {
       />
 
       <ProfileAvatar
-        imageUrl={fakeUrl}
+        imageUrl={photoUrl}
         width={60}
         height={60}
         borderRadius={30}
@@ -33,17 +38,18 @@ const ChatMessagesHeader = () => {
         isBlurred={true}
       />
       <View style={styles.displayInfoContainer}>
-        <Text style={styles.displayName}>Grace</Text>
-        <View style={styles.onlineStatusContainer}>
-          <OnlineStatusIcon
-            width={10}
-            height={10}
-            borderRadius={20}
-            isOnline={true}
-          />
-          <Text style={styles.onlineStatus}>Online</Text>
-        </View>
-        
+        <Text style={styles.displayName}>{firstName} {lastName}</Text>
+        {onlineStatusFeature && (
+          <View style={styles.onlineStatusContainer}>
+            <OnlineStatusIcon
+              width={10}
+              height={10}
+              borderRadius={20}
+              isOnline={true}
+            />
+            <Text style={styles.onlineStatus}>Online</Text>
+          </View>
+        )}
       </View>
     </View>
   )

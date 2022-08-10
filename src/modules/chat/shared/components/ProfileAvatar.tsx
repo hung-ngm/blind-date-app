@@ -8,13 +8,15 @@ export type ProfileAvatarProps = {
   height: number;
   borderRadius: number;
   isBlurred: boolean;
+  onPress?: () => void;
 }
 
 const ProfileAvatar = (props: ProfileAvatarProps) => {
-  const { extraProps, width, height, borderRadius, imageUrl, isBlurred } = props;
+  const { extraProps, width, height, borderRadius, imageUrl, isBlurred, onPress } = props;
 
   return (
     <TouchableHighlight
+      onPress={onPress}
       style={{
         ...extraProps,
         width: width,

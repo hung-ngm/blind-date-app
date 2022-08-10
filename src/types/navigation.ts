@@ -1,5 +1,6 @@
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { Profile } from './profile';
+import { Place } from './place';
 
 export type AuthStackParamList = {
   Login: undefined;
@@ -12,6 +13,9 @@ export type AppStackParamList = {
   Root: undefined;
   ChatMessages: undefined;
   ProfileFullView: { profile: Profile | undefined }
+  Places: undefined;
+  GetMatched: undefined;
+  PlaceFullView: { place: Place | undefined };
 }
 
 export type AppNavigationProp = NativeStackNavigationProp<AppStackParamList>
@@ -30,8 +34,6 @@ export type ProfileStackParamList = {
 export type RootScreenTabParamList = {
   Home: undefined;
   Match: undefined;
-  Place: undefined;
-  GetMatchedScreen: undefined;
   Chat: undefined;
   Profile: undefined;
 }

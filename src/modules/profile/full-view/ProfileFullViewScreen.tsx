@@ -18,7 +18,7 @@ import PassionButton from './components/PassionButton';
 
 type ProfileFullViewNavigationProps = NativeStackScreenProps<AppStackParamList, "ProfileFullView">
 
-const ProfileFullViewScreen = ({ route, navigation }: ProfileFullViewNavigationProps) => {
+const ProfileFullViewScreen = ({ route }: ProfileFullViewNavigationProps) => {
   const nav = useRootNavigation();
   const { profile }: any = route.params;
   const { firstName, lastName, age, job, photoUrl, prompt, promptAnswer, passions } = profile;
@@ -71,9 +71,10 @@ const ProfileFullViewScreen = ({ route, navigation }: ProfileFullViewNavigationP
             <Text style={styles.passionsTitle}>Passions</Text>
           </View>
           <View style={styles.passionsLabels}>
-            {mockPassionsData.map((passion: string) => (
+            {mockPassionsData.map((item) => (
               <PassionButton 
-                passion={passion} 
+                key={item.id}
+                passion={item.name} 
                 extraStyles={{
                   margin: 5,
                 }}
@@ -171,9 +172,24 @@ const styles = StyleSheet.create({
 })
 
 const mockPassionsData = [
-  'American',
-  'Burgers',
-  'Music',
-  'Dancing',
-  'Modeling'
+  {
+    id: 1,
+    name: 'American'
+  },
+  {
+    id: 2,
+    name: 'Burgers'
+  },
+  {
+    id: 3,
+    name: 'Music'
+  },
+  {
+    id: 4,
+    name: 'Dancing'
+  },
+  {
+    id: 5,
+    name: 'Modeling'
+  },
 ]

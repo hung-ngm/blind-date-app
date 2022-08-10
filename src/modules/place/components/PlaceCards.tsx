@@ -3,17 +3,46 @@ import {
     FlatList,
     StyleSheet
 } from 'react-native';
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import PlaceCard from './PlaceCard';
+import useAppNavigation from '../../navigation/hooks/useAppNavigation';
+import { useStore } from '../../stores/store';
+import { findCommonCategories, getCommonSearchRequest, getTopFivePlaces } from '../../utils/placeUtils';
+import { Place } from '../../../types/place';
 
 const PlaceCards = () => {
+  const navigation = useAppNavigation();
+  const { currentMatch } = useStore().matchStore;
+
+  const fetchPlaces = async () => {
+    const commonCategories = findCommonCategories(currentMatch);
+    const commonSearchRequest = getCommonSearchRequest(commonCategories, "sydney");
+    const places = await getTopFivePlaces(commonSearchRequest);
+    return places;
+  }
+
+  const [places, setPlaces] = useState([]);
+  useEffect(() => {
+    fetchPlaces().then(places => setPlaces(places));
+  }, []);
+
+  console.log(places);
+
+  const handlePlacePressed = (item: Place) => {
+    navigation.navigate('PlaceFullView', { place: item });
+  }
   return (
     <View style = {styles.container}>
       <FlatList 
         numColumns={2}
-        data={mockData}
+        data={places}
         renderItem={({item}) => (
-          <PlaceCard placeCard={item}></PlaceCard>
+          <PlaceCard 
+            placeCard={item} 
+            onPress={() => {
+              handlePlacePressed(item);
+            }}
+          />
         )}
       >
       </FlatList>
@@ -31,8 +60,7 @@ const mockData = [
   {
     id: 1,
     name: 'Res 1',
-    priceMin: 10,
-    priceMax: 200,
+    priceLevel: 1,
     city: 'Boston',
     country: 'USA',
     categories: ['a', 'b'],
@@ -41,8 +69,7 @@ const mockData = [
   {
     id: 2,
     name: 'Res 2',
-    priceMin: 10,
-    priceMax: 200,
+    priceLevel: 2,
     city: 'Hanoi',
     country: 'Vietnam',
     categories: ['a', 'b'],
@@ -51,8 +78,7 @@ const mockData = [
   {
     id: 3,
     name: 'Res 3',
-    priceMin: 10,
-    priceMax: 200,
+    priceLevel: 3,
     city: 'Tokyo',
     country: 'Japan',
     categories: ['a', 'b'],
@@ -61,8 +87,7 @@ const mockData = [
   {
     id: 4,
     name: 'Res 4',
-    priceMin: 10,
-    priceMax: 200,
+    priceLevel: 4,
     city: 'Perking',
     country: 'China',
     categories: ['a', 'b'],
@@ -71,8 +96,7 @@ const mockData = [
   {
     id: 5,
     name: 'Res 5',
-    priceMin: 10,
-    priceMax: 200,
+    priceLevel: 2,
     city: 'Singapore',
     country: 'Singapore',
     categories: ['a', 'b'],
