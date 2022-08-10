@@ -4,7 +4,6 @@ import {
   StyleSheet, 
   Text, 
   TouchableOpacity, 
-  TouchableWithoutFeedback 
 } from 'react-native';
 import { observer } from 'mobx-react-lite';
 import ProfileAvatar from '../../shared/components/ProfileAvatar';
@@ -18,7 +17,7 @@ interface ChatPreviewProps {
 }
 
 const ChatPreview: React.FC<ChatPreviewProps> = ({ onPress, match }) => {
-  const { users, userMatched, lastMessage } = match;
+  const { users, userMatched, lastMessage, canChat } = match;
   const { user } = useStore().userStore;
   const otherUser = users[userMatched.find((id) => id !== user?.uid) as string]
 
@@ -31,7 +30,7 @@ const ChatPreview: React.FC<ChatPreviewProps> = ({ onPress, match }) => {
           height={80}
           borderRadius={40}
           extraProps={{ marginLeft: 16 }}
-          isBlurred={true}
+          isBlurred={!canChat}
         /> 
       </View>
       <View style={styles.chatPreviewTextContainer}>
@@ -40,7 +39,7 @@ const ChatPreview: React.FC<ChatPreviewProps> = ({ onPress, match }) => {
           <Text style={styles.minutes}>23 min</Text>
         </View>
         <View style={styles.secondRow}>
-          <Text style={styles.lastMessage}>{lastMessage ? lastMessage : "Say Hi!"}</Text>
+          <Text style={styles.lastMessage}>{lastMessage ? lastMessage : "Thinking about the date"}</Text>
           <NotificationIcon
             numNotifications={1}
             width={20}

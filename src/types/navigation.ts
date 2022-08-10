@@ -22,7 +22,7 @@ export type AppStackParamList = {
   ProfileFullView: { profile: Profile | undefined }
   Places: undefined;
   GetMatched: undefined;
-  PlaceFullView: { place: Place | undefined };
+  PlaceFullView: { place: Place | undefined, onBackButtonPressed: () => void };
 }
 
 export type AppNavigationProp = NativeStackNavigationProp<AppStackParamList>

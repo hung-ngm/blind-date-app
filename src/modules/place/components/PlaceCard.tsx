@@ -11,6 +11,8 @@ import { Place } from '../../../types/place';
 import { AntDesign } from '@expo/vector-icons';
 import { MaterialIcons } from '@expo/vector-icons';
 import { mainTheme } from '../../../themes/mainTheme';
+import { useStore } from '../../stores/store';
+import useAppNavigation from '../../navigation/hooks/useAppNavigation';
 
 interface PlaceCardProps {
   placeCard: Place;
@@ -20,6 +22,25 @@ interface PlaceCardProps {
 const PlaceCard: React.FC<PlaceCardProps> = ({ placeCard, onPress }) => {
   const { name, photoUrl } = placeCard;
   const [checked, setChecked] = useState(false);
+  const { createPlace } = useStore().placeStore;
+  const { currentMatch, selectMatch } = useStore().matchStore;
+  const navigation = useAppNavigation();
+
+  const handlePlacePressed = async () => {
+    setChecked(true);
+    try {
+      await createPlace(placeCard);
+      if (currentMatch) {
+        selectMatch(currentMatch.id).then((res) => {
+          if (res) {
+            navigation.navigate('ChatMessages');
+          }
+        });
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  }
 
   return (
     <TouchableWithoutFeedback onPress={onPress}>
@@ -34,10 +55,11 @@ const PlaceCard: React.FC<PlaceCardProps> = ({ placeCard, onPress }) => {
         </View>
         <TouchableOpacity 
           style={checked? styles.close: styles.heart}
-          onPress={() => setChecked(!checked)}
+          onPress={() => handlePlacePressed()}
         >
           {
-            checked? <MaterialIcons name="close" size={26} color={mainTheme.WHITE_COLOR} />
+            checked? 
+            <MaterialIcons name="close" size={26} color={mainTheme.WHITE_COLOR} />
             : <AntDesign name="heart" size={26} color={mainTheme.WHITE_COLOR} />
           }
         </TouchableOpacity>

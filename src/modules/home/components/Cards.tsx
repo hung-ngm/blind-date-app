@@ -25,7 +25,7 @@ const Cards = () => {
           ref={swipeRef}
           containerStyle={styles.swiper}
           cards={profiles}
-          stackSize={profiles.length > 0 ? 5: 1}
+          stackSize={5}
           cardIndex={0}
           animateCardOpacity
           onTapCard={handleTabCard}

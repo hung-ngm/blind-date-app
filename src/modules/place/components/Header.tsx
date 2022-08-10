@@ -6,9 +6,9 @@ const Header = () => {
   return (
     <View style={styles.container}>
       <View style={styles.textContainer}>
-        <Text style={styles.headerText}>Find Your Places</Text>
+        <Text style={styles.headerText}>Find Your Favorite Place</Text>
         <Text style={styles.descriptionText}>
-            Choose at least 3 from 5 places for us to arrange a blind date
+            Choose 1 place from 5 places for us to arrange a blind date
         </Text>
       </View>
     </View>

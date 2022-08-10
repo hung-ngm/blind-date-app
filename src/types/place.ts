@@ -1,5 +1,6 @@
 export interface Place {
   id: string;
+  invitedBy: string;
   name: string;
   photoUrl: string;
   categories: Array<string>;

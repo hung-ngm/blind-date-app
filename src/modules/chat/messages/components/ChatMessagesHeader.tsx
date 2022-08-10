@@ -5,13 +5,16 @@ import OnlineStatusIcon from '../components/OnlineStatusIcon';
 import BackButton from '../../../../common/BackButton';
 import useRootNavigation from '../../../navigation/hooks/useRootNavigation';
 import { Profile } from '../../../../types/profile';
+import { Match } from '../../../../types/match';
 
 interface ChatMessagesHeaderProps {
   otherUser: Profile;
+  currentMatch: Match;
 }
 
-const ChatMessagesHeader: React.FC<ChatMessagesHeaderProps> = ({ otherUser }) => {
+const ChatMessagesHeader: React.FC<ChatMessagesHeaderProps> = ({ otherUser, currentMatch }) => {
   const { firstName, lastName, photoUrl } = otherUser;
+  const { canChat } = currentMatch;
   const navigation = useRootNavigation();
 
   const onlineStatusFeature = true;
@@ -35,7 +38,7 @@ const ChatMessagesHeader: React.FC<ChatMessagesHeaderProps> = ({ otherUser }) =>
           paddingTop: 5,
           marginLeft: 10 
         }}
-        isBlurred={true}
+        isBlurred={!canChat}
       />
       <View style={styles.displayInfoContainer}>
         <Text style={styles.displayName}>{firstName} {lastName}</Text>
