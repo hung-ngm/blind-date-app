@@ -10,7 +10,6 @@ import {
 } from 'react-native';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { AppStackParamList } from '../../../types/navigation';
-import useRootNavigation from '../../navigation/hooks/useRootNavigation';
 import useAppNavigation from '../../navigation/hooks/useAppNavigation';
 import BackButton from '../../../common/BackButton';
 import { Entypo } from '@expo/vector-icons';
@@ -20,34 +19,22 @@ import CategoryButton from './components/CategoryButton';
 type PlaceFullViewNavigationProps = NativeStackScreenProps<AppStackParamList, "PlaceFullView">
 
 const PlaceFullViewScreen = ({ route }: PlaceFullViewNavigationProps) => {
-  const rootNav = useRootNavigation();
-  const appNav = useAppNavigation();
+  const navigation = useAppNavigation();
   const { place } : any = route.params;
 
   const handleBackButtonPressed = () => {
-    appNav.navigate('Places');
+    navigation.navigate('Places');
   }
 
   const handlePhoneIconPressed = () => {
-    // TODO: Change this since it should navigate to the DM chat of that profile
-    // rootNav.navigate('Chat');
+    // TODO: Change this so that it can call the restaurants immediately
   }
 
   if (!place) {
     return null;
   }
 
-  const {
-    id,
-    name,
-    photoUrl,
-    categories,
-    priceLevel,
-    address,
-    city,
-    country,
-    phoneNumber,
-  } = place;
+  const { name, photoUrl, categories, address } = place;
 
   return (
     <SafeAreaView style={styles.container}>
@@ -159,26 +146,3 @@ const styles = StyleSheet.create({
     flexWrap: 'wrap',
   },
 })
-
-const mockPassionsData = [
-  {
-    id: 1,
-    name: 'Cafe'
-  },
-  {
-    id: 2,
-    name: 'Vietnamese'
-  },
-  {
-    id: 3,
-    name: 'Beverage'
-  },
-  {
-    id: 4,
-    name: 'Fast Food'
-  },
-  {
-    id: 5,
-    name: 'Pho'
-  },
-]
