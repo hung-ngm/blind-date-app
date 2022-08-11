@@ -1,4 +1,4 @@
-import { Profile } from '../../types/profile';
+import { CategoryType, GenderType, PassionType, Profile } from '../../types/profile';
 import { User } from '../../types/user';
 import { makeAutoObservable, runInAction } from 'mobx';
 import {
@@ -17,9 +17,27 @@ import {
 import { db } from '../utils/firebase';
 import { store } from './store';
 
+const DEFAULT_USER_PROFILE: Profile = {
+  id: '',
+  firstName: '',
+  lastName: '',
+  age: 0,
+  job: '',
+  photoUrl: '',
+  prompt: '',
+  promptAnswer: '',
+  gender: null,
+  passions: [],
+  distance: 0,
+  priceMin: 0,
+  priceMax: 0,
+  city: '',
+  country: '',
+  categories: [],
+};
 class ProfileStore {
   profilesMap =  new Map<String, Profile>();
-  userProfile: Profile | null = null;
+  userProfile: Profile = DEFAULT_USER_PROFILE;
   profileLoading = true;
   unsubscribeUserProfile?: Unsubscribe;
   unsubscribeProfiles?: Unsubscribe;
@@ -27,6 +45,72 @@ class ProfileStore {
   constructor() {
     makeAutoObservable(this);
   }
+
+  // setters for userProfile
+  setFirstName(fname: string) {
+    this.userProfile.firstName = fname;
+  }
+
+  setLastName(lname: string) {
+    this.userProfile.lastName = lname;
+  }
+
+  setJob(job: string) {
+    this.userProfile.job = job;
+  }
+
+  setAge(age: number) {
+    this.userProfile.age = age;
+  }
+
+  setPhotoUrl() {
+    // upload to storage.then (photoUrl => this.userProfile.photoUrl = photoUrl;)
+  }
+
+  setGender(gender: GenderType) {
+    this.userProfile.gender = gender;
+  }
+
+  setPassions(passions: PassionType[]) {
+    this.userProfile.passions = passions;
+  }
+
+  setCity(city: string) {
+    this.userProfile.city = city;
+  }
+
+  setCountry(country: string) {
+    this.userProfile.country =  country;
+  }
+
+  setDistance(distance: number) {
+    this.userProfile.distance = distance;
+  }
+
+  setPriceMin(priceMin: number) {
+    this.userProfile.priceMin = priceMin;
+  }
+
+  setPriceMax(priceMax: number) {
+    this.userProfile.priceMax = priceMax;
+  }
+
+  setCategories(categories: CategoryType[]) {
+    this.userProfile.categories = categories;
+  }
+
+  setPrompt(prompt: string) {
+    this.userProfile.prompt = prompt;
+  }
+
+  setPromptAnswer(promptAnswer: string) {
+    this.userProfile.promptAnswer = promptAnswer;
+  }
+
+  updateUserProfile = async () => {
+    await setDoc(doc(db, "users", this.userProfile.id), this.userProfile);
+  } 
+  //
 
   get profiles() {
     return Array.from(this.profilesMap.values());
@@ -40,7 +124,7 @@ class ProfileStore {
           if (snap.exists()) {
             this.userProfile = this.getProfile(snap)
           } else {
-            this.userProfile = null;
+            this.userProfile = DEFAULT_USER_PROFILE;
           }
         })
         this.profileLoading = false;
@@ -79,13 +163,12 @@ class ProfileStore {
       promptAnswer: snap.data().promptAnswer,
       gender: snap.data().gender,
       passions: snap.data().passions,
+      distance: snap.data().distance,
       priceMin: snap.data().priceMin,
       priceMax: snap.data().priceMax,
       city: snap.data().city,
       country: snap.data().country,
       categories: snap.data().categories
-      // idealPlace: snap.data().idealPlace,
-      // timestamp: new Date(snap.data().timeStamp?.toDate())
     }
   }
 
@@ -132,7 +215,7 @@ class ProfileStore {
 
   resetStore = () => {
     this.profilesMap.clear();
-    this.userProfile = null;
+    this.userProfile = DEFAULT_USER_PROFILE;
     this.profileLoading = true;
 
     if (this.unsubscribeProfiles) {
@@ -145,7 +228,6 @@ class ProfileStore {
       this.unsubscribeUserProfile = undefined;
     }
   }
- 
 }
 
 export default ProfileStore;
