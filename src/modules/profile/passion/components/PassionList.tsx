@@ -1,8 +1,7 @@
 import { View, Text, StyleSheet, TouchableHighlight, ScrollView } from 'react-native'
-import React, { useState } from 'react'
+import React from 'react'
 import FontAwesomeIcon from 'react-native-vector-icons/FontAwesome';
 import { mainTheme } from '../../../../themes/mainTheme';
-import { observer } from 'mobx-react-lite';
 import { PassionNames, Passions, PassionType } from '../../../../types/profile';
 import { SelectedPassionsType } from './PassionSelector';
 

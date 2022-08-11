@@ -7,15 +7,6 @@ import { mainTheme } from '../../../themes/mainTheme'
 import Icon from 'react-native-vector-icons/AntDesign';
 import { useStore } from '../../stores/store'
 import { observer } from 'mobx-react-lite';
-import ProfileAvatar from '../../chat/shared/components/ProfileAvatar';
-
-
-type PhotoDisplayerProps = {
-    getPhotoUrl: () => string;
-}
-const PhotoDisplayer = observer(({ getPhotoUrl }: PhotoDisplayerProps) => (
-    <AvatarUpload />
-));
 
 type PromptDisplayerProps = {
     getPrompt: () => string;
@@ -116,7 +107,7 @@ const ProfileEditMainScreen = () => {
                     justifyContent: 'center',
                     alignItems: 'center',
                 }}>
-                    <PhotoDisplayer getPhotoUrl={() => userProfile.photoUrl}/>
+                    <AvatarUpload />
                 </View>
             </View>
             <View style={{
@@ -243,7 +234,7 @@ const ProfileEditMainScreen = () => {
     )
 }
 
-export default ProfileEditMainScreen
+export default observer(ProfileEditMainScreen);
 
 const styles = StyleSheet.create({
     container: {

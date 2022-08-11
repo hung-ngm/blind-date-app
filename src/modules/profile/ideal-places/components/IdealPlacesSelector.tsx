@@ -1,22 +1,33 @@
 import { View, Text, StyleSheet } from 'react-native'
-import React, { useContext } from 'react'
-import { ProfileContext } from '../../context/ProfileProvider';
+import React, { useState } from 'react'
 import DistanceSlider from './DistanceSlider';
 import PriceRangeSlider from './PriceRangeSlider';
 import RestaurantCategoriesList from './RestaurantCategoriesList';
 import PrimaryButton from '../../../../common/PrimaryButton';
 import { mainTheme } from '../../../../themes/mainTheme';
 import CitySelector from './CitySelector';
+import { CategoryType } from '../../../../types/profile';
+import { useStore } from '../../../stores/store';
+import { observer } from 'mobx-react-lite';
 
 
 interface IdealPlacesSelectorProps {
-    handleContinuePress: () => void;
+    handleContinuePress: (categories: CategoryType[]) => void;
 }
+
+export type SelectedCategoriesType = {
+    [key in CategoryType]: Boolean;
+}
+
 const IdealPlacesSelector: React.FC<IdealPlacesSelectorProps> = ({ handleContinuePress }) => {
-    const {
-        numSelectedCategories
-    } = useContext(ProfileContext);
-    const isContinueButtonDisabled = numSelectedCategories === 0;
+    const { userProfile } = useStore().profileStore;
+    const [selectedCategories, setSelectedCategories] = useState<SelectedCategoriesType>(userProfile.categories.reduce((prev: SelectedCategoriesType, cur: CategoryType) => {
+        return ({
+            ...prev,
+            [cur]: true,
+        })
+    }, {} as SelectedCategoriesType));
+    const isContinueButtonDisabled = Object.keys(selectedCategories).length === 0;
 
     return (
         <View style={styles.container}>
@@ -42,12 +53,12 @@ const IdealPlacesSelector: React.FC<IdealPlacesSelectorProps> = ({ handleContinu
                     <PriceRangeSlider/>
                 </View>
                 <View style={{ flex: 3 }}>
-                    <RestaurantCategoriesList/>
+                    <RestaurantCategoriesList selectedCategories={selectedCategories} setSelectedCategories={setSelectedCategories}/>
                 </View>
                 <View style={{ flex: 2 }}>
                     <PrimaryButton
                         text='Continue'
-                        onPress={handleContinuePress}
+                        onPress={() => handleContinuePress(Object.keys(selectedCategories) as CategoryType[])}
                         extraTouchableHighlightProps={{
                             disabled: isContinueButtonDisabled
                         }}
@@ -61,7 +72,7 @@ const IdealPlacesSelector: React.FC<IdealPlacesSelectorProps> = ({ handleContinu
     )
 }
 
-export default IdealPlacesSelector
+export default observer(IdealPlacesSelector);
 
 
 const styles = StyleSheet.create({

@@ -1,61 +1,67 @@
 import { View, Text, ScrollView, StyleSheet, TouchableHighlight } from 'react-native'
-import React, { useContext } from 'react'
+import React from 'react'
+import FontAwesomeIcon from 'react-native-vector-icons/FontAwesome';
 import { mainTheme } from '../../../../themes/mainTheme';
-import Icon from 'react-native-vector-icons/FontAwesome';
-import { Categories, Category, ProfileContext, selectCategoryFuncType, SelectedCategoryType } from '../../context/ProfileProvider';
+import { SelectedCategoriesType } from './IdealPlacesSelector';
+import { Categories, CategoryType, CategoryNames } from '../../../../types/profile';
 
-const dummyList: Category[] = [
-    {
-        iconName: 'coffee',
-        name: 'Coffee',
-        type: Categories.Coffee,
-    },
-    {
-        iconName: 'glass',
-        name: 'Desserts',
-        type: Categories.Desserts,
-    },
-    {
-        iconName: 'cube',
-        name: 'Chicken',
-        type: Categories.Chicken,
-    },
-    {
-        iconName: 'taxi',
-        name: 'Pizza',
-        type: Categories.Pizza,
-    },
-]
+type RestaurantCategoriesListProps = {
+    selectedCategories: SelectedCategoriesType;
+    setSelectedCategories: Function;
+}
+const RestaurantCategoriesList = ({selectedCategories, setSelectedCategories}: RestaurantCategoriesListProps) => {
+    const CategoryIcons =  {
+        [Categories.BUFFET]: <FontAwesomeIcon size={25} name="user" style={Categories.BUFFET in selectedCategories ? styles.iconSelected : styles.iconDefault}/>,
+        [Categories.CAFES]: <FontAwesomeIcon size={25} name="user" style={Categories.CAFES in selectedCategories ? styles.iconSelected : styles.iconDefault}/>,
+        [Categories.BREAKFAST_BRUNCH]: <FontAwesomeIcon size={25} name="user" style={Categories.BREAKFAST_BRUNCH in selectedCategories ? styles.iconSelected : styles.iconDefault}/>,
+        [Categories.THAI]: <FontAwesomeIcon size={25} name="user" style={Categories.THAI in selectedCategories ? styles.iconSelected : styles.iconDefault}/>,
+        [Categories.JAPANESE]: <FontAwesomeIcon size={25} name="user" style={Categories.JAPANESE in selectedCategories ? styles.iconSelected : styles.iconDefault}/>,
+        [Categories.NOODLES]: <FontAwesomeIcon size={25} name="user" style={Categories.NOODLES in selectedCategories ? styles.iconSelected : styles.iconDefault}/>,
+        [Categories.PIZZA]: <FontAwesomeIcon size={25} name="user" style={Categories.PIZZA in selectedCategories ? styles.iconSelected : styles.iconDefault}/>,
+        [Categories.SEAFOOD]: <FontAwesomeIcon size={25} name="user" style={Categories.SEAFOOD in selectedCategories ? styles.iconSelected : styles.iconDefault}/>,
+        [Categories.VIETNAMESE]: <FontAwesomeIcon size={25} name="user" style={Categories.VIETNAMESE in selectedCategories ? styles.iconSelected : styles.iconDefault}/>,
+        [Categories.CHINESE]: <FontAwesomeIcon size={25} name="user" style={Categories.CHINESE in selectedCategories ? styles.iconSelected : styles.iconDefault}/>,
 
-const RestaurantCategoriesList = () => {
-    const {
-        selectedCategories,
-        selectCategory
-    } = useContext(ProfileContext);
+    };
+
+    const selectCategory = (category: CategoryType) => {
+        if (category in selectedCategories) {
+            setSelectedCategories((prevSelectedCategories: SelectedCategoriesType) => {
+                delete prevSelectedCategories[category];
+                return {...prevSelectedCategories};
+            })
+        }
+        else {
+            setSelectedCategories((prevSelectedCategories: SelectedCategoriesType) => ({
+                ...prevSelectedCategories,
+                [category]: true,
+            }))
+        }
+    }
     return (
         <ScrollView contentContainerStyle={styles.container} indicatorStyle='black'>
             {
-                dummyList.map((val: Category, idx: number) => {
-                    const containerStyle = val.type in selectedCategories ? styles.buttonSelected : styles.buttonDefault;
+                Object.keys(Categories).map((val: CategoryType) => {
+                    const containerStyle = val in selectedCategories ? styles.buttonSelected : styles.buttonDefault;
                     return (
                         <TouchableHighlight
                             style={{...containerStyle, ...styles.buttonContainer}}
-                            key={idx}
+                            key={val}
                             onPress={() => {                                
-                                selectCategory(val.type)
+                                selectCategory(val)
                             }}
                         >
                             <View style={styles.buttonLabelContainer}>
                                 <View style={{
                                     flex: 1
                                 }}>
-                                    <Icon size={25} name={val.iconName} style={val.type in selectedCategories ? styles.iconSelected : styles.iconDefault}/>
+                                    {CategoryIcons[val]}
                                 </View>
                                 <View style={{
                                     flex: 2,
                                 }}>
-                                    <Text style={val.type in selectedCategories ? styles.textSelected : styles.textDefault}>
-                                        {val.name}
+                                    <Text style={val in selectedCategories ? styles.textSelected : styles.textDefault}>
+                                        {CategoryNames[val]}
                                     </Text>
                                 </View>
                             </View>

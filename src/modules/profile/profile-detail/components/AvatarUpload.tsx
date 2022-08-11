@@ -4,22 +4,28 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 import * as ImagePicker from 'expo-image-picker';
 import { mainTheme } from '../../../../themes/mainTheme';
 import { useStore } from '../../../stores/store';
+import { observer } from 'mobx-react-lite';
 
 const AvatarUpload = () => {
     const { userProfile, setPhotoUrl } = useStore().profileStore;
 
     const handlePress = async () => {
-        let result = await ImagePicker.launchImageLibraryAsync({
-            mediaTypes: ImagePicker.MediaTypeOptions.All,
-            allowsEditing: true,
-            aspect: [2, 2], // Applicable to Android only
-            quality: 1,
-            base64: true,
-        });
-        
-        if (!result.cancelled) {
-            setPhotoUrl(`data:image/jpeg;base64,${result?.base64}`);
-        }     
+        try {
+            let result = await ImagePicker.launchImageLibraryAsync({
+                mediaTypes: ImagePicker.MediaTypeOptions.All,
+                allowsEditing: true,
+                aspect: [2, 2], // Applicable to Android only
+                quality: 1,
+                base64: true,
+            });
+            
+            if (!result.cancelled) {
+                await setPhotoUrl(result?.base64);
+            }
+        }
+        catch (err) {
+            console.log(err);
+        }
     }
 
     useEffect(() => {
@@ -37,9 +43,9 @@ const AvatarUpload = () => {
         <View style={styles.cameraContainer}>
             <TouchableHighlight onPress={handlePress}>
                 <View>
-                    {avatar
+                    {userProfile.photoUrl
                     ? (
-                        <Image source={{ uri: avatar.uri }} style={styles.avatar}/>
+                        <Image source={{ uri: userProfile.photoUrl }} style={styles.avatar}/>
                     ) 
                     : (
                         <>
@@ -58,7 +64,7 @@ const AvatarUpload = () => {
     )
 }
 
-export default AvatarUpload
+export default observer(AvatarUpload);
 
 const styles = StyleSheet.create({
     cameraContainer: {

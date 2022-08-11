@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import { AppStackParamList } from '../../../types/navigation';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { mainTheme } from '../../../themes/mainTheme';
@@ -13,7 +13,6 @@ import ChatMessagesScreen from '../../chat/messages/ChatMessagesScreen';
 import ProfileEditPromptListScreen from '../../profile/prompt/EditPromptListScreen';
 import ProfileEditPromptDetailScreen from '../../profile/prompt/EditPromptDetailScreen';
 import SkipButton from '../../../common/SkipButton';
-import { ProfileContext } from '../../profile/context/ProfileProvider';
 import useRootNavigation from '../hooks/useRootNavigation';
 import ProfileFullViewScreen from '../../profile/full-view/ProfileFullViewScreen';
 import useAppNavigation from '../hooks/useAppNavigation';
@@ -24,12 +23,9 @@ import GetMatchedScreen from '../../match/GetMatchedScreen';
 const Stack = createNativeStackNavigator<AppStackParamList>();
 
 const AppNavigator = () => {
-  const { userProfile } = useStore().profileStore;
+  const { userProfile, updateUserProfile } = useStore().profileStore;
   const appNavigation = useAppNavigation();
   const rootNavigation = useRootNavigation();
-  const {
-    submitProfile,
-  } = useContext(ProfileContext);
   return (
     <Stack.Navigator screenOptions={{
       headerTintColor: mainTheme.PRIMARY_COLOR
@@ -46,7 +42,7 @@ const AppNavigator = () => {
               <SkipButton
                 name="Done"
                 onPress={() => {
-                  submitProfile();
+                  // updateUserProfile();
                   // TODO: Add loading effect during asynchronous operation
                   rootNavigation.navigate("Profile");
                 }}

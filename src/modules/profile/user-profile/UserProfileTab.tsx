@@ -11,9 +11,6 @@ const UserProfileTab = () => {
     const navigation = useAppNavigation();
     const { userProfile } = useStore().profileStore;
 
-    // get avatar uri from user object
-    const dummyAvatarUri = 'https://ict-imgs.vgcloud.vn/2020/09/01/19/huong-dan-tao-facebook-avatar.jpg';
-
     const handleEditMainPress = () => {
         navigation.navigate("ProfileEditMain");
     }
@@ -35,7 +32,7 @@ const UserProfileTab = () => {
                 ...styles.item,
                 flex: 2,
             }}>
-                <Image source={{ uri: dummyAvatarUri }} style={styles.avatar}/>
+                <Image source={{ uri: userProfile.photoUrl }} style={styles.avatar}/>
             </View>
             <View style={{
                 ...styles.item,

@@ -23,7 +23,7 @@ const PassionSelector: React.FC<PassionSelectorProps> = ({ handleContinuePress }
             [cur]: true,
         })
     }, {} as SelectedPassionsType));
-    const isContinueButtonDisabled = userProfile.passions.length === 0;
+    const isContinueButtonDisabled = Object.keys(selectedPassions).length === 0;
     return (
         <View style={styles.container}>
             <View style={styles.titleContainer}

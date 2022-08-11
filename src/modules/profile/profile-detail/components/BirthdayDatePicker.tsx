@@ -1,31 +1,22 @@
-import React, { useContext, useState } from 'react'
+import { observer } from 'mobx-react-lite';
+import React, { useState } from 'react'
 import DateTimePickerModal from "react-native-modal-datetime-picker";
 import PrimaryButton from '../../../../common/PrimaryButton';
 import { mainTheme } from '../../../../themes/mainTheme';
-import { ProfileContext } from '../../context/ProfileProvider';
+import { useStore } from '../../../stores/store';
 
 const BirthdayDatePicker = () => {
     const [open, setOpen] = useState(false);
-    const {
-        birthday,
-        setBirthday,
-    } = useContext(ProfileContext);
+    const { userProfile, setAge } = useStore().profileStore;
     
     const handlePress = () => {
         setOpen(true);
     }
 
-    // yyyy/mm/dd
-    const displayDate = (birthday: Date) => {
-        const year = birthday.getFullYear();
-        let month = birthday.getMonth();
-        let day = birthday.getDate();
-        return year + "/" + (month < 10 ? '0'+month : month) + "/" + (day < 10 ? '0'+day : day);
-    }
     return (
         <>
             <PrimaryButton
-                text={birthday && displayDate(birthday) || 'Choose birthday'}
+                text={userProfile.age && userProfile.age.toString() || 'Choose age'}
                 textColor={mainTheme.PRIMARY_COLOR}
                 backgroundColor={mainTheme.WHITE_COLOR}
                 onPress={handlePress}
@@ -34,7 +25,7 @@ const BirthdayDatePicker = () => {
                 isVisible={open}
                 mode="date"
                 onConfirm={(birthday) =>{
-                    setBirthday(birthday)
+                    setAge(new Date().getFullYear() - birthday.getFullYear())
                     setOpen(false)
                 }}
                 onCancel={() => {
@@ -45,4 +36,4 @@ const BirthdayDatePicker = () => {
     )
 }
 
-export default BirthdayDatePicker
+export default observer(BirthdayDatePicker);

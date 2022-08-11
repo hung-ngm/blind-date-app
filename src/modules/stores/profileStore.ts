@@ -14,8 +14,9 @@ import {
   where,
   setDoc
 } from '@firebase/firestore';
-import { db } from '../utils/firebase';
+import { db, storage } from '../utils/firebase';
 import { store } from './store';
+import { getDownloadURL, ref, uploadBytes, uploadString } from 'firebase/storage';
 
 const DEFAULT_USER_PROFILE: Profile = {
   id: '',
@@ -63,8 +64,23 @@ class ProfileStore {
     this.userProfile.age = age;
   }
 
-  setPhotoUrl = () => {
-    // upload to storage.then (photoUrl => this.userProfile.photoUrl = photoUrl;)
+  setPhotoUrl = async (base64String: string | null | undefined) => {
+    try {
+      if (!base64String) {
+        return null;
+      }
+      const resp = await fetch(`data:image/jpeg;base64,${(base64String)}`)
+      const imageBlob = await resp.blob();
+      const avatarRef = ref(storage, `users/avatar/${this.userProfile.id}.jpg`);
+      const snapshot = await uploadBytes(avatarRef, imageBlob);    
+      const url = await getDownloadURL(snapshot.ref);
+      runInAction(() => {
+        this.userProfile.photoUrl = url;
+      })
+    }
+    catch (err) {
+      console.log(err);
+    }
   }
 
   setGender = (gender: GenderType) => {    

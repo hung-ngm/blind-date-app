@@ -1,19 +1,18 @@
-import React, { useContext } from 'react'
-import { ProfileContext } from '../context/ProfileProvider'
+import React from 'react'
 import useProfileNavigation from '../../navigation/hooks/useProfileNavigation'
+import { useStore } from '../../stores/store';
 import PromptSelector from './components/PromptSelector'
 
 const ProfileAnswerScreen = () => {
     const navigation = useProfileNavigation();
-    const {
-        submitProfile,
-    } = useContext(ProfileContext)
+    const { updateUserProfile } = useStore().profileStore
     const handleContinuePress = async () => {
         // TODO: Add some loading effects to prevent user from pressing button multiple times 
         // during asynchronous operation
-        submitProfile()
-            .then()
-            .catch();
+
+        // updateUserProfile()
+        //     .then()
+        //     .catch();
     }
     const handlePromptPress = () => {
         navigation.navigate('PromptList');
