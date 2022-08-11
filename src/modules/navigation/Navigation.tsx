@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import AppNavigator from './components/AppNavigator';
 import AuthNavigator from './components/AuthNavigator';
 import { observer } from 'mobx-react-lite';
@@ -10,6 +10,7 @@ const Navigation = () => {
   const { user } = useStore().userStore;
   const isProfileCompleted = true;
   let Navigator: JSX.Element = <></>;
+  
   if (user) {
     if (isProfileCompleted) {
       Navigator = <AppNavigator />

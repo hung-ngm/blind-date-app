@@ -15,8 +15,10 @@ const AuthProvider: React.FC<Props> = ({ children }) => {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
       setUser(user);
     });
-
-    return unsubscribe;
+    
+    return () => {      
+      unsubscribe();
+    }
   }, [setUser])
 
   useEffect(() => {

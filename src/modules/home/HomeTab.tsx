@@ -6,8 +6,13 @@ import Cards from './components/Cards';
 
 const HomeTab = () => {
   const { signOut } = useAuth();
-  const handlePress = () => {
-    signOut();
+  const handlePress = async () => {
+    try {
+      await signOut();
+    }
+    catch (err) {
+      console.log("Sign out err: " , err);
+    }
   }
   return (
     <View style={styles.container}>

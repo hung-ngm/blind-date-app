@@ -3,7 +3,7 @@ import { User } from '../../types/user';
 import { GoogleAuthProvider, signInWithCredential, onAuthStateChanged, User as FirebaseUser } from '@firebase/auth';
 import { makeAutoObservable, runInAction, reaction } from 'mobx';
 import { AuthSessionResult } from 'expo-auth-session';
-import { doc, setDoc, serverTimestamp, Unsubscribe } from '@firebase/firestore';
+import { doc, setDoc, Unsubscribe } from '@firebase/firestore';
 import { Place } from '../../types/place';
 import { getAge } from '../../modules/utils/userUtils';
 import { store } from './store';

@@ -16,7 +16,7 @@ import {
 } from '@firebase/firestore';
 import { db, storage } from '../utils/firebase';
 import { store } from './store';
-import { getDownloadURL, ref, uploadBytes, uploadString } from 'firebase/storage';
+import { getDownloadURL, ref, uploadBytes } from 'firebase/storage';
 
 const DEFAULT_USER_PROFILE: Profile = {
   id: '',
@@ -73,9 +73,9 @@ class ProfileStore {
       const imageBlob = await resp.blob();
       const avatarRef = ref(storage, `users/avatar/${this.userProfile.id}.jpg`);
       const snapshot = await uploadBytes(avatarRef, imageBlob);    
-      const url = await getDownloadURL(snapshot.ref);
+      const avatarUrl = await getDownloadURL(snapshot.ref);
       runInAction(() => {
-        this.userProfile.photoUrl = url;
+        this.userProfile.photoUrl = avatarUrl;
       })
     }
     catch (err) {
