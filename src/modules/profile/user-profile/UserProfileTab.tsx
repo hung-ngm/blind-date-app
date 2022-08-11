@@ -5,6 +5,7 @@ import AntDesIcon from 'react-native-vector-icons/AntDesign';
 import EntypoIcon from 'react-native-vector-icons/Entypo';
 import { mainTheme } from '../../../themes/mainTheme';
 import useAppNavigation from '../../navigation/hooks/useAppNavigation';
+import { observer } from 'mobx-react-lite';
 
 const UserProfileTab = () => {
     const navigation = useAppNavigation();
@@ -60,7 +61,7 @@ const UserProfileTab = () => {
     )
 }
 
-export default UserProfileTab
+export default observer(UserProfileTab);
 
 const styles = StyleSheet.create({
     container: {

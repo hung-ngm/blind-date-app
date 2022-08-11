@@ -1,35 +1,20 @@
 import { View, Text, FlatList, StyleSheet, TouchableHighlight } from 'react-native'
-import React, { useContext } from 'react'
+import React from 'react'
 import { mainTheme } from '../../../../themes/mainTheme'
-import { ProfileContext } from '../../context/ProfileProvider'
-
+import { PROMPT_LIST } from '../../../../types/profile';
+import { useStore } from '../../../stores/store';
+import { observer } from 'mobx-react-lite';
 interface Props {
     navigateToDetailScreen: () => void;
 }
-const ShowPromptList: React.FC<Props> = ({ navigateToDetailScreen }) => {
-    const {
-        setPrompt,
-        setPromptAnswer,
-    } = useContext(ProfileContext);
+const ShowPromptList: React.FC<Props> = observer(({ navigateToDetailScreen }) => {
+    const { setPrompt, setPromptAnswer } = useStore().profileStore;
 
-    const dummyPrompt = [
-        'My simple pleasure is',
-        'A fact I love is',
-        'I discovered that',
-        'My strength is',
-        'Typical Saturday',
-        'Typical Sunday',
-        'Typical Sunday 1',
-        'Typical Sunday 2',
-        'Typical Sunday 3',
-        'Typical Sunday 4',
-        'Typical Sunday 5',
-    ]
     return (
         <View>
             <FlatList
-                data={dummyPrompt}
-                keyExtractor={(item, idx) => idx.toString()}
+                data={PROMPT_LIST}
+                keyExtractor={(item, idx) => idx.toString()} // Safe to use index as key here, as prompt list is fixed
                 renderItem={({item, index}) => (
                     <View style={showPromptListStyles.item}>
                         <TouchableHighlight onPress={() => {
@@ -45,7 +30,7 @@ const ShowPromptList: React.FC<Props> = ({ navigateToDetailScreen }) => {
             />
         </View>
     )
-}
+});
 
 const showPromptListStyles = StyleSheet.create({
     item: {

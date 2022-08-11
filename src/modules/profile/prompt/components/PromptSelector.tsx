@@ -1,8 +1,9 @@
 import { View, Text, StyleSheet, TouchableHighlight } from 'react-native'
-import React, { useContext } from 'react'
-import { ProfileContext } from '../../context/ProfileProvider';
+import React from 'react'
 import { mainTheme } from '../../../../themes/mainTheme';
 import PrimaryButton from '../../../../common/PrimaryButton';
+import { useStore } from '../../../stores/store';
+import { observer } from 'mobx-react-lite';
 
 interface PromptSelectorProps {
     handleContinuePress: () => void;
@@ -12,12 +13,9 @@ const PromptSelector: React.FC<PromptSelectorProps> = ({
     handleContinuePress,
     handlePromptPress,
 }) => {
-    const {
-        prompt,
-        promptAnswer,
-    } = useContext(ProfileContext);
+    const { userProfile } = useStore().profileStore;
 
-    const isPromptComplete = prompt && promptAnswer;
+    const isPromptComplete = userProfile.prompt && userProfile.promptAnswer;
     
     return (
         <View style={styles.container}>
@@ -46,10 +44,10 @@ const PromptSelector: React.FC<PromptSelectorProps> = ({
                         ? (
                             <>                          
                                 <Text style={{...styles.promptText, ...styles.promptAnswerItem}}>
-                                    {prompt}
+                                    {userProfile.prompt}
                                 </Text>
                                 <Text style={{...styles.answerText, ...styles.promptAnswerItem}}>
-                                    {promptAnswer}
+                                    {userProfile.promptAnswer}
                                 </Text>
                             </>
                         )
@@ -76,7 +74,7 @@ const PromptSelector: React.FC<PromptSelectorProps> = ({
     )
 }
 
-export default PromptSelector
+export default observer(PromptSelector);
 
 const styles = StyleSheet.create({
     container: {

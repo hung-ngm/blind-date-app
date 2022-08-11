@@ -1,31 +1,85 @@
 import { View, Text, StyleSheet, ScrollView, TouchableHighlight } from 'react-native'
-import React, { useContext } from 'react'
+import React from 'react'
 import AvatarUpload from '../profile-detail/components/AvatarUpload'
-import { Gender, GenderNames, PassionNames, Passions, ProfileContext } from '../context/ProfileProvider'
+import { GenderNames, GenderType, PassionNames, PassionType } from '../../../types/profile';
 import useAppNavigation from '../../navigation/hooks/useAppNavigation'
 import { mainTheme } from '../../../themes/mainTheme'
 import Icon from 'react-native-vector-icons/AntDesign';
+import { useStore } from '../../stores/store'
+import { observer } from 'mobx-react-lite';
+import ProfileAvatar from '../../chat/shared/components/ProfileAvatar';
+
+
+type PhotoDisplayerProps = {
+    getPhotoUrl: () => string;
+}
+const PhotoDisplayer = observer(({ getPhotoUrl }: PhotoDisplayerProps) => (
+    <AvatarUpload />
+));
+
+type PromptDisplayerProps = {
+    getPrompt: () => string;
+}
+const PromptDisplayer = observer(({ getPrompt }: PromptDisplayerProps) => (
+    <Text style={{
+        ...styles.promptText,
+        ...styles.promptSpacing,
+    }}>
+        {getPrompt() || "N/A"}
+    </Text>
+));
+
+type PromptAnswerDisplayerProps = {
+    getPromptAnswer: () => string;
+}
+const PromptAnswerDisplayer = observer(({ getPromptAnswer }: PromptAnswerDisplayerProps) => (
+    <Text style={{
+        ...styles.promptAnswerText,
+        ...styles.promptSpacing,
+    }}>
+        {getPromptAnswer() || "N/A"}
+    </Text>
+));
+
+type PassionsDisplayerProps = {
+    getPassions: () => PassionType[];
+}
+const PassionsDisplayer = observer(({ getPassions }: PassionsDisplayerProps) => (
+    <Text style={styles.contentText}>
+        {getPassions().map(p => PassionNames[p]).join(', ') || "N/A"}
+    </Text>
+));
+
+type IdealPlaceDisplayerProps = {
+    getIdealPlace: () => {
+        city: string;
+        distance: number;
+        priceMin: number;
+        priceMax: number;
+    };
+}
+const IdealPlaceDisplayer = observer(({ getIdealPlace }: IdealPlaceDisplayerProps) => {
+    const idealPlace = getIdealPlace();
+    return (
+        <Text style={styles.contentText}>
+            {"< " + idealPlace.distance + "km, " + "$" + idealPlace.priceMin + "-" + "$" + idealPlace.priceMax}
+        </Text>
+    )
+});
+
+type GenderDisplayerProps = {
+    getGender: () => GenderType | null;
+}
+const GenderDisplayer = observer(({ getGender }: GenderDisplayerProps) => {
+    return (
+        <Text style={styles.contentText}>
+            {getGender() ? GenderNames[getGender()] : "N/A"}
+        </Text>
+    )
+});
 
 const ProfileEditMainScreen = () => {
-    let {
-        prompt,
-        promptAnswer,
-        selectedPassions,
-        distance,
-        minPrice,
-        maxPrice,
-        gender,
-    } = useContext(ProfileContext);
-    
-    selectedPassions =  {
-        [Passions.Art]: true,
-        [Passions.Shopping]: true,
-        [Passions.Run]: true,
-        [Passions.Travelling]: true,
-        [Passions.VideoGames]: true,
-    }
-
-    gender = gender || Gender.Man;
+    const { userProfile } = useStore().profileStore;    
 
     const navigation = useAppNavigation();
     const handlePromptEditPress = () => {
@@ -62,7 +116,7 @@ const ProfileEditMainScreen = () => {
                     justifyContent: 'center',
                     alignItems: 'center',
                 }}>
-                    <AvatarUpload />
+                    <PhotoDisplayer getPhotoUrl={() => userProfile.photoUrl}/>
                 </View>
             </View>
             <View style={{
@@ -84,15 +138,8 @@ const ProfileEditMainScreen = () => {
                         style={styles.contentBoxContainer}
                     >
                         <View>
-                            <Text style={{
-                                ...styles.promptText,
-                                ...styles.promptSpacing,
-                            }}>
-                                {prompt || "My simple pleasures"}
-                            </Text>
-                            <Text style={styles.promptAnswerText}>
-                                {promptAnswer || "Bla Bla abc xyz"}
-                            </Text>
+                            <PromptDisplayer getPrompt={() => userProfile.prompt}/>
+                            <PromptAnswerDisplayer getPromptAnswer={() => userProfile.promptAnswer}/>
                         </View>                  
                     </TouchableHighlight>
                 </View>
@@ -116,9 +163,7 @@ const ProfileEditMainScreen = () => {
                         style={styles.contentBoxContainer}
                     >
                         <View style={styles.contentTextContainer}>
-                            <Text style={styles.contentText}>
-                                {Object.keys(selectedPassions).slice(0, 3).map(enum_val => PassionNames[Number(enum_val)]).join(', ') + (Object.keys(selectedPassions).length > 3 ? ", ..." : "")}
-                            </Text>
+                            <PassionsDisplayer getPassions={() => userProfile.passions}/>
                             <Icon
                                 name="right"
                                 size={20}
@@ -148,9 +193,12 @@ const ProfileEditMainScreen = () => {
                         style={styles.contentBoxContainer}
                     >
                         <View style={styles.contentTextContainer}>
-                            <Text style={styles.contentText}>
-                                {"< " + distance + "km, " + "$" + minPrice + "-" + "$" + maxPrice}
-                            </Text>
+                            <IdealPlaceDisplayer getIdealPlace={() => ({
+                                city: userProfile.city,
+                                priceMin: userProfile.priceMin,
+                                priceMax: userProfile.priceMax,
+                                distance: userProfile.distance,
+                            })}/>
                             <Icon
                                 name="right"
                                 size={20}
@@ -180,9 +228,7 @@ const ProfileEditMainScreen = () => {
                         style={styles.contentBoxContainer}
                     >
                         <View style={styles.contentTextContainer}>
-                            <Text style={styles.contentText}>
-                                {GenderNames[Number(gender)]}
-                            </Text>
+                            <GenderDisplayer getGender={() => userProfile.gender}/>
                             <Icon
                                 name="right"
                                 size={20}

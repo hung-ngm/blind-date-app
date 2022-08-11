@@ -1,18 +1,18 @@
 import { View, Text, StyleSheet } from 'react-native'
-import React, { useContext } from 'react'
+import React from 'react'
 import PrimaryButton from '../../../../common/PrimaryButton'
-import { Gender, ProfileContext } from '../../context/ProfileProvider'
 import { mainTheme } from '../../../../themes/mainTheme';
+import { GenderType, Gender } from '../../../../types/profile';
+import { observer } from 'mobx-react-lite';
 
 interface GenderSelectorProps {
+    getGender: () => GenderType | null;
+    setGender: (gender: GenderType) => void;
     handleContinuePress: () => void;
 }
-const GenderSelector: React.FC<GenderSelectorProps> = ({ handleContinuePress }) => {
-    const {
-        gender,
-        setGender,
-    } = useContext(ProfileContext);
-    const isContinueButtonDisabled = gender !== null;
+const GenderSelector: React.FC<GenderSelectorProps> =({ getGender, handleContinuePress, setGender }) => {
+    const gender = getGender();
+    const isContinueButtonDisabled = gender === null;
     return (
         <View style={styles.container}>
             <View style={{ flex: 1 }}>
@@ -28,36 +28,36 @@ const GenderSelector: React.FC<GenderSelectorProps> = ({ handleContinuePress }) 
                     <View style={styles.item}>
                         <PrimaryButton
                             text='Man'
-                            extraStyles={gender === Gender.Man ? 
+                            extraStyles={gender === Gender.MAN ? 
                                 {...styles.buttonStyle, ...styles.buttonSelected} : {...styles.buttonStyle, ...styles.buttonDefault}
                             }
-                            extraTextProps={gender === Gender.Man ? 
+                            extraTextProps={gender === Gender.MAN ? 
                                 {...styles.textStyle, ...styles.textSelected} : {...styles.textStyle, ...styles.textDefault}
                             }
-                            onPress={() => setGender(Gender.Man)}
+                            onPress={() => setGender(Gender.MAN)}
                         />
                     </View>
                     <View style={styles.item}>
                         <PrimaryButton
                             text='Woman'
-                            extraStyles={gender === Gender.Woman ? 
+                            extraStyles={gender === Gender.WOMAN ? 
                                 {...styles.buttonStyle, ...styles.buttonSelected} : {...styles.buttonStyle, ...styles.buttonDefault}
                             }
-                            extraTextProps={gender === Gender.Woman ? 
+                            extraTextProps={gender === Gender.WOMAN ? 
                                 {...styles.textStyle, ...styles.textSelected} : {...styles.textStyle, ...styles.textDefault}
                             }
-                            onPress={() => setGender(Gender.Woman)}/>
+                            onPress={() => setGender(Gender.WOMAN)}/>
                     </View>
                     <View style={styles.item}>
                         <PrimaryButton
                             text='Other'
-                            extraStyles={gender === Gender.Other ? 
+                            extraStyles={gender === Gender.OTHER ? 
                                 {...styles.buttonStyle, ...styles.buttonSelected} : {...styles.buttonStyle, ...styles.buttonDefault}
                             }
-                            extraTextProps={gender === Gender.Other ? 
+                            extraTextProps={gender === Gender.OTHER ? 
                                 {...styles.textStyle, ...styles.textSelected} : {...styles.textStyle, ...styles.textDefault}
                             }
-                            onPress={() => setGender(Gender.Other)}/>
+                            onPress={() => setGender(Gender.OTHER)}/>
                     </View>
                 </View>
                 <View style={{ flex: 1 }}>
@@ -70,9 +70,9 @@ const GenderSelector: React.FC<GenderSelectorProps> = ({ handleContinuePress }) 
             </View>
         </View>
     )
-}
+};
 
-export default GenderSelector
+export default observer(GenderSelector);
 
 const styles = StyleSheet.create({
     container: {

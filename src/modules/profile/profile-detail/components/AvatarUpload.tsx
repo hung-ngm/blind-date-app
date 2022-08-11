@@ -1,15 +1,12 @@
 import { View, StyleSheet, TouchableHighlight, Image, Platform } from 'react-native'
-import React, { useContext, useEffect } from 'react'
+import React, { useEffect } from 'react'
 import Icon from 'react-native-vector-icons/FontAwesome';
 import * as ImagePicker from 'expo-image-picker';
 import { mainTheme } from '../../../../themes/mainTheme';
-import { ProfileContext } from '../../context/ProfileProvider';
+import { useStore } from '../../../stores/store';
 
 const AvatarUpload = () => {
-    const {
-        avatar,
-        setAvatar,
-    } = useContext(ProfileContext);
+    const { userProfile, setPhotoUrl } = useStore().profileStore;
 
     const handlePress = async () => {
         let result = await ImagePicker.launchImageLibraryAsync({
@@ -20,13 +17,8 @@ const AvatarUpload = () => {
             base64: true,
         });
         
-        if (result.cancelled) {
-            setAvatar(null);
-        }   
-        else {
-            setAvatar({
-                uri: `data:image/jpeg;base64,${result?.base64}`
-            });
+        if (!result.cancelled) {
+            setPhotoUrl(`data:image/jpeg;base64,${result?.base64}`);
         }     
     }
 

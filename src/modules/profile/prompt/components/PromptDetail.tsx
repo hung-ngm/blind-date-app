@@ -1,15 +1,11 @@
 import { View, Text, TouchableWithoutFeedback, Keyboard, KeyboardAvoidingView, StyleSheet, TextInput } from 'react-native'
-import React, { useContext } from 'react'
-import { ProfileContext } from '../../context/ProfileProvider';
+import React from 'react'
 import { mainTheme } from '../../../../themes/mainTheme';
+import { useStore } from '../../../stores/store';
+import { observer } from 'mobx-react-lite';
 
 const PromptDetail = () => {
-    const {
-        prompt,
-        promptAnswer,
-        setPromptAnswer,
-    } = useContext(ProfileContext);
-    
+    const { userProfile, setPromptAnswer } = useStore().profileStore;
     return (
     <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
         <KeyboardAvoidingView
@@ -33,7 +29,7 @@ const PromptDetail = () => {
                 ...styles.contentItem,
                 ...styles.promptPrompt,
                 }}>
-                <Text>{prompt}</Text>
+                <Text>{userProfile.prompt}</Text>
                 </View>
                 <TextInput 
                     style={{
@@ -44,7 +40,7 @@ const PromptDetail = () => {
                     placeholderTextColor={mainTheme.DARK_COLOR}
                     placeholder='Enter your answer here'
                     onChangeText={(ans) => setPromptAnswer(ans)}
-                    value={promptAnswer}
+                    value={userProfile.promptAnswer}
                     multiline={true}
                 />
             </View>
@@ -54,7 +50,7 @@ const PromptDetail = () => {
     )
 }
 
-export default PromptDetail
+export default observer(PromptDetail);
 
 const styles = StyleSheet.create({
     container: {

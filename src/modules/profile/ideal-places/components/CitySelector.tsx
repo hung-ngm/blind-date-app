@@ -2,7 +2,6 @@ import { View, Text, StyleSheet, TouchableHighlight, Modal, Button } from 'react
 import React, { useState } from 'react'
 import Icon from 'react-native-vector-icons/AntDesign';
 import { mainTheme } from '../../../../themes/mainTheme';
-import SearchBar from '../../../chat/shared/components/SearchBar';
 
 type CitySelectorModalProps = {
     open: boolean;
@@ -35,11 +34,6 @@ const CitySelectorModal: React.FC<CitySelectorModalProps> = ({ open, setOpen }) 
                     }}>
                         <Button title='Cancel' onPress={() => setOpen(false)} color={mainTheme.PRIMARY_COLOR}/>
                         <Button title='Done' onPress={() => setOpen(false)} color={mainTheme.PRIMARY_COLOR}/>
-                    </View>
-                    <View style={{
-                        alignItems: 'center',
-                    }}>
-                        <SearchBar />
                     </View>
                 </View>
             </View>

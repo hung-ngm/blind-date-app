@@ -47,63 +47,63 @@ class ProfileStore {
   }
 
   // setters for userProfile
-  setFirstName(fname: string) {
+  setFirstName = (fname: string) => {
     this.userProfile.firstName = fname;
   }
 
-  setLastName(lname: string) {
+  setLastName = (lname: string) => {
     this.userProfile.lastName = lname;
   }
 
-  setJob(job: string) {
+  setJob = (job: string) => {
     this.userProfile.job = job;
   }
 
-  setAge(age: number) {
+  setAge = (age: number) => {
     this.userProfile.age = age;
   }
 
-  setPhotoUrl() {
+  setPhotoUrl = () => {
     // upload to storage.then (photoUrl => this.userProfile.photoUrl = photoUrl;)
   }
 
-  setGender(gender: GenderType) {
+  setGender = (gender: GenderType) => {    
     this.userProfile.gender = gender;
   }
 
-  setPassions(passions: PassionType[]) {
+  setPassions = (passions: PassionType[]) => {
     this.userProfile.passions = passions;
   }
 
-  setCity(city: string) {
+  setCity = (city: string) => {
     this.userProfile.city = city;
   }
 
-  setCountry(country: string) {
+  setCountry = (country: string) => {
     this.userProfile.country =  country;
   }
 
-  setDistance(distance: number) {
+  setDistance = (distance: number) => {
     this.userProfile.distance = distance;
   }
 
-  setPriceMin(priceMin: number) {
+  setPriceMin = (priceMin: number) => {
     this.userProfile.priceMin = priceMin;
   }
 
-  setPriceMax(priceMax: number) {
+  setPriceMax = (priceMax: number) => {
     this.userProfile.priceMax = priceMax;
   }
 
-  setCategories(categories: CategoryType[]) {
+  setCategories = (categories: CategoryType[]) => {
     this.userProfile.categories = categories;
   }
 
-  setPrompt(prompt: string) {
+  setPrompt = (prompt: string) => {
     this.userProfile.prompt = prompt;
   }
 
-  setPromptAnswer(promptAnswer: string) {
+  setPromptAnswer = (promptAnswer: string) => {
     this.userProfile.promptAnswer = promptAnswer;
   }
 

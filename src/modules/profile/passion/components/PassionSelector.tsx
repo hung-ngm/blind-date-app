@@ -1,30 +1,41 @@
 import { View, Text, StyleSheet } from 'react-native'
-import React, { useContext } from 'react'
-import { ProfileContext } from '../../context/ProfileProvider';
+import React, { useState } from 'react'
 import PassionList from './PassionList';
 import PrimaryButton from '../../../../common/PrimaryButton';
 import { mainTheme } from '../../../../themes/mainTheme';
+import { useStore } from '../../../stores/store';
+import { observer } from 'mobx-react-lite';
+import { PassionType } from '../../../../types/profile';
 
 interface PassionSelectorProps {
-    handleContinuePress: () => void;
+    handleContinuePress: (passions: PassionType[]) => void;
 }
+
+export type SelectedPassionsType = {
+    [key in PassionType]: Boolean;
+}
+
 const PassionSelector: React.FC<PassionSelectorProps> = ({ handleContinuePress }) => {
-    const {
-        numSelectedPassions,
-    } = useContext(ProfileContext)
-    const isContinueButtonDisabled = numSelectedPassions === 0;
+    const { userProfile } = useStore().profileStore;
+    const [selectedPassions, setSelectedPassions] = useState<SelectedPassionsType>(userProfile.passions.reduce((prev: SelectedPassionsType, cur: PassionType) => {
+        return ({
+            ...prev,
+            [cur]: true,
+        })
+    }, {} as SelectedPassionsType));
+    const isContinueButtonDisabled = userProfile.passions.length === 0;
     return (
         <View style={styles.container}>
             <View style={styles.titleContainer}
             >
                 <Text style={styles.title}>Your passions</Text>
                     <Text style={styles.description}>
-                    Select a few of your interests and let everyone know what you're passionate about.
+                        Select a few of your interests and let everyone know what you're passionate about.
                     </Text>
             </View>
             <View style={styles.detailContainer}>
                 <View style={{ flex: 3 }}>
-                    <PassionList/>
+                    <PassionList selectedPassions={selectedPassions} setSelectedPassions={setSelectedPassions} />
                 </View>
                 <View style={{
                     flex: 1,
@@ -32,7 +43,7 @@ const PassionSelector: React.FC<PassionSelectorProps> = ({ handleContinuePress }
                 }}>
                     <PrimaryButton
                         text='Continue'
-                        onPress={handleContinuePress}
+                        onPress={() => {handleContinuePress(Object.keys(selectedPassions) as PassionType[])}}
                         extraTouchableHighlightProps={{
                         disabled: isContinueButtonDisabled
                         }}
@@ -46,7 +57,7 @@ const PassionSelector: React.FC<PassionSelectorProps> = ({ handleContinuePress }
     )
 }
 
-export default PassionSelector
+export default observer(PassionSelector);
 
 const styles = StyleSheet.create({
     container: {

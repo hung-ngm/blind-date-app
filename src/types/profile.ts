@@ -16,36 +16,28 @@ export type GenderType = keyof typeof Gender;
 // Passions
 export const Passions = {
   PHOTOGRAPHY: "PHOTOGRAPHY",
-  SHOPPING: "SHOPPING",
-  KARAOKE: "KARAOKE",
-  YOGA: "YOGA",
+  EXERCISE: "EXERCISE",
+  DANCING: "DANCING",
+  POLITICS: "POLITICS",
   COOKING: "COOKING",
-  TENNIS: "TENNIS",
   RUN: "RUN",
-  SWIMMING: "SWIMMING",
+  PET: "PET",
   ART: "ART",
   TRAVELLING: "TRAVELLING",
-  EXTREME: "EXTREME",
   MUSIC: "MUSIC",
-  DRINK: "DRINK",
-  VIDEO_GAMES: "VIDEO_GAMES",
 }
 
 export const PassionNames = {
   [Passions.PHOTOGRAPHY]: 'Photography',
-  [Passions.SHOPPING]: 'Shopping',
-  [Passions.KARAOKE]: 'Karaoke',
-  [Passions.YOGA]: 'Yoga',
+  [Passions.EXERCISE]: 'Exercise',
+  [Passions.DANCING]: 'Dancing',
+  [Passions.POLITICS]: 'Politics',
   [Passions.COOKING]: 'Cooking',
-  [Passions.TENNIS]: 'Tennis',
   [Passions.RUN]: 'Run',
-  [Passions.SWIMMING]: 'Swimming',
+  [Passions.PET]: 'Pet',
   [Passions.ART]: 'Art',
   [Passions.TRAVELLING]: 'Travelling',
-  [Passions.EXTREME]: 'Extreme',
   [Passions.MUSIC]: 'Music',
-  [Passions.DRINK]: 'Drink',
-  [Passions.VIDEO_GAMES]: 'VideoGames',
 }
 
 export type PassionType = keyof typeof Passions;
@@ -78,6 +70,21 @@ export const CategoryNames = {
 }
 
 export type CategoryType = keyof typeof Categories;
+
+// Prompt list
+export const PROMPT_LIST = [
+  'All I ask is that you',
+  'A fact I love is',
+  'I discovered that',
+  'Give me travel tips for',
+  'My best Dad Joke',
+  'I\'m the type of texter who',
+  'The hallmark of a good relationship is',
+  'Two truths and a lie',
+  'You should *not* go out with me if',
+  'What if I told you that',
+  'The key to my heart is',
+];
 
 // Profile
 export interface Profile {
