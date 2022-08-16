@@ -44,7 +44,7 @@ export type PassionType = keyof typeof Passions;
 
 // Restaurant Categories
 export const Categories = {
-  BUFFET: "BUFFETS",
+  BUFFET: "BUFFET",
   CAFES: "CAFES",
   BREAKFAST_BRUNCH: "BREAKFAST_BRUNCH",
   THAI: "THAI",
@@ -59,7 +59,7 @@ export const Categories = {
 export const CategoryNames = {
   [Categories.BUFFET]: "buffets",
   [Categories.CAFES]: "cafes",
-  [Categories.BREAKFAST_BRUNCH]: "breakfast_brunch",
+  [Categories.BREAKFAST_BRUNCH]: "breakfast brunch",
   [Categories.THAI]: "thai",
   [Categories.JAPANESE]: "japanese",
   [Categories.NOODLES]: "noodles",

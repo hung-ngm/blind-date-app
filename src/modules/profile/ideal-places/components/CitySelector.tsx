@@ -1,13 +1,25 @@
-import { View, Text, StyleSheet, TouchableHighlight, Modal, Button } from 'react-native'
+import { View, Text, StyleSheet, TouchableHighlight, Modal, Button, TextInput } from 'react-native'
 import React, { useState } from 'react'
 import Icon from 'react-native-vector-icons/AntDesign';
 import { mainTheme } from '../../../../themes/mainTheme';
+import { useStore } from '../../../stores/store';
+import { observer } from 'mobx-react-lite';
 
 type CitySelectorModalProps = {
     open: boolean;
-    setOpen: Function
+    setOpen: Function;
+    setCity: Function;
+    setCountry: Function;
 }
-const CitySelectorModal: React.FC<CitySelectorModalProps> = ({ open, setOpen }) => {
+const CitySelectorModal: React.FC<CitySelectorModalProps> = observer(({ open, setOpen, setCity, setCountry }) => {
+    const [tmpCity, setTmpCity] = useState('');
+    const [tmpCountry, setTmpCountry] = useState('');
+
+    const handleDonePress = () => {
+        setCity(tmpCity);
+        setTmpCountry(tmpCountry);
+        setOpen(false);
+    }
     return (
         <Modal
             visible={open}
@@ -33,15 +45,32 @@ const CitySelectorModal: React.FC<CitySelectorModalProps> = ({ open, setOpen }) 
                         padding: 20,
                     }}>
                         <Button title='Cancel' onPress={() => setOpen(false)} color={mainTheme.PRIMARY_COLOR}/>
-                        <Button title='Done' onPress={() => setOpen(false)} color={mainTheme.PRIMARY_COLOR}/>
+                        <Button title='Done' onPress={handleDonePress} color={mainTheme.PRIMARY_COLOR}/>
+                    </View>
+                    <View>
+                        <TextInput
+                            style={styles.searchBar}
+                            value={tmpCity}
+                            onChangeText={(text) => setTmpCity(text)}
+                            placeholder="Type your city here"
+                            placeholderTextColor="black"
+                        />
+                        <TextInput
+                            style={styles.searchBar}
+                            value={tmpCountry}
+                            onChangeText={(text) => setTmpCountry(text)}
+                            placeholder="Type your country here"
+                            placeholderTextColor="black"
+                        />
                     </View>
                 </View>
             </View>
         </Modal>
     )
-}
+}); 
 const CitySelector = () => {
-    const [modalOpen, setModalOpen] = useState(false);    
+    const { userProfile, setCity, setCountry, } = useStore().profileStore;
+    const [modalOpen, setModalOpen] = useState(false);  
     return (
         <View style={styles.container}>
             <TouchableHighlight
@@ -50,7 +79,7 @@ const CitySelector = () => {
             >
                 <View style={styles.contentTextContainer}>
                     <Text style={styles.contentText}>
-                        City
+                        {userProfile.city || "City"} , {userProfile.country || "Country"}
                     </Text>
                     <Icon
                         name="right"
@@ -60,12 +89,12 @@ const CitySelector = () => {
                     />
                 </View>                  
             </TouchableHighlight>
-            <CitySelectorModal open={modalOpen} setOpen={setModalOpen} />
+            <CitySelectorModal open={modalOpen} setOpen={setModalOpen} setCity={setCity} setCountry={setCountry}/>
         </View>
     )
 }
 
-export default CitySelector
+export default observer(CitySelector);
 
 const styles = StyleSheet.create({
     container: {
@@ -90,6 +119,14 @@ const styles = StyleSheet.create({
     icon: {
         flex: 1,
         textAlign: 'right',
+    },
+    searchBar: {
+        marginHorizontal: 20,
+        marginBottom: 10,
+        paddingLeft: 10,
+        height: 40,
+        borderWidth: 2,
+        borderRadius: 10,
     },
 })
 

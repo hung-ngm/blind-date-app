@@ -53,12 +53,12 @@ const RestaurantCategoriesList = ({selectedCategories, setSelectedCategories}: R
                         >
                             <View style={styles.buttonLabelContainer}>
                                 <View style={{
-                                    flex: 1
+                                    flex: 1,
                                 }}>
                                     {CategoryIcons[val]}
                                 </View>
                                 <View style={{
-                                    flex: 2,
+                                    flex: 4,
                                 }}>
                                     <Text style={val in selectedCategories ? styles.textSelected : styles.textDefault}>
                                         {CategoryNames[val]}
@@ -91,7 +91,7 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
         borderRadius: 15,
-        width: 120,
+        width: "100%",
         height: 45,
     },
     buttonLabelContainer: {
@@ -99,7 +99,7 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         justifyContent: 'center',
         alignItems: 'center',
-        margin: 10,
+        marginLeft: 10,
     },
     buttonSelected: {
         backgroundColor: mainTheme.PRIMARY_COLOR,

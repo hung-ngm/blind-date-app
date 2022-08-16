@@ -124,7 +124,12 @@ class ProfileStore {
   }
 
   updateUserProfile = async () => {
-    await setDoc(doc(db, "users", this.userProfile.id), this.userProfile);
+    try {
+      await setDoc(doc(db, "users", this.userProfile.id), this.userProfile);
+    }
+    catch(err) {
+      console.log(err);
+    }
   } 
   //
 
@@ -243,6 +248,25 @@ class ProfileStore {
       this.unsubscribeUserProfile();
       this.unsubscribeUserProfile = undefined;
     }
+  }
+
+  isProfileCompleted = () => {
+    return !(this.userProfile.id === ''
+    || this.userProfile.firstName === ''
+    || this.userProfile.lastName === ''
+    || this.userProfile.age === 0
+    || this.userProfile.job === ''
+    || this.userProfile.photoUrl === ''
+    || this.userProfile.prompt === ''
+    || this.userProfile.promptAnswer === ''
+    || this.userProfile.gender === null
+    || this.userProfile.passions === []
+    || this.userProfile.distance === 0
+    || this.userProfile.priceMin === 0
+    || this.userProfile.priceMax === 0
+    || this.userProfile.city === ''
+    || this.userProfile.country === ''
+    || this.userProfile.categories === [])
   }
 }
 

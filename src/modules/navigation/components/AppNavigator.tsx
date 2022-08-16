@@ -41,8 +41,8 @@ const AppNavigator = () => {
             headerRight: () => (                        
               <SkipButton
                 name="Done"
-                onPress={() => {
-                  // updateUserProfile();
+                onPress={async () => {
+                  await updateUserProfile();
                   // TODO: Add loading effect during asynchronous operation
                   rootNavigation.navigate("Profile");
                 }}

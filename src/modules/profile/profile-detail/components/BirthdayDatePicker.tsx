@@ -22,6 +22,9 @@ const BirthdayDatePicker = () => {
                 onPress={handlePress}
             />
             <DateTimePickerModal
+                style={{
+                    borderColor: 'red',
+                }}
                 isVisible={open}
                 mode="date"
                 onConfirm={(birthday) =>{

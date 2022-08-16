@@ -8,11 +8,11 @@ import ProfileNavigator from './components/ProfileNavigator';
 
 const Navigation = () => {
   const { user } = useStore().userStore;
-  const isProfileCompleted = true;
+  const { isProfileCompleted } = useStore().profileStore;
   let Navigator: JSX.Element = <></>;
   
   if (user) {
-    if (isProfileCompleted) {
+    if (isProfileCompleted()) {
       Navigator = <AppNavigator />
     }
     else {

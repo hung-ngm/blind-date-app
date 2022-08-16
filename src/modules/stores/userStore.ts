@@ -70,38 +70,11 @@ class UserStore {
         email: user.email!,
         phoneNumber: user.phoneNumber!
       };
-      // // Test only
-      // this.updateUserProfile({
-      //   firstName: "Hung",
-      //   lastName: "Nguyen",
-      //   age: 20,
-      //   job: "Software Engineer",
-      //   photoUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/3/34/Elon_Musk_Royal_Society_%28crop2%29.jpg/1200px-Elon_Musk_Royal_Society_%28crop2%29.jpg",
-      //   prompt: "My pleasure is",
-      //   promptAnswer: "Coding",
-      //   gender: "MAN",
-      //   passions: [Passions.ART, Passions.DANCING, Passions.COOKING],
-      //   priceMin: 15,
-      //   priceMax: 100,
-      //   city: "Sydney",
-      //   country: "Australia",
-      //   categories: [Categories.CAFES, Categories.SEAFOOD, Categories.PIZZA],
-      //   distance: 40,
-      // });
     } else {
       this.user = null;
     }
     this.userLoading = false;
   }
-
-  updateUserProfile = async (profile: Profile) => {
-    if (!this.user) return;
-
-    await setDoc(doc(db, "users", this.user.uid), {
-      ...profile,
-      id: this.user.uid,
-    })
-  } 
 }
 
 export default UserStore;

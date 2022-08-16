@@ -44,6 +44,7 @@ const PassionsDisplayer = observer(({ getPassions }: PassionsDisplayerProps) => 
 type IdealPlaceDisplayerProps = {
     getIdealPlace: () => {
         city: string;
+        country: string;
         distance: number;
         priceMin: number;
         priceMax: number;
@@ -53,7 +54,7 @@ const IdealPlaceDisplayer = observer(({ getIdealPlace }: IdealPlaceDisplayerProp
     const idealPlace = getIdealPlace();
     return (
         <Text style={styles.contentText}>
-            {"< " + idealPlace.distance + "km, " + "$" + idealPlace.priceMin + "-" + "$" + idealPlace.priceMax}
+            {idealPlace.city + " ," + idealPlace.country + ", < " + idealPlace.distance + "km, " + "$" + idealPlace.priceMin + "-" + "$" + idealPlace.priceMax}
         </Text>
     )
 });
@@ -183,9 +184,10 @@ const ProfileEditMainScreen = () => {
                         onPress={handleIdealPlacesEditPress}
                         style={styles.contentBoxContainer}
                     >
-                        <View style={styles.contentTextContainer}>
+                        <View style={{...styles.contentTextContainer, ...styles.idealPlaceContentTextContainer}}>
                             <IdealPlaceDisplayer getIdealPlace={() => ({
                                 city: userProfile.city,
+                                country: userProfile.country,
                                 priceMin: userProfile.priceMin,
                                 priceMax: userProfile.priceMax,
                                 distance: userProfile.distance,
@@ -240,7 +242,7 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         paddingTop: 50,
-        paddingHorizontal: 40,
+        paddingHorizontal: 20,
     },
     item: {
         marginBottom: 20,
