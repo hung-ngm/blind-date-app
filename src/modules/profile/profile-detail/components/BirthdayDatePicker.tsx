@@ -16,15 +16,13 @@ const BirthdayDatePicker = () => {
     return (
         <>
             <PrimaryButton
-                text={userProfile.age && userProfile.age.toString() || 'Choose age'}
+                text={userProfile.age || 'Choose age'}
                 textColor={mainTheme.PRIMARY_COLOR}
                 backgroundColor={mainTheme.WHITE_COLOR}
                 onPress={handlePress}
             />
             <DateTimePickerModal
-                style={{
-                    borderColor: 'red',
-                }}
+                textColor={mainTheme.PRIMARY_COLOR}
                 isVisible={open}
                 mode="date"
                 onConfirm={(birthday) =>{

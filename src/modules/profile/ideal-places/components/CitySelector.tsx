@@ -17,7 +17,7 @@ const CitySelectorModal: React.FC<CitySelectorModalProps> = observer(({ open, se
 
     const handleDonePress = () => {
         setCity(tmpCity);
-        setTmpCountry(tmpCountry);
+        setCountry(tmpCountry);
         setOpen(false);
     }
     return (
