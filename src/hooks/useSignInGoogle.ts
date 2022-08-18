@@ -1,4 +1,4 @@
-import { GOOGLE_WEB_CLIENT_ID } from '@env';
+import { GOOGLE_WEB_CLIENT_ID, IOS_CLIENT_ID } from '@env';
 import * as Google from 'expo-auth-session/providers/google';
 import { useEffect } from 'react';
 import { useStore } from '../modules/stores/store';
@@ -6,8 +6,10 @@ import { useStore } from '../modules/stores/store';
 const useSignInGoogle = () => {
   const { signInGoogle } = useStore().userStore;
 
-  const [request, response, promptAsync] = Google.useIdTokenAuthRequest({
-    clientId: GOOGLE_WEB_CLIENT_ID,
+  const [request, response, promptAsync] = Google.useAuthRequest({
+    expoClientId: GOOGLE_WEB_CLIENT_ID,
+    webClientId: GOOGLE_WEB_CLIENT_ID,
+    iosClientId: IOS_CLIENT_ID,
   });
 
   useEffect(() => {

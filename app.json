@@ -2,12 +2,13 @@
   "expo": {
     "name": "blind_date",
     "slug": "blind_date",
+    "description": "Find your soulmate at ideal dating location",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/icon.png",
+    "icon": "./assets/FoodDateLogo.png",
     "userInterfaceStyle": "automatic",
     "splash": {
-      "image": "./assets/splash.png",
+      "image": "./assets/FoodDateLogo.png",
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
@@ -30,7 +31,8 @@
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#FFFFFF"
-      }
+      },
+      "package": "com.iosblinddate"
     },
     "web": {
       "favicon": "./assets/favicon.png"

@@ -8,8 +8,10 @@ module.exports = function(api) {
         {
           moduleName: "@env",
           path: ".env",
+          "blacklist": null,
+          "whitelist": null,
           safe: true,
-          allowUndefined: false,
+          allowUndefined: true,
         }
       ],
       'react-native-reanimated/plugin',
