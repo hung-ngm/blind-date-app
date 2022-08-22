@@ -40,6 +40,7 @@ class ProfileStore {
   profilesMap =  new Map<String, Profile>();
   userProfile: Profile = DEFAULT_USER_PROFILE;
   profileLoading = true;
+  isProfileSubmitted = false;
   unsubscribeUserProfile?: Unsubscribe;
   unsubscribeProfiles?: Unsubscribe;
 
@@ -126,8 +127,10 @@ class ProfileStore {
   updateUserProfile = async () => {
     try {
       await setDoc(doc(db, "users", this.userProfile.id), this.userProfile);
+      this.isProfileSubmitted = true;
     }
     catch(err) {
+      this.isProfileSubmitted = false;
       console.log(err);
     }
   } 
@@ -144,8 +147,11 @@ class ProfileStore {
         runInAction(() => {
           if (snap.exists()) {
             this.userProfile = this.getProfile(snap)
+            this.isProfileSubmitted = true;
           } else {
             this.userProfile = DEFAULT_USER_PROFILE;
+            this.userProfile.id = user.uid; // after register, profile does not exist, but id does
+            this.isProfileSubmitted = false;
           }
         })
         this.profileLoading = false;
@@ -250,8 +256,9 @@ class ProfileStore {
     }
   }
 
-  isProfileCompleted = () => {
-    return !(this.userProfile.id === ''
+  isProfileCompleted = () => {    
+    return !(!this.isProfileSubmitted
+    || this.userProfile.id === ''
     || this.userProfile.firstName === ''
     || this.userProfile.lastName === ''
     || this.userProfile.age === 0
