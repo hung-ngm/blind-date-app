@@ -24,3 +24,11 @@ An app where users can arrange a date with their friends at the suggested place.
 - Firebase
 
 - Mobx
+
+## Team
+
+- [Hung Nguyen](https://github.com/minhhung123): Full Stack Developer
+
+- [Lam Dao](https://github.com/lamltdao): Full Stack Developer
+
+- [Quoc Trung Nguyen](https://github.com/Trungsherlock): Front End Developer
