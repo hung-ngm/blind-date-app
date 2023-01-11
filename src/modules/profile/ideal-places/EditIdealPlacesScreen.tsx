@@ -1,15 +1,15 @@
 import React from 'react'
 import { CategoryType } from '../../../types/profile';
-import useProfileNavigation from '../../navigation/hooks/useProfileNavigation';
+import useAppNavigation from '../../navigation/hooks/useAppNavigation';
 import { useStore } from '../../stores/store';
 import IdealPlacesSelector from './components/IdealPlacesSelector';
 
-const IdealPlacesScreen = () => {
+const EditIdealPlacesScreen = () => {
     const { setCategories } = useStore().profileStore;
-    const navigation = useProfileNavigation();
+    const navigation = useAppNavigation();
     const handleContinuePress = (categories: CategoryType[]) => {
         setCategories(categories);
-        navigation.navigate("EnableNoti");
+        navigation.navigate("ProfileEditMain");
     }
 
     return (
@@ -17,4 +17,4 @@ const IdealPlacesScreen = () => {
     )
 }
 
-export default IdealPlacesScreen;
+export default EditIdealPlacesScreen

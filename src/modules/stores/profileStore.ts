@@ -1,4 +1,4 @@
-import { Profile } from '../../types/profile';
+import { CategoryType, GenderType, PassionType, Profile } from '../../types/profile';
 import { User } from '../../types/user';
 import { makeAutoObservable, runInAction } from 'mobx';
 import {
@@ -14,19 +14,127 @@ import {
   where,
   setDoc
 } from '@firebase/firestore';
-import { db } from '../utils/firebase';
+import { db, storage } from '../utils/firebase';
 import { store } from './store';
+import { getDownloadURL, ref, uploadBytes } from 'firebase/storage';
 
+const DEFAULT_USER_PROFILE: Profile = {
+  id: '',
+  firstName: '',
+  lastName: '',
+  age: 0,
+  job: '',
+  photoUrl: '',
+  prompt: '',
+  promptAnswer: '',
+  gender: null,
+  passions: [],
+  distance: 0,
+  priceMin: 0,
+  priceMax: 0,
+  city: '',
+  country: '',
+  categories: [],
+};
 class ProfileStore {
   profilesMap =  new Map<String, Profile>();
-  userProfile: Profile | null = null;
+  userProfile: Profile = DEFAULT_USER_PROFILE;
   profileLoading = true;
+  isProfileSubmitted = false;
   unsubscribeUserProfile?: Unsubscribe;
   unsubscribeProfiles?: Unsubscribe;
 
   constructor() {
     makeAutoObservable(this);
   }
+
+  // setters for userProfile
+  setFirstName = (fname: string) => {
+    this.userProfile.firstName = fname;
+  }
+
+  setLastName = (lname: string) => {
+    this.userProfile.lastName = lname;
+  }
+
+  setJob = (job: string) => {
+    this.userProfile.job = job;
+  }
+
+  setAge = (age: number) => {
+    this.userProfile.age = age;
+  }
+
+  setPhotoUrl = async (base64String: string | null | undefined) => {
+    try {
+      if (!base64String) {
+        return null;
+      }
+      const resp = await fetch(`data:image/jpeg;base64,${(base64String)}`)
+      const imageBlob = await resp.blob();
+      const avatarRef = ref(storage, `users/avatar/${this.userProfile.id}.jpg`);
+      const snapshot = await uploadBytes(avatarRef, imageBlob);    
+      const avatarUrl = await getDownloadURL(snapshot.ref);
+      runInAction(() => {
+        this.userProfile.photoUrl = avatarUrl;
+      })
+    }
+    catch (err) {
+      console.log(err);
+    }
+  }
+
+  setGender = (gender: GenderType) => {    
+    this.userProfile.gender = gender;
+  }
+
+  setPassions = (passions: PassionType[]) => {
+    this.userProfile.passions = passions;
+  }
+
+  setCity = (city: string) => {
+    this.userProfile.city = city;
+  }
+
+  setCountry = (country: string) => {
+    this.userProfile.country =  country;
+  }
+
+  setDistance = (distance: number) => {
+    this.userProfile.distance = distance;
+  }
+
+  setPriceMin = (priceMin: number) => {
+    this.userProfile.priceMin = priceMin;
+  }
+
+  setPriceMax = (priceMax: number) => {
+    this.userProfile.priceMax = priceMax;
+  }
+
+  setCategories = (categories: CategoryType[]) => {
+    this.userProfile.categories = categories;
+  }
+
+  setPrompt = (prompt: string) => {
+    this.userProfile.prompt = prompt;
+  }
+
+  setPromptAnswer = (promptAnswer: string) => {
+    this.userProfile.promptAnswer = promptAnswer;
+  }
+
+  updateUserProfile = async () => {
+    try {
+      await setDoc(doc(db, "users", this.userProfile.id), this.userProfile);
+      this.isProfileSubmitted = true;
+    }
+    catch(err) {
+      this.isProfileSubmitted = false;
+      console.log(err);
+    }
+  } 
+  //
 
   get profiles() {
     return Array.from(this.profilesMap.values());
@@ -39,8 +147,11 @@ class ProfileStore {
         runInAction(() => {
           if (snap.exists()) {
             this.userProfile = this.getProfile(snap)
+            this.isProfileSubmitted = true;
           } else {
-            this.userProfile = null;
+            this.userProfile = DEFAULT_USER_PROFILE;
+            this.userProfile.id = user.uid; // after register, profile does not exist, but id does
+            this.isProfileSubmitted = false;
           }
         })
         this.profileLoading = false;
@@ -79,13 +190,12 @@ class ProfileStore {
       promptAnswer: snap.data().promptAnswer,
       gender: snap.data().gender,
       passions: snap.data().passions,
+      distance: snap.data().distance,
       priceMin: snap.data().priceMin,
       priceMax: snap.data().priceMax,
       city: snap.data().city,
       country: snap.data().country,
       categories: snap.data().categories
-      // idealPlace: snap.data().idealPlace,
-      // timestamp: new Date(snap.data().timeStamp?.toDate())
     }
   }
 
@@ -132,7 +242,7 @@ class ProfileStore {
 
   resetStore = () => {
     this.profilesMap.clear();
-    this.userProfile = null;
+    this.userProfile = DEFAULT_USER_PROFILE;
     this.profileLoading = true;
 
     if (this.unsubscribeProfiles) {
@@ -145,7 +255,26 @@ class ProfileStore {
       this.unsubscribeUserProfile = undefined;
     }
   }
- 
+
+  isProfileCompleted = () => {    
+    return !(!this.isProfileSubmitted
+    || this.userProfile.id === ''
+    || this.userProfile.firstName === ''
+    || this.userProfile.lastName === ''
+    || this.userProfile.age === 0
+    || this.userProfile.job === ''
+    || this.userProfile.photoUrl === ''
+    || this.userProfile.prompt === ''
+    || this.userProfile.promptAnswer === ''
+    || this.userProfile.gender === null
+    || this.userProfile.passions === []
+    || this.userProfile.distance === 0
+    || this.userProfile.priceMin === 0
+    || this.userProfile.priceMax === 0
+    || this.userProfile.city === ''
+    || this.userProfile.country === ''
+    || this.userProfile.categories === [])
+  }
 }
 
 export default ProfileStore;

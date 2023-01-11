@@ -1,31 +1,34 @@
-import React, { useContext } from 'react'
+import React from 'react'
 import { StyleSheet, Text, View, KeyboardAvoidingView } from 'react-native';
 import PrimaryButton from '../../../common/PrimaryButton';
 import { mainTheme } from '../../../themes/mainTheme';
 import { FloatingLabelInput } from 'react-native-floating-label-input';
 import BirthdayDatePicker from './components/BirthdayDatePicker';
 import AvatarUpload from './components/AvatarUpload';
-import { ProfileContext } from '../context/ProfileProvider';
 import useProfileNavigation from '../../navigation/hooks/useProfileNavigation';
+import { useStore } from '../../stores/store';
+import { observer } from 'mobx-react-lite';
 
 const ProfileDetailScreen = () => {
   const navigation = useProfileNavigation();
+  const { userProfile, setFirstName, setLastName, setJob } = useStore().profileStore;
   const {
     firstName,
-    setFirstName,
     lastName,
-    setLastName,
     job,
-    setJob,
-    birthday,
-    avatar,
-  } = useContext(ProfileContext);
+    age,
+    photoUrl,
+  } = userProfile;
 
   const handleConfirmPress = () => {
       navigation.navigate('Gender');
   }
 
-  const isConfirmButtonDisabled = (firstName === '') || (lastName === '') || (job === null) || (birthday === null) || (avatar === null);
+  const isConfirmButtonDisabled = (firstName === '')
+    || (lastName === '')
+    || (job === '')
+    || (age === 0)
+    || (photoUrl === '');
   return (
     <KeyboardAvoidingView
       style={styles.container}
@@ -92,7 +95,7 @@ const ProfileDetailScreen = () => {
   )
 }
 
-export default ProfileDetailScreen;
+export default observer(ProfileDetailScreen);
 
 const styles = StyleSheet.create({
   container: {

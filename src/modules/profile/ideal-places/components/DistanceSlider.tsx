@@ -1,11 +1,12 @@
 import { View, Text } from 'react-native'
-import React, { useContext } from 'react'
+import React from 'react'
 import Slider from '@react-native-community/slider'
 import { mainTheme } from '../../../../themes/mainTheme'
-import { ProfileContext } from '../../context/ProfileProvider'
+import { useStore } from '../../../stores/store'
+import { observer } from 'mobx-react-lite'
 
 const DistanceSlider = () => {
-    const { distance, setDistance } = useContext(ProfileContext);
+    const { userProfile, setDistance} = useStore().profileStore;
     return (
         <View>
             <View style={{
@@ -18,7 +19,7 @@ const DistanceSlider = () => {
                     Distance
                 </Text>
                 <Text>
-                    {distance} km
+                    {userProfile.distance} km
                 </Text>
             </View>
             <Slider
@@ -26,14 +27,14 @@ const DistanceSlider = () => {
                 minimumValue={0}
                 maximumValue={40}
                 minimumTrackTintColor={mainTheme.PRIMARY_COLOR}
-                maximumTrackTintColor={mainTheme.GRAY_COLOR}
+                maximumTrackTintColor={mainTheme.LIGHT_GREY_COLOR}
                 thumbTintColor={mainTheme.PRIMARY_COLOR}
                 tapToSeek={true}
-                value={distance}
+                value={userProfile.distance}
                 onValueChange={(val) => setDistance(Math.floor(val))}
             />
         </View>
     )
 }
 
-export default DistanceSlider
+export default observer(DistanceSlider);

@@ -4,19 +4,19 @@ import { useStore } from '../../stores/store'
 import AntDesIcon from 'react-native-vector-icons/AntDesign';
 import EntypoIcon from 'react-native-vector-icons/Entypo';
 import { mainTheme } from '../../../themes/mainTheme';
+import useAppNavigation from '../../navigation/hooks/useAppNavigation';
+import { observer } from 'mobx-react-lite';
 
 const UserProfileTab = () => {
+    const navigation = useAppNavigation();
     const { userProfile } = useStore().profileStore;
 
-    // get avatar uri from user object
-    const dummyAvatarUri = 'https://ict-imgs.vgcloud.vn/2020/09/01/19/huong-dan-tao-facebook-avatar.jpg';
-
     const handleEditMainPress = () => {
-
+        navigation.navigate("ProfileEditMain");
     }
 
-    const handleEditPromptPress = () => {
-        
+    const handleSettingsPress = () => {
+        // Navigate to SettingsScreen
     }
     return (
         <View style={styles.container}>
@@ -32,7 +32,7 @@ const UserProfileTab = () => {
                 ...styles.item,
                 flex: 2,
             }}>
-                <Image source={{ uri: dummyAvatarUri }} style={styles.avatar}/>
+                <Image source={{ uri: userProfile.photoUrl }} style={styles.avatar}/>
             </View>
             <View style={{
                 ...styles.item,
@@ -47,18 +47,18 @@ const UserProfileTab = () => {
                 flex: 3,
                 ...styles.editButtonsContainer,
             }}>
+                <TouchableHighlight style={styles.button} onPress={handleSettingsPress}>
+                    <EntypoIcon name='cog' size={50} color={mainTheme.PRIMARY_COLOR} />
+                </TouchableHighlight>
                 <TouchableHighlight style={styles.button} onPress={handleEditMainPress}>
                     <AntDesIcon name='edit' size={50} color={mainTheme.PRIMARY_COLOR} />
-                </TouchableHighlight>
-                <TouchableHighlight style={styles.button} onPress={handleEditPromptPress}>
-                    <EntypoIcon name='cog' size={50} color={mainTheme.PRIMARY_COLOR} />
                 </TouchableHighlight>
             </View>
         </View>
     )
 }
 
-export default UserProfileTab
+export default observer(UserProfileTab);
 
 const styles = StyleSheet.create({
     container: {

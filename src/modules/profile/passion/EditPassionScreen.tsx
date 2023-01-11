@@ -1,16 +1,16 @@
 import { observer } from 'mobx-react-lite';
 import React from 'react'
 import { PassionType } from '../../../types/profile';
-import useProfileNavigation from '../../navigation/hooks/useProfileNavigation'
+import useAppNavigation from '../../navigation/hooks/useAppNavigation';
 import { useStore } from '../../stores/store';
-import PassionSelector from './components/PassionSelector'
+import PassionSelector from './components/PassionSelector';
 
-const PassionScreen = () => {
+const EditPassionScreen = () => {
   const { setPassions } = useStore().profileStore;
-  const navigation = useProfileNavigation();
+  const navigation = useAppNavigation();
   const handleContinuePress = (passions: PassionType[]) => {
     setPassions(passions);
-    navigation.navigate("IdealPlace");
+    navigation.navigate("ProfileEditMain");
   }
 
   return (
@@ -18,4 +18,4 @@ const PassionScreen = () => {
   )
 }
 
-export default observer(PassionScreen);
+export default observer(EditPassionScreen);

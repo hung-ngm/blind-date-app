@@ -31,7 +31,7 @@ const ProfileNavigator = () => {
                 component={EnableNotiScreen}
                 options={{
                     headerRight: () => (                        
-                      <SkipButton name="Prompt" onPress={() => navigation.navigate('Prompt')}  />
+                        <SkipButton name="Prompt" onPress={() => navigation.navigate('Prompt')}  />
                     ),
                 }}
             />
@@ -42,7 +42,7 @@ const ProfileNavigator = () => {
                 component={PromptDetailScreen}
                 options={{
                     headerRight: () => (                        
-                      <SkipButton name="Done" onPress={() => navigation.navigate('Prompt')}  />
+                        <SkipButton name="Done" onPress={() => navigation.navigate('Prompt')}  />
                     ),
                 }}
             />

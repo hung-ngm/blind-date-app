@@ -1,21 +1,17 @@
 import { View, Text } from 'react-native'
-import React, { useContext } from 'react'
+import React from 'react'
 import MultiSlider from '@ptomasroos/react-native-multi-slider';
 import { mainTheme } from '../../../../themes/mainTheme';
-import { ProfileContext } from '../../context/ProfileProvider';
+import { useStore } from '../../../stores/store';
+import { observer } from 'mobx-react-lite';
 
 const PriceRangeSlider = () => {
-    const {
-        minPrice,
-        setMinPrice,
-        maxPrice,
-        setMaxPrice,
-    } = useContext(ProfileContext);
+    const { userProfile, setPriceMin, setPriceMax } = useStore().profileStore;
 
     const multiSliderValuesChange = (vals: number[]) => {
         const [minVal, maxVal] = vals;
-        setMinPrice(Math.floor(minVal));
-        setMaxPrice(Math.floor(maxVal));
+        setPriceMin(Math.floor(minVal));
+        setPriceMax(Math.floor(maxVal));
     }
     return (
         <View>
@@ -29,14 +25,14 @@ const PriceRangeSlider = () => {
                     Price Range
                 </Text>
                 <Text>
-                    $ {minPrice.toString()}
+                    $ {userProfile.priceMin.toString()}
                 </Text>
                 <Text>
-                    $ {maxPrice.toString()}
+                    $ {userProfile.priceMax.toString()}
                 </Text>
             </View>
             <MultiSlider
-                values={[minPrice, maxPrice]}
+                values={[userProfile.priceMin, userProfile.priceMax]}
                 sliderLength={300}
                 onValuesChange={multiSliderValuesChange}
                 min={0}
@@ -45,7 +41,8 @@ const PriceRangeSlider = () => {
                     backgroundColor: mainTheme.PRIMARY_COLOR,
                 }}
                 trackStyle={{
-                    backgroundColor: mainTheme.GRAY_COLOR,
+                    backgroundColor: mainTheme.LIGHT_GREY_COLOR,
+                    height: 5,
                 }}
                 selectedStyle={{
                     backgroundColor: mainTheme.PRIMARY_COLOR,
@@ -55,4 +52,4 @@ const PriceRangeSlider = () => {
     )
 }
 
-export default PriceRangeSlider
+export default observer(PriceRangeSlider);

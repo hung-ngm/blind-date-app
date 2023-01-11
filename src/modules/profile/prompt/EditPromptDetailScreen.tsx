@@ -1,8 +1,8 @@
 import React from 'react'
 import PromptDetail from './components/PromptDetail'
 
-const PromptDetailScreen = () => {
+const EditPromptDetailScreen = () => {
     return <PromptDetail />
 }
 
-export default PromptDetailScreen
+export default EditPromptDetailScreen

@@ -13,13 +13,13 @@ const SwipeButtons: React.FC<SwipeButtonsProps> = ({ swipeRef }) => {
     <View style={styles.container}>
       <TouchableOpacity
         style={[styles.button, styles.buttonDislike]}
-        onPress={() => swipeRef.current?.swipeLeft()}
+        onPress={() => swipeRef?.current?.swipeLeft()}
       >
         <Entypo name="cross" size={30} color={mainTheme.PRIMARY_COLOR} />
       </TouchableOpacity>
       <TouchableOpacity
         style={[styles.button, styles.buttonLike]}
-        onPress={() => swipeRef.current?.swipeRight()}
+        onPress={() => swipeRef?.current?.swipeRight()}
       >
         <AntDesign name="heart" size={24} color={mainTheme.WHITE_COLOR} />
       </TouchableOpacity>
